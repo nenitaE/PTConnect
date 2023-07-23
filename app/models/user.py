@@ -17,7 +17,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     city = db.Column(db.String(40), nullable=False)
     state = db.Column(db.String(40), nullable=False)
-    profileImage = db.Column(db.String(100))
+    profileImage = db.Column(db.String(200))
     isClinician = db.Column(db.Boolean, nullable = False)
     hashed_password = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now)

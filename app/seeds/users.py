@@ -11,7 +11,7 @@ def seed_users():
         lastName = 'Clinician', 
         city = 'San Diego',
         state = 'CA',
-        profileImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEOUVNaiN4ACSA5phlu9V67Zl7lPeu37VCVA&usqp=CAU',
+        profileImage = 'https://rb.gy/7cyhf',
         isClinician = True,
         password='password'
         )
@@ -22,7 +22,7 @@ def seed_users():
         lastName = 'Patient', 
         city = 'San Diego',
         state = 'California',
-        profileImage = 'https://images.unsplash.com/photo-1592621385612-4d7129426394?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aGlzcGFuaWMlMjB3b21hbnxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80',
+        profileImage = 'https://tinyurl.com/39veyb2f',
         isClinician = False, 
         password='password')
     bobbie = User(
@@ -32,7 +32,7 @@ def seed_users():
         lastName = 'Jones', 
         city = 'La Jolla',
         state = 'California',
-        profileImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbnJs-BygXaqqnWsmZv0r8H9wE2xzvJfYHPA&usqp=CAU',
+        profileImage = 'https://tinyurl.com/mr38wcfb',
         isClinician = True, 
         password='password')
     leah = User(
@@ -42,7 +42,7 @@ def seed_users():
         lastName = 'Smith', 
         city = 'La Jolla',
         state = 'California',
-        profileImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQllBg0j5AAtjDX6yX8mBHvTHNMoYlpSreunQ&usqp=CAU',
+        profileImage = 'https://tinyurl.com/3da6az9c',
         isClinician = False, 
         password='password')
     mel = User(
@@ -62,7 +62,7 @@ def seed_users():
         lastName = 'Smith', 
         city = 'La Jolla',
         state = 'California',
-        profileImage = 'https://www.nyc.gov/assets/finance/images/content/misc/sche_brochure_thm.png',
+        profileImage = 'https://tinyurl.com/bdhepd5n',
         isClinician = False, 
         password='password')
 
