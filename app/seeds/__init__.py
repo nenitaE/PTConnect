@@ -21,13 +21,13 @@ def seed():
         # Make sure to add all your other model's undo functions below
         undo_users()
         undo_patientlists()
-        undo_exercises()
         undo_exerciseprescriptions()
+        undo_exercises()
         undo_bookedvisits()
     seed_users()
     seed_patientlists()
-    seed_exercises()
     seed_exerciseprescriptions()
+    seed_exercises()
     seed_bookedvisits()
     # Add other seed functions here
 
@@ -36,8 +36,8 @@ def seed():
 @seed_commands.command('undo')
 def undo():
     undo_bookedvisits()
-    undo_exerciseprescriptions()
     undo_exercises()
+    undo_exerciseprescriptions()
     undo_patientlists()
     undo_users()
     # Add other undo functions here
