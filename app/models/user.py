@@ -23,13 +23,14 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now)
 
-    exerciseprescriptions = db.relationship('ExercisePrescriptions', foreign_keys='ExercisePrescription.patientId',back_populates='patient',  cascade="all, delete-orphan")
-    prescribed_exerciseprescriptions = db.relationship('ExercisePrescriptions', foreign_keys='ExercisePrescription.clinicianId', back_populates='clinician')
+    exerciseprescriptions = db.relationship('ExercisePrescription', foreign_keys='ExercisePrescription.patientId',back_populates='patient',  cascade="all, delete-orphan")
+    prescribed_exerciseprescriptions = db.relationship('ExercisePrescription', foreign_keys='ExercisePrescription.clinicianId', back_populates='clinician')
     messages = db.relationship('Message', foreign_keys='Message.patientId', back_populates='patient', cascade="all, delete-orphan")
     received_messages = db.relationship('Message', foreign_keys='Message.clinicianId', back_populates='clinician', cascade="all, delete-orphan")
     bookedvisits = db.relationship('BookedVisit', foreign_keys='BookedVisit.patientId', back_populates='patient', cascade="all, delete-orphan")
     received_bookedvisits = db.relationship('BookedVisit', foreign_keys='BookedVisit.clinicianId', back_populates='clinician', cascade="all, delete-orphan")
-    patientlists = db.relationship('PatientList', back_populates='user', cascade="all, delete-orphan")
+    patientlists = db.relationship('PatientList', foreign_keys='PatientList.patientId', back_populates='patient', cascade="all, delete-orphan")
+    created_patientlists = db.relationship('PatientList', foreign_keys='PatientList.clinicianId', back_populates='clinician', cascade="all, delete-orphan")
     
     # assigned_patientlists = db.relationship('PatientList', back_populates='user')
     
