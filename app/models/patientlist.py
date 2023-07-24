@@ -18,3 +18,14 @@ class PatientList(db.Model):
 
     patient = db.relationship('User', foreign_keys='PatientList.patientId', back_populates='patientlists')
     clinician = db.relationship('User', foreign_keys='PatientList.clinicianId', back_populates='created_patientlists')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'clinicianId': self.clinicianId,
+            'patientId': self.patientId,
+            'email': self.email,
+            'status': self.status,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at
+        }
