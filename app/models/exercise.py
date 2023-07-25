@@ -21,3 +21,18 @@ class Exercise(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.now)
 
     exerciseprescription = db.relationship('ExercisePrescription', back_populates='exercises')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'exerciseData': self.exerciseData,
+            'images': self.images,
+            'sets': self.sets,
+            'reps': self.reps,
+            'notes': self.notes,
+            'holdTime': self.holdTime,
+            'exercisePrescriptionId': self.exercisePrescriptionId,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at
+        }

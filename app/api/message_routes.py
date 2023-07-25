@@ -92,6 +92,7 @@ def delete_curr_message(messageId):
 
 
 @message_routes.route('/current', methods=['GET'])
+@login_required
 def get_current_messages():
     """
     Query for all messages of current user
@@ -133,12 +134,7 @@ def add_message():
     """
     current_user_id = current_user.get_id()
     print('CURRENT USERID', current_user_id)
-    user = User.query.get(current_user_id)
-
-    #verify that user is logged in
-    if user is None:
-        return jsonify({'error': 'User not found'}), 404
-    
+   
     form = MessageForm()
     # print(form.data, "**********FORM*************")
     form['csrf_token'].data = request.cookies['csrf_token']

@@ -22,3 +22,16 @@ class ExercisePrescription(db.Model):
     clinician = db.relationship('User', foreign_keys='ExercisePrescription.clinicianId', back_populates='prescribed_exerciseprescriptions')
 
     exercises = db.relationship('Exercise', back_populates='exerciseprescription')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'clinicianId': self.clinicianId,
+            'patientId': self.patientId,
+            'title': self.title,
+            'status': self.status,
+            'dailyFrequency': self.dailyFrequency,
+            'weeklyFrequency': self.weeklyFrequency,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at
+        }

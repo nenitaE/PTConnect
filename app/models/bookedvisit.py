@@ -18,3 +18,14 @@ class BookedVisit(db.Model):
 
     patient = db.relationship('User',  foreign_keys='BookedVisit.patientId', back_populates='bookedvisits')
     clinician = db.relationship('User', foreign_keys='BookedVisit.clinicianId', back_populates='received_bookedvisits')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'visitTime': self.visitTime,
+            'visitDate': self.visitDate,
+            'clinicianId': self.clinicianId,
+            'patientId': self.patientId,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at
+        }
