@@ -8,12 +8,91 @@ from flask_login import login_required, current_user
 exercise_rx_routes = Blueprint('exercisePrescriptions', __name__)
 
 
+@exercise_rx_routes.route('/<int:exercisePrescriptionId>', methods=['PUT'])
+@login_required
+def edit_curr_exercise_prescription(exercisePrescriptionId):
+    """
+    Edit an exercisePrescription 
+    """
+    # current_user_id = current_user.get_id()
+    # print('CURRENT USERID', current_user_id)
+    # #check if current_user is a clinician
+    # curr_user_is_clinician = User.query.filter(
+    #     and_(
+    #         User.id == current_user_id
+    #     )
+    # ).filter(User.isClinician.is_(True)).first()
+
+    form = ExerciseRxForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    #query the single exercisePrescription to edit
+    exercisePrescription = ExercisePrescription.query.get(exercisePrescriptionId)
+    # print ('_____exercisePrescription______', vars(exercisePrescription))
+
+    # verify that exercisePrescription exists 
+    if exercisePrescription is None:
+        return jsonify({'message': 'Exercise Prescription not found'}), 404
+
+    #check to make sure the user is authorized to change this exercisePrescription
+    if (exercisePrescription.clinicianId) != int(session['_user_id']):
+        return {'Error': 'User is not authorized'}
+
+    if form.validate_on_submit():
+        data = form.data
+        print(data)
+        clinicianId = data['clinicianId']
+        # print(clinicianId, "**********clinicianId**************")
+        exercisePrescriptions = ExercisePrescription.query.filter(
+            and_(
+                ExercisePrescription.clinicianId == clinicianId
+            )
+        ).all()
+       
+        if 'patientId' in data:
+            exercisePrescription.patientId = data["patientId"]
+        if 'clinicianId' in data:
+            exercisePrescription.clinicianId = data["clinicianId"]
+        if 'title' in data:
+            exercisePrescription.title = data["title"]
+        if 'status' in data:
+            exercisePrescription.status = data["status"]
+        if 'dailyFrequency' in data:
+            exercisePrescription.dailyFrequency = data["dailyFrequency"]
+        if 'weeklyFrequency' in data:
+            exercisePrescription.weeklyFrequency = data["weeklyFrequency"]
+
+    
+        db.session.commit()
+
+        return exercisePrescription.to_dict()
+
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+
 @exercise_rx_routes.route('/<int:exercisePrescriptionId>', methods=['DELETE'])
 @login_required
 def delete_curr_exercise_rx(exercisePrescriptionId):
     """
-    Deletes a exercisePrescription by Id for logged in user
+    Deletes an exercisePrescription by Id for logged in user
     """
+    exercisePrescription = ExercisePrescription.query.get(exercisePrescriptionId)
+    userId = session['_user_id']
+
+    if not exercisePrescription:
+       return {'Error': 'Patient List not found'}
+
+    if int(exercisePrescription.clinicianId) != int(userId):
+        return {'Error': 'User is not authorized'}
+
+    db.session.delete(exercisePrescription)
+    db.session.commit()
+
+    exercisePrescriptions = ExercisePrescription.query.filter(ExercisePrescription.clinicianId == userId)
+   
+    return {'exercisePrescription': [exercisePrescription.to_dict() for exercisePrescription in exercisePrescriptions]}
+
 
 
 @exercise_rx_routes.route('/current', methods=['GET'])
