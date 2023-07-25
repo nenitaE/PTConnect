@@ -10,7 +10,7 @@ class Message(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(500), nullable=False)
-    senderIsClinician = db.Column(db.Boolean)
+    senderIsClinician = db.Column(db.Boolean, nullable=False)
     clinicianId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     patientId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now)

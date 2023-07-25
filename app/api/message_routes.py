@@ -8,29 +8,87 @@ from flask_login import login_required, current_user
 message_routes = Blueprint('messages', __name__)
 
 
-@message_routes.route('/clinicians/<int:messageId>', methods=['DELETE'])
+@message_routes.route('/<int:messageId>', methods=['DELETE'])
 @login_required
 def delete_curr_message(messageId):
     """
     Deletes a message by Id for logged in user
     """
+    current_user_id = current_user.get_id()
+    print('CURRENT USERID', current_user_id)
+    user = User.query.get(current_user_id)
+
+    #verify that user is logged in
+    if user is None:
+        return jsonify({'error': 'User not found'}), 404
+    
     message = Message.query.get(messageId)
     userId = session['_user_id']
-    # print('message', message)
+    print('message**************', message)
+    print('userId**************', userId)
 
+    #verify that message exists
     if not message:
        return {'Error': 'Message not found'}
+    
+    #check if current_user is a clinician
+    curr_user_is_clinician = User.query.filter(
+        and_(
+            User.id == current_user_id
+        )
+    ).filter(User.isClinician.is_(True)).first()
 
-    # if int(message.clinicianId) != int(userId):
-    #     return {'Error': 'User is not authorized'}
+    print(curr_user_is_clinician, "********CURRUSERISCLINICIAN**********")
 
-    # print(session, "________DIR SESSION_______")
-    db.session.delete(message)
-    db.session.commit()
+    #check if senderIsClinician
+    senderIsClinician = message.senderIsClinician
+    print(senderIsClinician, "********SENDER IS CLINICIAN**********")
 
-    messages = Message.query.filter(Message.clinicianId == userId)
-    # print('_____________',userId,'----', messages, '________________')
-    return {'Message': [message.to_dict() for message in messages]}
+
+    #delete if current user is recipient of message
+    if not curr_user_is_clinician and senderIsClinician:
+        db.session.delete(message)
+        db.session.commit()
+
+        messages = Message.query.filter(Message.clinicianId == userId)
+        # print('_____________',userId,'----', messages, '________________')
+        return {'Message': [message.to_dict() for message in messages]}
+    
+    if curr_user_is_clinician and not senderIsClinician:
+        db.session.delete(message)
+        db.session.commit()
+
+        messages = Message.query.filter(Message.clinicianId == userId)
+        # print('_____________',userId,'----', messages, '________________')
+        return {'Message': [message.to_dict() for message in messages]}
+    
+    else:
+        return jsonify({'message': 'User not authorized.'}), 404
+
+    # #if current_user is a clinician, allow them to delete messages received
+    # if ((curr_user_is_clinician) and (int(message.clinicianId) != int(userId))):
+    #     return jsonify({'message': 'Clinician not authorized.'}), 404
+    # if curr_user_is_clinician & ((message.senderIsClinician) != True):
+    #     db.session.delete(message)
+    #     db.session.commit()
+
+    #     messages = Message.query.filter(Message.clinicianId == userId)
+    #     # print('_____________',userId,'----', messages, '________________')
+    #     return {'Message': [message.to_dict() for message in messages]}
+
+    # #if current_user is a patient, allow them to delete messages received
+    # if ((not curr_user_is_clinician) and (int(message.patientId) != int(userId))):
+    #     return jsonify({'message': 'Patient not authorized.'}), 404
+    
+    # if not curr_user_is_clinician & ((message.senderIsClinician) is True):
+    #     db.session.delete(message)
+    #     db.session.commit()
+
+    #     messages = Message.query.filter(Message.patientId == userId)
+    #     # print('_____________',userId,'----', messages, '________________')
+    #     return {'Message': [message.to_dict() for message in messages]}
+
+
 
 
 @message_routes.route('/current', methods=['GET'])
@@ -45,19 +103,6 @@ def get_current_messages():
     #verify that user is logged in
     if user is None:
         return jsonify({'error': 'User not found'}), 404
-
-    # #check if current_user is a clinician
-    # curr_user_is_clinician = User.query.filter(
-    #     and_(
-    #         User.id == current_user_id
-    #     )
-    # ).filter(User.isClinician.is_(True))
-
-    # print(curr_user_is_clinician, "********CURRUSERISCLINICIAN**********")
-
-    # #if current_user is not a clinician, return error msg
-    # if curr_user_is_clinician is None:
-    #     return jsonify({'message': 'Must be a registered clinician.'}), 404
 
     else:
         messages = Message.query.filter((Message.clinicianId == current_user_id) | (Message.patientId == current_user_id))
