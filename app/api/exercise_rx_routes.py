@@ -111,7 +111,7 @@ def get_current_exercise_prescriptions():
 
     else:
         exercise_prescriptions = ExercisePrescription.query.filter((ExercisePrescription.clinicianId == current_user_id) | (ExercisePrescription.patientId == current_user_id))
-        return {'Exercise Prescriptions': [exercise_prescription.to_dict() for exercise_prescription in exercise_prescriptions]}
+        return {'Exercise Prescriptions': [exercise_prescription.to_dict_with_exercises() for exercise_prescription in exercise_prescriptions]}
 
 
 
@@ -128,7 +128,7 @@ def get_exercise_prescription(exercisePrescriptionId):
         return jsonify({'error: Exercise Prescription not found'}), 404
     
     else:
-        return jsonify(exercise_prescription.to_dict())
+        return jsonify(exercise_prescription.to_dict_with_exercises())
     
 
 @exercise_rx_routes.route('', methods=['POST'])
@@ -145,6 +145,7 @@ def add_exercise_prescriptions():
             User.id == current_user_id
         )
     ).filter(User.isClinician.is_(True)).first()
+    print(curr_user_is_clinician, "***********CURRUSERISCLINICIAN?*********")
 
     form = ExerciseRxForm()
     # print(form.data, "**********FORM*************")
@@ -156,11 +157,7 @@ def add_exercise_prescriptions():
         patientId = data['patientId']
         print(clinicianId, "**********clinicianId**************")
         print(patientId, "**********patientId**************")
-        exercise_prescriptions = ExercisePrescription.query.filter(
-            and_(
-                ExercisePrescription.clinicianId == clinicianId
-            )
-        ).all()
+        exercise_prescriptions = ExercisePrescription.query.filter(ExercisePrescription.clinicianId == clinicianId).all()
 
         # print(exercise_prescriptions, "**********exercise_prescriptionS**************")
 
