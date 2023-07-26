@@ -21,7 +21,7 @@ class ExercisePrescription(db.Model):
     patient = db.relationship('User',foreign_keys='ExercisePrescription.patientId', back_populates='exerciseprescriptions')
     clinician = db.relationship('User', foreign_keys='ExercisePrescription.clinicianId', back_populates='prescribed_exerciseprescriptions')
 
-    exercises = db.relationship('Exercise', back_populates='exerciseprescription')
+    exercises = db.relationship('Exercise', back_populates='exerciseprescriptions')
 
     def to_dict(self):
         return {
@@ -34,4 +34,17 @@ class ExercisePrescription(db.Model):
             'weeklyFrequency': self.weeklyFrequency,
             'createdAt': self.created_at,
             'updatedAt': self.updated_at
+        }
+    def to_dict_with_exercises(self):
+        return {
+            'id': self.id,
+            'clinicianId': self.clinicianId,
+            'patientId': self.patientId,
+            'title': self.title,
+            'status': self.status,
+            'dailyFrequency': self.dailyFrequency,
+            'weeklyFrequency': self.weeklyFrequency,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at,
+            'exercises': [exercise.to_dict() for exercise in self.exercises]
         }

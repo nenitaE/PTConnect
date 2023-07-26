@@ -20,7 +20,7 @@ class Exercise(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now)
 
-    exerciseprescription = db.relationship('ExercisePrescription', back_populates='exercises')
+    exerciseprescriptions = db.relationship('ExercisePrescription', back_populates='exercises')
 
     def to_dict(self):
         return {
