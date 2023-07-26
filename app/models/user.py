@@ -54,3 +54,12 @@ class User(db.Model, UserMixin):
             'isClinician': self.isClinician,
             'profileImage': self.profileImage
         }
+    def to_dict_with_exercises(self):
+        return {
+            'id': self.id,
+            'firstName': self.firstName,
+            'username': self.username,
+            'email': self.email,
+            'isClinician': self.isClinician,
+            'profileImage': self.profileImage
+        }

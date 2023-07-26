@@ -23,6 +23,7 @@ class ExercisePrescription(db.Model):
 
     exercises = db.relationship('Exercise', back_populates='exerciseprescriptions')
 
+    @property
     def to_dict(self):
         return {
             'id': self.id,
@@ -35,6 +36,7 @@ class ExercisePrescription(db.Model):
             'createdAt': self.created_at,
             'updatedAt': self.updated_at
         }
+    
     def to_dict_with_exercises(self):
         return {
             'id': self.id,

@@ -89,7 +89,7 @@ def delete_curr_exercise_rx(exercisePrescriptionId):
     db.session.delete(exercisePrescription)
     db.session.commit()
 
-    exercisePrescriptions = ExercisePrescription.query.filter(ExercisePrescription.clinicianId == userId)
+    exercisePrescriptions = ExercisePrescription.query.filter(ExercisePrescription.clinicianId == userId).all()
    
     return {'exercisePrescription': [exercisePrescription.to_dict() for exercisePrescription in exercisePrescriptions]}
 

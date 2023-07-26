@@ -14,14 +14,22 @@ def get_current_exercises():
     Query for all exercises of current user
     """
     userId = session['_user_id']
-    exercisePrescription = ExercisePrescription.query.filter(ExercisePrescription.clinicianId == userId)
-
+    print(userId, "**********userID*************")
+    exercise_prescriptions = ExercisePrescription.query.filter(
+            and_(
+                ExercisePrescription.clinicianId == userId
+            )
+        ).all()
+    # exercisePrescription = ExercisePrescription.query.filter(ExercisePrescription.clinicianId == 1).all()
+    # print(exercisePrescription, ("*********exercisePrescription***********"))
+    print(exercise_prescriptions, ("*********exercisePrescriptionSSSS***********"))
     #verify that user is logged in
-    if exercisePrescription is None:
+    if exercise_prescriptions is None:
         return jsonify({'error': 'Exercise not found'}), 404
 
     else:
-        return jsonify(exercisePrescription.to_dict_with_exercises())
+        return {'Exercise Prescriptions': [exercise_prescription.to_dict_with_exercises() for exercise_prescription in exercise_prescriptions]}
+        # return jsonify(exercisePrescription.to_dict_with_exercises())
 
 
 @exercise_routes.route('/<int:exerciseId>', methods=['GET'])
