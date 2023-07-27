@@ -106,7 +106,7 @@ def get_current_patientLists():
 
     #if current_user is not a clinician, return error msg
     if curr_user_is_clinician is None:
-        return jsonify({'message': 'Must be a registered clinician.'}), 404
+        return {'message': 'Must be a registered clinician.'}, 404
 
     else:
         clinicianPatientLists = PatientList.query.filter(PatientList.clinicianId == current_user_id)
@@ -120,10 +120,13 @@ def get_patientList(patientListId):
     '''
 
     patientList = PatientList.query.get(patientListId)
-    if patientList is None:
-        return jsonify({'error: PatientList not found'}), 404
+    print(patientList, "********patientList********")
+    print(type(patientList), "********patientListTYPE********")
+    if patientList:
+        return patientList.to_dict()
     else:
-        return jsonify(patientList.to_dict())
+        return {'error': 'PatientList not found'}, 404
+        
     
 @patient_list_routes.route('', methods=['POST'])
 @login_required

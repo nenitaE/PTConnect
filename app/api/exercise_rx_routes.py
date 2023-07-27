@@ -14,25 +14,16 @@ def edit_curr_exercise_prescription(exercisePrescriptionId):
     """
     Edit an exercisePrescription 
     """
-    # current_user_id = current_user.get_id()
-    # print('CURRENT USERID', current_user_id)
-    # #check if current_user is a clinician
-    # curr_user_is_clinician = User.query.filter(
-    #     and_(
-    #         User.id == current_user_id
-    #     )
-    # ).filter(User.isClinician.is_(True)).first()
 
     form = ExerciseRxForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     #query the single exercisePrescription to edit
     exercisePrescription = ExercisePrescription.query.get(exercisePrescriptionId)
-    # print ('_____exercisePrescription______', vars(exercisePrescription))
-
+    
     # verify that exercisePrescription exists 
     if exercisePrescription is None:
-        return jsonify({'message': 'Exercise Prescription not found'}), 404
+        return {'message': 'Exercise Prescription not found'}, 404
 
     #check to make sure the user is authorized to change this exercisePrescription
     if (exercisePrescription.clinicianId) != int(session['_user_id']):
@@ -40,14 +31,14 @@ def edit_curr_exercise_prescription(exercisePrescriptionId):
 
     if form.validate_on_submit():
         data = form.data
-        print(data)
-        clinicianId = data['clinicianId']
-        # print(clinicianId, "**********clinicianId**************")
-        exercisePrescriptions = ExercisePrescription.query.filter(
-            and_(
-                ExercisePrescription.clinicianId == clinicianId
-            )
-        ).all()
+        # print(data)
+        # clinicianId = data['clinicianId']
+        # # print(clinicianId, "**********clinicianId**************")
+        # exercisePrescriptions = ExercisePrescription.query.filter(
+        #     and_(
+        #         ExercisePrescription.clinicianId == clinicianId
+        #     )
+        # ).all()
        
         if 'patientId' in data:
             exercisePrescription.patientId = data["patientId"]
@@ -62,7 +53,6 @@ def edit_curr_exercise_prescription(exercisePrescriptionId):
         if 'weeklyFrequency' in data:
             exercisePrescription.weeklyFrequency = data["weeklyFrequency"]
 
-    
         db.session.commit()
 
         return exercisePrescription.to_dict()
@@ -107,7 +97,7 @@ def get_current_exercise_prescriptions():
 
     #verify that user is logged in
     if user is None:
-        return jsonify({'error': 'User not found'}), 404
+        return {'error': 'User not found'}, 404
 
     else:
         exercise_prescriptions = ExercisePrescription.query.filter((ExercisePrescription.clinicianId == current_user_id) | (ExercisePrescription.patientId == current_user_id))
@@ -124,8 +114,8 @@ def get_exercise_prescription(exercisePrescriptionId):
 
     exercise_prescription = ExercisePrescription.query.get(exercisePrescriptionId)
     print(exercise_prescription, "**********EX RX***********")
-    if exercise_prescription is None:
-        return jsonify({'error: Exercise Prescription not found'}), 404
+    if not exercise_prescription:
+        return {'error': 'Exercise Prescription not found'}, 404
     
     else:
         return jsonify(exercise_prescription.to_dict_with_exercises())
