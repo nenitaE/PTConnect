@@ -81,7 +81,7 @@ def delete_curr_exercise_rx(exercisePrescriptionId):
     userId = session['_user_id']
 
     if not exercisePrescription:
-       return {'Error': 'Patient List not found'}
+       return {'Error': 'Exercise Prescription not found'}
 
     if int(exercisePrescription.clinicianId) != int(userId):
         return {'Error': 'User is not authorized'}

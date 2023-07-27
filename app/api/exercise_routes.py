@@ -1,86 +1,43 @@
 from flask import Blueprint, jsonify, session, request
 from app.models import User, db, Exercise, ExercisePrescription
-from sqlalchemy import and_, or_
+from sqlalchemy import and_, or_, relationship, sessionmaker, joinedload
 from .auth_routes import validation_errors_to_error_messages
 from app.forms.create_exercise_form import ExerciseForm
 from flask_login import login_required, current_user
 
 exercise_routes = Blueprint('exercises', __name__)
 
-@exercise_routes.route('/<int:exerciseId>', methods=['PUT'])
-@login_required
-def edit_curr_exercise(exerciseId):
-    """
-    Edit an exercisePrescription 
-    """
-
-    form = ExerciseForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-
-    #query the single exercisePrescription to edit
-    exercisePrescription = ExercisePrescription.query.get(exerciseId)
-    # print ('_____exercisePrescription______', vars(exercisePrescription))
-
-    # verify that exercisePrescription exists 
-    if exercisePrescription is None:
-        return jsonify({'message': 'Exercise Prescription not found'}), 404
-
-    #check to make sure the user is authorized to change this exercisePrescription
-    if (exercisePrescription.clinicianId) != int(session['_user_id']):
-        return {'Error': 'User is not authorized'}
-
-    if form.validate_on_submit():
-        data = form.data
-        print(data)
-        clinicianId = data['clinicianId']
-        # print(clinicianId, "**********clinicianId**************")
-        exercisePrescriptions = ExercisePrescription.query.filter(
-            and_(
-                ExercisePrescription.clinicianId == clinicianId
-            )
-        ).all()
-       
-        if 'patientId' in data:
-            exercisePrescription.patientId = data["patientId"]
-        if 'clinicianId' in data:
-            exercisePrescription.clinicianId = data["clinicianId"]
-        if 'title' in data:
-            exercisePrescription.title = data["title"]
-        if 'status' in data:
-            exercisePrescription.status = data["status"]
-        if 'dailyFrequency' in data:
-            exercisePrescription.dailyFrequency = data["dailyFrequency"]
-        if 'weeklyFrequency' in data:
-            exercisePrescription.weeklyFrequency = data["weeklyFrequency"]
-
-    
-        db.session.commit()
-
-        return exercisePrescription.to_dict()
-
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
-
 
 
 @exercise_routes.route('/<int:exerciseId>', methods=['DELETE'])
 @login_required
-def delete_curr_exercise_rx(exerciseId):
+def delete_curr_exercise(exerciseId):
     """
-    Deletes an exercisePrescription by Id for logged in user
+    Deletes an exercise by Id for logged in user
     """
-    exercisePrescription = ExercisePrescription.query.get(exerciseId)
+    exercise = Exercise.query.get(exerciseId)
     userId = session['_user_id']
 
-    if not exercisePrescription:
-       return {'Error': 'Patient List not found'}
+    if not exercise:
+       return {'Error': 'Exercise not found'}
 
-    if int(exercisePrescription.clinicianId) != int(userId):
+    # exercisePrescriptionId = Exercise.query.get(exercisePrescriptionId)
+
+    exercise_clinicians = session.query(Exercise)\
+                                .join(ExercisePrescription)\
+                                .filter(ExercisePrescription.clinicianId == userId)
+    for clinician in exercise_clinicians:
+        print(ExercisePrescription.clinicianId, "*********CLINICIAN ID********")
+
+    # exercise_prescriptions = ExercisePrescription.query.filter(ExercisePrescription.exercisePrescriptionId == exercisePrescriptionId).all()
+
+    if int(exercise_clinicians.clinicianId) != int(userId):
         return {'Error': 'User is not authorized'}
 
-    db.session.delete(exercisePrescription)
+    db.session.delete(exercise)
     db.session.commit()
 
-    exercisePrescriptions = ExercisePrescription.query.filter(ExercisePrescription.clinicianId == userId).all()
+    exercises = Exercise.query.filter(Exercise.clinicianId == userId).all()
    
     return {'exercisePrescription': [exercisePrescription.to_dict() for exercisePrescription in exercisePrescriptions]}
 
@@ -94,8 +51,6 @@ def get_current_exercises():
     Query for all exercises of current user
     """
     userId = session['_user_id']
-    print(userId, "**********userID*************")
-    print(type(userId), "**********userIDTYPE*************")
     exercise_prescriptions = ExercisePrescription.query.filter(
             and_(
                 ExercisePrescription.clinicianId == userId
