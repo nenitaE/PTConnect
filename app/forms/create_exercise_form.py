@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, InputRequired
 
     
 class ExerciseForm(FlaskForm):
@@ -11,4 +11,4 @@ class ExerciseForm(FlaskForm):
     sets = IntegerField('sets', validators=[DataRequired()])
     reps = IntegerField('reps', validators=[DataRequired()])
     notes = StringField('notes', validators=[DataRequired()])
-    holdTime = IntegerField('holdTime', validators=[DataRequired()])
+    holdTime = IntegerField('holdTime')

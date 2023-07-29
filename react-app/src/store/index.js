@@ -1,9 +1,17 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import session from './session'
+import session from './session';
+import patientListReducer from './patientLists';
+import exerciseReducer from './exercise';
+import exercisePrescriptionReducer from './exerciseRx';
+import messageReducer from './message';
 
 const rootReducer = combineReducers({
   session,
+  patientList: patientListReducer,
+  exercisePrescription: exercisePrescriptionReducer,
+  exercise: exerciseReducer,
+  message: messageReducer
 });
 
 

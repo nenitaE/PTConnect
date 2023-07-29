@@ -39,35 +39,37 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
-      </button>
-      <ul className={ulClassName} ref={ulRef}>
-        {user ? (
-          <>
-            <img src={user.profileImage} alt="profileImage" width="70" height="70" className="menu-profile-image"/>
-            <li>Welcome {user.isClinician && <>Dr. </>}{user.firstName}</li>
-            <li>{user.email}</li>
-            <li>
-              <button onClick={handleLogout}>Log Out</button>
-            </li>
-          </>
-        ) : (
-          <>
-            <OpenModalButton
-              buttonText="Log In"
-              onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />}
-            />
+      <div className="profileButtonContainer">
+        <button id="navProfileBTTN" onClick={openMenu}>
+        <i className="fa-solid fa-bars" style={{color: "#1e0048",}} />
+        </button>
+        <ul className={ulClassName} ref={ulRef}>
+          {user ? (
+            <>
+              <img src={user.profileImage} alt="profileImage" width="70" height="70" className="menu-profile-image"/>
+              <li className="welcome-profile">Welcome {user.isClinician && <>Dr. </>}{user.firstName}</li>
+              <li>{user.email}</li>
+              <li>
+                <button onClick={handleLogout}>Log Out</button>
+              </li>
+            </>
+          ) : (
+            <>
+              <OpenModalButton
+                buttonText="Log In"
+                onItemClick={closeMenu}
+                modalComponent={<LoginFormModal />}
+              />
 
-            <OpenModalButton
-              buttonText="Sign Up"
-              onItemClick={closeMenu}
-              modalComponent={<SignupFormModal />}
-            />
-          </>
-        )}
-      </ul>
+              <OpenModalButton
+                buttonText="Sign Up"
+                onItemClick={closeMenu}
+                modalComponent={<SignupFormModal />}
+              />
+            </>
+          )}
+        </ul>
+      </div>
     </>
   );
 }

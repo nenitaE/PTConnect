@@ -5,10 +5,10 @@ html, body
     margin: 0px;
 }
 
-.login-root {
+.login-signup-root {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items:flex-start;
     background-image: url("https://ipfs.io/ipfs/QmZTZa3JnxiW4FpsK2H1QKLcHU7ifvBdBwLxWBh1iSoZyS?filename=Pre-Surgical-Physiotherapy-The-Running-Physio-Toronto-ON.png.png");
     background-position: center center;
     background-size: cover;
@@ -17,55 +17,41 @@ html, body
     height: 100vh;
 }
 
-.login-container {
+.login-signup-container {
     background-color: lightgrey;
     border-color: white;
     border-radius: 4px;
+    margin-top: 149px;
+    position: absolute;
 }
 
-.login-inner {
+.login-signup-inner {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 45px;
     gap: 15px;
-    width: 300px;
+    width: 350px;
 }
 
-.label-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding-bottom: 20px;
-}
 
-.text-field {
-    height: 25px;
-    padding-left: 10px;
-    border-radius: 4px;
-}
-
-.demoButton {
+.signup-button {
     color: lightgrey;
     background-color: #200054;
     font-size: 17px;
     border: 1.5px #200054;
     border-radius: 4px;
-    text-decoration: none;
-    text-align: center;
-    justify-content: center;
     width: 300px;
     height: 35px;
-    margin-top: 10px;
 }
 
-.demoButton:active {
+button.signup-button:hover {
     background-color: lightgrey;
     border: 1.5px solid #200054;
     color: #200054;
 }
 
-.login-button2 {
+.login-button {
     color: #200054;
     background-color: lightgrey;
     font-size: 17px;
@@ -75,10 +61,15 @@ html, body
     text-align: center;
     width: 300px;
     height: 35px;
-    margin-top: 10px;
 }
 
-button.login-button2:hover {
+button.login-button:hover {
     background-color: #200054;
     color: lightgrey;
+}
+
+.agreement-section {
+    text-align: center;
+    font-size: 12px;
+    padding: 15px 10px 0px 10px;
 }

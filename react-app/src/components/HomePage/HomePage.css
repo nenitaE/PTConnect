@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+.HomeContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.background {
+    position:relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 700px;
+    background-size: cover;
+    background-image: url("https://ipfs.io/ipfs/QmZTZa3JnxiW4FpsK2H1QKLcHU7ifvBdBwLxWBh1iSoZyS?filename=Pre-Surgical-Physiotherapy-The-Running-Physio-Toronto-ON.png.png");
+}
+
+.HomeWelcome {
+    color: white;
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    animation: drop .6s linear forwards;
+}
+
+@keyframes drop {
+    0% {
+        transform: translateY(-200px);
+        opacity: 0;
+    }
+    
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+.HomeDescription {
+    color: white;
+    text-align: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 40px;
+    animation: slide-up 2s;
+}
+
+@keyframes slide-up {
+    from {
+        opacity: 0.2;
+        line-height: 200px;
+    }
+
+    to {
+        opacity: 1;
+        line-height: 25px;
+    }
+}
+
+.Login-Signup-NavLink {
+    background-color: RGB(70, 68, 103);
+    color: lightgrey;
+    padding: 8px;
+    border-radius: 4px;
+    box-shadow: 2px 2px darkgrey;
+    text-decoration: none;
+}
+
+.Login-Signup-NavLink.active {
+    background-color: #200054;
+}
+
+.circleimg {
+    padding: 10px;
+}

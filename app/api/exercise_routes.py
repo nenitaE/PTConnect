@@ -37,7 +37,7 @@ def edit_curr_exercise(exerciseId):
         data = form.data
         exercisePrescriptionId = data['exercisePrescriptionId']
         exercises = Exercise.query.filter(Exercise.exercisePrescriptionId == exercisePrescriptionId).all()
-
+        print(exercises, "exercises****************************")
         for exercise in exercises:
             if data["sets"] <= 0:
                 return {'errors': 'Sets must be greater than 0.'}, 400
@@ -61,6 +61,7 @@ def edit_curr_exercise(exerciseId):
             exercise.notes = data["notes"]
         if "holdTime" in data:
             exercise.holdTime = data["holdTime"]
+            print(exercise.holdTime, "holdTime***********")
         
         db.session.commit()
         return exercise.to_dict()
