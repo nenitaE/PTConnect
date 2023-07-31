@@ -1,33 +1,33 @@
 // ACTION TYPES
-const GET_EXERCISE = "session/GET_EXERCISE";
-const GET_EXERCISES = "session/GET_EXERCISES";
-const DELETE_EXERCISE = "session/DELETE_EXERCISE";
-const UPDATE_EXERCISE = "session/UPDATE_EXERCISE";
-const CREATE_EXERCISE = "session/CREATE_EXERCISE";
+const GET_EXERCISE = "exercises/getExercise";
+const GET_EXERCISES = "exercises/getExercises";
+const DELETE_EXERCISE = "exercises/deleteExercise";
+const UPDATE_EXERCISE = "exercises/updateExercise";
+const CREATE_EXERCISE = "exercises/createExercise";
 
 
 //ACTION CREATORS
-const getEXERCISEACTION = (exerciseId) => ({
+const getExerciseAction = (exerciseId) => ({
 	type: GET_EXERCISE,
-	payload: exercise,
+	payload: exerciseId,
 });
-const getEXERCISESACTION = (exercises) => ({
+const getExercisesAction = (exercises) => ({
 	type: GET_EXERCISES,
 	payload: exercises,
 });
 
-const deleteEXERCISEACTION = (exerciseId) => ({
+const deleteExerciseAction = (exerciseId) => ({
 	type: DELETE_EXERCISE
 });
 
-const updateEXERCISESACTION = (exerciseId) => ({
-	type: UPDATE_EXERCISES,
-	payload: exercises,
+const updateExerciseAction = (exerciseId) => ({
+	type: UPDATE_EXERCISE,
+	payload: exerciseId,
 });
 
-const createEXERCISEACTION = (newExercise) => ({
+const createExerciseAction = (newExercise) => ({
 	type: CREATE_EXERCISE,
-	payload: exercises,
+	payload: newExercise,
 });
 
 //THUNK ACTIONS
@@ -43,7 +43,7 @@ export const getExercise = (exerciseId) => async(dispatch) => {
     const response = await fetch(`/api/exercises/${exerciseId}`);
     if(response.ok){
         const exercise = await response.json();
-        dispatch(getExerciseAction(exercise))
+        dispatch(getExerciseAction(exerciseId))
         return exercise;
     }
 }

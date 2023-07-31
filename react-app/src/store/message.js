@@ -1,33 +1,33 @@
 // ACTION TYPES
-const GET_MESSAGE = "session/GET_MESSAGE";
-const GET_MESSAGES = "session/GET_MESSAGES";
-const DELETE_MESSAGE = "session/DELETE_MESSAGE";
-// const UPDATE_MESSAGE = "session/UPDATE_MESSAGE";
-const CREATE_MESSAGE = "session/CREATE_MESSAGE";
+const GET_MESSAGE = "messages/GET_MESSAGE";
+const GET_MESSAGES = "messages/GET_MESSAGES";
+const DELETE_MESSAGE = "messages/DELETE_MESSAGE";
+// const UPDATE_MESSAGE = "messages/UPDATE_MESSAGE";
+const CREATE_MESSAGE = "messages/CREATE_MESSAGE";
 
 
 //ACTION CREATORS
-const getMESSAGEACTION = (messageId) => ({
+const getMessageAction = (messageId) => ({
 	type: GET_MESSAGE,
-	payload: message,
+	payload: messageId,
 });
-const getMESSAGESACTION = (messages) => ({
+const getMessagesAction = (messages) => ({
 	type: GET_MESSAGES,
 	payload: messages,
 });
 
-const deleteMESSAGEACTION = (messageId) => ({
+const deleteMessageAction = (messageId) => ({
 	type: DELETE_MESSAGE
 });
 
-// const updateMESSAGESACTION = (messageId) => ({
+// const updateMessagesAction = (messageId) => ({
 // 	type: UPDATE_MESSAGES,
 // 	payload: messages,
 // });
 
-const createMESSAGEACTION = (newMessage) => ({
+const createMessageAction = (newMessage) => ({
 	type: CREATE_MESSAGE,
-	payload: messages,
+	payload: newMessage,
 });
 
 //THUNK ACTIONS
@@ -43,7 +43,7 @@ export const getMessage = (messageId) => async(dispatch) => {
     const response = await fetch(`/api/messages/${messageId}`);
     if(response.ok){
         const message = await response.json();
-        dispatch(getMessageAction(message))
+        dispatch(getMessageAction(messageId))
         return message;
     }
 }
@@ -148,13 +148,13 @@ export default function messageReducer(state = initialState, action){
                 messages: [...state.messages, action.payload]
                 };
             return newState
-        case UPDATE_MESSAGE:
+        // case UPDATE_MESSAGE:
 
-            return {
-                ...state,
-                message: action.payload,
-                messages: state.messages?.map(message => message.id === action.payload.id ? action.payload : message)
-        }
+        //     return {
+        //         ...state,
+        //         message: action.payload,
+        //         messages: state.messages?.map(message => message.id === action.payload.id ? action.payload : message)
+        // }
         case DELETE_MESSAGE:
 
             return {

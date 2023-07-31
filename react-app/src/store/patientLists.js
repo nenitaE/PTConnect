@@ -1,33 +1,33 @@
 // ACTION TYPES
-const GET_PATIENTLIST = "session/GET_PATIENTLIST";
-const GET_PATIENTLISTS = "session/GET_PATIENTLISTS";
-const DELETE_PATIENTLIST = "session/DELETE_PATIENTLIST";
-const UPDATE_PATIENTLIST = "session/UPDATE_PATIENTLIST";
-const CREATE_PATIENTLIST = "session/CREATE_PATIENTLIST";
+const GET_PATIENTLIST = "patientLists/getPatientList";
+const GET_PATIENTLISTS = "patientLists/getPatientLists";
+const DELETE_PATIENTLIST = "patientLists/deletePatientList";
+const UPDATE_PATIENTLIST = "patientLists/updatePatientList";
+const CREATE_PATIENTLIST = "patientLists/createPatientList";
 
 
 //ACTION CREATORS
-const getPATIENTLISTACTION = (patientListId) => ({
+const getPatientListAction = (patientListId) => ({
 	type: GET_PATIENTLIST,
-	payload: patientList,
+	payload: patientListId,
 });
-const getPATIENTLISTSACTION = (patientLists) => ({
+const getPatientListsAction = (patientLists) => ({
 	type: GET_PATIENTLISTS,
 	payload: patientLists,
 });
 
-const deletePATIENTLISTACTION = (patientListId) => ({
+const deletePatientListAction = (patientListId) => ({
 	type: DELETE_PATIENTLIST
 });
 
-const updatePATIENTLISTSACTION = (patientListId) => ({
-	type: UPDATE_PATIENTLISTS,
-	payload: patientLists,
+const updatePatientListAction = (patientListId) => ({
+	type: UPDATE_PATIENTLIST,
+	payload: patientListId,
 });
 
-const createPATIENTLISTACTION = (newPatientList) => ({
+const createPatientListAction = (newPatientList) => ({
 	type: CREATE_PATIENTLIST,
-	payload: patientLists,
+	payload: newPatientList,
 });
 
 //THUNK ACTIONS
@@ -43,7 +43,7 @@ export const getPatientList = (patientListId) => async(dispatch) => {
     const response = await fetch(`/api/patientLists/${patientListId}`);
     if(response.ok){
         const patientList = await response.json();
-        dispatch(getPatientListAction(patientList))
+        dispatch(getPatientListAction(patientListId))
         return patientList;
     }
 }

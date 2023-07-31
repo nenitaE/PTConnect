@@ -1,33 +1,33 @@
 // ACTION TYPES
-const GET_EXERCISEPRESCRIPTION = "session/GET_EXERCISEPRESCRIPTION";
-const GET_EXERCISEPRESCRIPTIONS = "session/GET_EXERCISEPRESCRIPTIONS";
-const DELETE_EXERCISEPRESCRIPTION = "session/DELETE_EXERCISEPRESCRIPTION";
-const UPDATE_EXERCISEPRESCRIPTION = "session/UPDATE_EXERCISEPRESCRIPTION";
-const CREATE_EXERCISEPRESCRIPTION = "session/CREATE_EXERCISEPRESCRIPTION";
+const GET_EXERCISEPRESCRIPTION = "exercisePrescriptions/getExercisePrescription";
+const GET_EXERCISEPRESCRIPTIONS = "exercisePrescriptions/getExercisePrescriptions";
+const DELETE_EXERCISEPRESCRIPTION = "exercisePrescriptions/deleteExercisePrescription";
+const UPDATE_EXERCISEPRESCRIPTION = "exercisePrescriptions/updateExercisePrescription";
+const CREATE_EXERCISEPRESCRIPTION = "exercisePrescriptions/createExercisePrescription";
 
 
 //ACTION CREATORS
-const getEXERCISEPRESCRIPTIONACTION = (exercisePrescriptionId) => ({
+const getExercisePrescriptionAction = (exercisePrescriptionId) => ({
 	type: GET_EXERCISEPRESCRIPTION,
-	payload: exercisePrescription,
+	payload: exercisePrescriptionId,
 });
-const getEXERCISEPRESCRIPTIONSACTION = (exercisePrescriptions) => ({
+const getExercisePrescriptionsAction = (exercisePrescriptions) => ({
 	type: GET_EXERCISEPRESCRIPTIONS,
 	payload: exercisePrescriptions,
 });
 
-const deleteEXERCISEPRESCRIPTIONACTION = (exercisePrescriptionId) => ({
+const deleteExercisePrescriptionAction = (exercisePrescriptionId) => ({
 	type: DELETE_EXERCISEPRESCRIPTION
 });
 
-const updateEXERCISEPRESCRIPTIONSACTION = (exercisePrescriptionId) => ({
-	type: UPDATE_EXERCISEPRESCRIPTIONS,
-	payload: exercisePrescriptions,
+const updateExercisePrescriptionAction = (exercisePrescriptionId) => ({
+	type: UPDATE_EXERCISEPRESCRIPTION,
+	payload: exercisePrescriptionId,
 });
 
-const createEXERCISEPRESCRIPTIONACTION = (newExercisePrescription) => ({
+const createExercisePrescriptionAction = (newExercisePrescription) => ({
 	type: CREATE_EXERCISEPRESCRIPTION,
-	payload: exercisePrescriptions,
+	payload: newExercisePrescription,
 });
 
 //THUNK ACTIONS
@@ -43,7 +43,7 @@ export const getExercisePrescription = (exercisePrescriptionId) => async(dispatc
     const response = await fetch(`/api/ExercisePrescriptions/${exercisePrescriptionId}`);
     if(response.ok){
         const exercisePrescription = await response.json();
-        dispatch(getexercisePrescriptionAction(exercisePrescription))
+        dispatch(getExercisePrescriptionAction(exercisePrescriptionId))
         return exercisePrescription;
     }
 }
