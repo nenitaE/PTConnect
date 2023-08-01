@@ -8,7 +8,9 @@ import LoginSignup from "./components/HomePage/LoginSignup";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import PatientList from "./components/PatientList";
-import CreatePatientListForm from "./components/PatientList/CreatePatientListForm"
+import CreatePatientListForm from "./components/PatientList/CreatePatientListForm";
+import UpdatePatientListForm from "./components/PatientList/UpdatePatientListForm";
+import EditPatientListForm from "./components/PatientList/EditPatientListForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,6 +35,9 @@ function App() {
           </Route>
           <Route exact path="/loginSignup">
             <LoginSignup/>
+          </Route>
+          <Route exact path="/patientLists/:patientListId/edit">
+            <EditPatientListForm/>
           </Route>
           <Route exact path="/patientLists">
             <PatientList/>

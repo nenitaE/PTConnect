@@ -65,6 +65,26 @@ def seed_users():
         profileImage = 'https://tinyurl.com/bdhepd5n',
         isClinician = False, 
         password='password')
+    Chelsie = User(
+        username='Chelsie', 
+        email='Chelsie@aa.io',
+        firstName = 'Chelsie',
+        lastName = 'Simpson', 
+        city = 'LA',
+        state = 'California',
+        profileImage = 'https://tinyurl.com/2nhwvbck',
+        isClinician = False, 
+        password='password')
+    Mike = User(
+        username='Mike', 
+        email='mike@aa.io',
+        firstName = 'Mike',
+        lastName = 'Jones', 
+        city = 'San Francisco',
+        state = 'California',
+        profileImage = 'https://tinyurl.com/2s4ezj9u',
+        isClinician = False, 
+        password='password')
 
     db.session.add(demo)
     db.session.add(marnie)
@@ -72,6 +92,8 @@ def seed_users():
     db.session.add(tim)
     db.session.add(mel)
     db.session.add(leah)
+    db.session.add(Chelsie)
+    db.session.add(Mike)
     db.session.commit()
 
 

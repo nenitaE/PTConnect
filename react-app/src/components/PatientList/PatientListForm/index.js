@@ -47,7 +47,7 @@ const PatientListForm = ({ patientList, formType}) => {
             dispatch(getPatientLists(patientListId))
             history.push('/patientLists/current')
         } else {
-            alert('This patient is already in your patient list.')
+            alert('This patient is already on your patient list.')
         }
     }
         if (!clinicianId) return (<div><p>You must be a logged in clinician to access this page</p>{history.push('/')}</div>)
