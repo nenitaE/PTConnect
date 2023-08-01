@@ -38,7 +38,7 @@ function App() {
           <Route exact path="/patientLists/:patientListId/edit">
             <UpdatePatientListForm/>
           </Route>
-          <Route exact path="/patientLists">
+          <Route exact path="/patientLists/current">
             <PatientList/>
           </Route>
           <Route exact path="/patientLists/new">

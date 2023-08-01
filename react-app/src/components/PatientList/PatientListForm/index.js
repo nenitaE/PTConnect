@@ -5,9 +5,7 @@ import { getPatientLists, createPatientList} from "../../../store/patientLists"
 import './PatientListForm.css'
 
 const PatientListForm = ({ patientList, formType}) => {
-    console.log("🚀 ~ file: index.js:8 ~ PatientListForm ~ patientList:", patientList)
     const clinicianId = useSelector((state) => state.session.user?.id);
-    console.log("🚀 ~ file: index.js:9 ~ PatientListForm ~ clinicianId:", clinicianId)
     const history = useHistory();
 
     const [email, setEmail] = useState("");
@@ -25,7 +23,6 @@ const PatientListForm = ({ patientList, formType}) => {
 
     useEffect(() => {
         const data = dispatch(getPatientLists());
-        console.log("🚀 ~ file: index.js:25 ~ useEffect ~ data:", data)
     }, [dispatch]);
 
     const handleSubmit = async (e) => {
@@ -39,15 +36,15 @@ const PatientListForm = ({ patientList, formType}) => {
             email,
             status
         }
-        const data = await dispatch(createPatientList(patientList));
-        if (data.id) {
-            setErrors(data.errors);
-            console.log("🚀 ~ file: index.js:42 ~ handleSubmit ~ data.errors:", data.errors);
-            let patientListId = data.id;
+        const newData = await dispatch(createPatientList(patientList));
+        console.log("🚀 ~ file: index.js:43 ~ handleSubmit ~ newData:", newData)
+        if (newData.id) {
+            setErrors(newData.errors);
+            let patientListId = newData.id;
             dispatch(getPatientLists(patientListId))
             history.push('/patientLists/current')
         } else {
-            alert('This patient is already on your patient list.')
+            alert('Patient is already on your list.')
         }
     }
         if (!clinicianId) return (<div><p>You must be a logged in clinician to access this page</p>{history.push('/')}</div>)

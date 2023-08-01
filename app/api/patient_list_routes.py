@@ -142,15 +142,12 @@ def add_patientList():
         data = form.data
         clinicianId = data['clinicianId']
         
-        patientLists = PatientList.query.filter(
-            and_(
-                PatientList.clinicianId == clinicianId
-            )
-        ).all()
+        patientLists = PatientList.query.filter(PatientList.clinicianId == clinicianId).all()
 
         # print(patientLists, "**********PATIENTLISTS**************")
 
         for patientList in patientLists:
+            print("🚀 ~ file: patient_list_routes.py:150 ~ patientList:", patientList)
             if data["patientId"] == patientList.patientId:
                 return {'errors': 'Patient is already assigned to this clinician\'s patient list'}, 400
             if data["email"] == patientList.email:
