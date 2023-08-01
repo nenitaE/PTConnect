@@ -7,28 +7,40 @@ const CREATE_PATIENTLIST = "patientLists/createPatientList";
 
 
 //ACTION CREATORS
-const getPatientListAction = (patientListId) => ({
-	type: GET_PATIENTLIST,
-	payload: patientListId,
-});
-const getPatientListsAction = (patientLists) => ({
-	type: GET_PATIENTLISTS,
-	payload: patientLists,
-});
+const getPatientListAction = (patientListId) => {
+	return {
+        type: GET_PATIENTLIST,
+        payload: patientListId
+    }
+    
+};
+const getPatientListsAction = (patientLists) => {
+    return {
+        type: GET_PATIENTLISTS,
+        payload: patientLists
+    }
+};
 
-const deletePatientListAction = (patientListId) => ({
-	type: DELETE_PATIENTLIST
-});
+const deletePatientListAction = (patientListId) => {
+	return {
+        type: DELETE_PATIENTLIST,
+        payload: patientListId
+    }
+};
 
-const updatePatientListAction = (patientListId) => ({
-	type: UPDATE_PATIENTLIST,
-	payload: patientListId,
-});
+const updatePatientListAction = (patientListId) => {
+	return {
+        type: UPDATE_PATIENTLIST,
+        payload: patientListId
+    }
+};
 
-const createPatientListAction = (newPatientList) => ({
-	type: CREATE_PATIENTLIST,
-	payload: newPatientList,
-});
+const createPatientListAction = (newPatientList) => {
+	return {
+        type: CREATE_PATIENTLIST,
+	    payload: newPatientList
+    }
+};
 
 //THUNK ACTIONS
 export const getPatientLists = () => async(dispatch) => {
@@ -43,7 +55,7 @@ export const getPatientList = (patientListId) => async(dispatch) => {
     const response = await fetch(`/api/patientLists/${patientListId}`);
     if(response.ok){
         const patientList = await response.json();
-        dispatch(getPatientListAction(patientListId))
+        dispatch(getPatientListAction(patientList))
         return patientList;
     }
 }
@@ -64,8 +76,6 @@ export const updatePatientList = (patientListId, patientListData) => async(dispa
 
         return updatedPatientList;
     } else if (response.status < 500){
-
-
         const data = response.json();
 
         if(data.errors){
@@ -109,7 +119,6 @@ export const createPatientList = (patientListData) => async(dispatch) =>{
             dispatch(createPatientListAction(newPatientList));
             return newPatientList
         } else if (response.status <= 500){
-            // console.log("FAILED BODY", JSON.stringify(patientListData))
             const data = await response.json();
             if (data.errors) {
                 return data.errors;

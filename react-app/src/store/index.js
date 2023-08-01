@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session';
+import userReducer from './user';
 import patientListReducer from './patientLists';
 import exerciseReducer from './exercise';
 import exercisePrescriptionReducer from './exerciseRx';
@@ -8,6 +9,7 @@ import messageReducer from './message';
 
 const rootReducer = combineReducers({
   session,
+  user: userReducer,
   patientList: patientListReducer,
   exercisePrescription: exercisePrescriptionReducer,
   exercise: exerciseReducer,

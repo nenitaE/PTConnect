@@ -7,6 +7,7 @@ import HomePage from "./components/HomePage";
 import LoginSignup from "./components/HomePage/LoginSignup";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
+import PatientList from "./components/PatientList";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,9 @@ function App() {
           </Route>
           <Route exact path="/loginSignup">
             <LoginSignup/>
+          </Route>
+          <Route exact path="/patientLists">
+            <PatientList/>
           </Route>
         </Switch>
       )}

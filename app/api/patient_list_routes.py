@@ -77,7 +77,7 @@ def delete_curr_patientList(patientListId):
     db.session.delete(patientList)
     db.session.commit()
 
-    patientLists = PatientList.query.filter(PatientList.clinicianId == userId)
+    patientLists = PatientList.query.filter(PatientList.clinicianId == userId).all()
     # print('_____________',userId,'----', patientLists, '________________')
     return {'PatientList': [patientList.to_dict() for patientList in patientLists]}
 
@@ -100,7 +100,7 @@ def get_current_patientLists():
         and_(
             User.id == current_user_id
         )
-    ).filter(User.isClinician.is_(True))
+    ).filter(User.isClinician.is_(True)).first()
 
     print(curr_user_is_clinician, "********CURRUSERISCLINICIAN**********")
 
@@ -109,7 +109,7 @@ def get_current_patientLists():
         return {'message': 'Must be a registered clinician.'}, 404
 
     else:
-        clinicianPatientLists = PatientList.query.filter(PatientList.clinicianId == current_user_id)
+        clinicianPatientLists = PatientList.query.filter(PatientList.clinicianId == current_user_id).all()
         return {'PatientLists': [clinicianPatientList.to_dict() for clinicianPatientList in clinicianPatientLists]}
 
 @patient_list_routes.route('/<int:patientListId>', methods=['GET'])
