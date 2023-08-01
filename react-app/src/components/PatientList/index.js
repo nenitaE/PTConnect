@@ -45,10 +45,17 @@ const PatientList = () => {
                         <span>Patient: {list.email}</span> <span>Status: {list.status}</span>
                     </div>
                 )))}
-                <h2>Add a Patient</h2>
-                    <div className="create-patientList">
-
-                    </div>
+                <div className="create-new-PL-container">
+                    {!sessionUser || (
+                        <div  className='create-new-PL'>
+                            <a href="/patientLists/new">
+                                <button className="create-new-PListBttn">
+                                    <h3> Connect a new patient to your list </h3>
+                                </button>
+                            </a>
+                        </div>
+                    )}
+                </div>
         </div>
     );
 }
