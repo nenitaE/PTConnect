@@ -7,28 +7,29 @@ import './EditPatientListForm.css';
 const EditPatientListForm = ({ patientList, formType })  => {
     console.log("🚀 ~ file: index.js:8 ~ EditPatientListForm ~ patientList:", patientList)
     const { patientListId } = useParams();
-    console.log("🚀 ~ file: index.js:9 ~ UpdatePatientListForm ~ patientListId:", patientListId)
+    console.log("🚀 ~ file: index.js:9 ~ EditPatientListForm ~ patientListId:", patientListId)
     
     //Get Patient List by Id
     const dispatch = useDispatch();
     let hasErrors = false;
 
     const clinicianId = useSelector((state) => state.session.user?.id);
-    
+    useEffect(() => {
+        dispatch(getPatientList(patientListId))
+    }, [dispatch]);
+
+
     const history = useHistory();
-    const [email, setEmail] = useState("");
+    const [email, setEmail] = useState(patientList.patientList.email);
     const [patientId, setPatientId] = useState("")
-    const [status, setStatus] = useState("");
+    const [status, setStatus] = useState(patientList.patientList.status);
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
     
     const updateEmail = (e) => setEmail(e.target.value);
     const updateStatus = (e) => setStatus(e.target.value);
 
-    useEffect(() => {
-        dispatch(getPatientList(patientListId))
-    }, [dispatch]);
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         setHasSubmitted(true);

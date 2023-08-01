@@ -41,8 +41,19 @@ const PatientList = () => {
             <h2>Current Patients:</h2>
                 {!userIsClinician && <p>You have no current patients</p> || 
                 (currentPatientLists.map(list => (
-                    <div className="individ-PL-container">
+                    <div className="individ-PL-container" key={list.id}>
                         <span>Patient: {list.email}</span> <span>Status: {list.status}</span>
+                        <div>
+                            <span className='deletePLBtn'>
+                                <button className="patientList-button" onClick={() => openDeletePatientListModal(list.id)}>Delete</button>
+                            </span>
+                            <span> </span>
+                            <span  className='editPLBtn'>
+                                { <a href={`/patientLists/${list.id}/edit`}>
+                                <button className="patientList-button">Edit</button>
+                                </a> }
+                            </span>
+                        </div>
                     </div>
                 )))}
                 <div className="create-new-PL-container">
