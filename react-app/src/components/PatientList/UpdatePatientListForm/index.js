@@ -10,7 +10,7 @@ const UpdatePatientListForm = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         const data = dispatch(getPatientList(patientListId));
-    }, [dispatch]);
+    }, [dispatch, patientListId]);
 
     const patientListToEdit = useSelector((state) => state.patientList)
     console.log("🚀 ~ file: index.js:16 ~ UpdatePatientListForm ~ patientListToEdit:", patientListToEdit)

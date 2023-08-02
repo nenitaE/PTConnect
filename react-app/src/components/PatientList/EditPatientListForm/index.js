@@ -4,24 +4,24 @@ import { getPatientList, getPatientLists, updatePatientList } from "../../../sto
 import { useHistory, useParams } from "react-router-dom";
 import './EditPatientListForm.css';
 
-const EditPatientListForm = ({ patientList, formType })  => {
-    console.log("🚀 ~ file: index.js:8 ~ EditPatientListForm ~ patientList:", patientList)
+function EditPatientListForm() {
     const { patientListId } = useParams();
-    console.log("🚀 ~ file: index.js:9 ~ EditPatientListForm ~ patientListId:", patientListId)
+    // console.log("🚀 ~ file: index.js:9 ~ EditPatientListForm ~ patientListId:", patientListId)
     
     //Get Patient List by Id
     const dispatch = useDispatch();
     let hasErrors = false;
-
-    const clinicianId = useSelector((state) => state.session.user?.id);
     useEffect(() => {
         dispatch(getPatientList(patientListId))
-    }, [dispatch]);
+    }, [dispatch, patientListId]);
 
+    const clinicianId = useSelector((state) => state.session.user?.id);
+    console.log(typeof clinicianId)
+    const patientEmail = useSelector((state) => state.patientList.patientList.email)
 
     const history = useHistory();
     const [email, setEmail] = useState(patientList.patientList.email);
-    const [patientId, setPatientId] = useState("")
+    
     const [status, setStatus] = useState(patientList.patientList.status);
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
@@ -66,7 +66,7 @@ const EditPatientListForm = ({ patientList, formType })  => {
                                       
                                       <input 
                                           type="text"
-                                          placeholder="email"
+                                        //   placeholder="email"
                                           required={true}
                                           value={email}
                                           onChange={updateEmail}

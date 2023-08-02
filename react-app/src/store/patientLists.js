@@ -159,11 +159,13 @@ export default function patientListReducer(state = initialState, action){
             newState = {...state, [action.payload]:{...state, ...action.patientLists}};
             return newState
         case UPDATE_PATIENTLIST:
-            return {
-                ...state,
-                patientList: action.payload,
-                patientLists: state.patientLists?.map(patientList => patientList.id === action.payload.id ? action.payload : patientList)
-        }
+            // return {
+            //     ...state,
+            //     patientList: action.payload,
+            //     patientLists: state.patientLists?.map(patientList => patientList.id === action.payload.id ? action.payload : patientList)
+            // }
+            newState = {...state, [action.payload]: {...state, ...action.patientLists}};
+            return newState;
         case DELETE_PATIENTLIST:
             // return {
             //     ...state,
