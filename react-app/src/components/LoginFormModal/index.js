@@ -23,9 +23,14 @@ function LoginFormModal() {
     }
   };
 
-  const handleDemoLogin = async (e) => {
+  const handleDemoClinicianLogin = async (e) => {
     e.preventDefault();
     setEmail('demo@aa.io');
+    setPassword('password');
+  };
+  const handleDemoPatientLogin = async (e) => {
+    e.preventDefault();
+    setEmail('marnie@aa.io');
     setPassword('password');
   };
 
@@ -57,7 +62,8 @@ function LoginFormModal() {
           />
         </label>
         <button type="submit">Log In</button>
-        <button onClick={handleDemoLogin}>Click to Fill Demo User Data</button>
+        <button onClick={handleDemoClinicianLogin}>Click to Fill Demo Therapist-User Data</button>
+        <button onClick={handleDemoPatientLogin}>Click to Fill Demo Patient-User Data</button>
       </form>
     </>
   );

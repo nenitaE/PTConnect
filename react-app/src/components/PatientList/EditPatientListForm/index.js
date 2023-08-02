@@ -15,14 +15,19 @@ function EditPatientListForm() {
         dispatch(getPatientList(patientListId))
     }, [dispatch, patientListId]);
 
-    const clinicianId = useSelector((state) => state.session.user?.id);
-    console.log(typeof clinicianId)
-    const patientEmail = useSelector((state) => state.patientList.patientList.email)
-
-    const history = useHistory();
-    const [email, setEmail] = useState(patientList.patientList.email);
+    const patientList = useSelector((state) => state.patientList.patientList);
+    console.log("🚀 ~ file: index.js:19 ~ EditPatientListForm ~ patientList:", patientList)
     
-    const [status, setStatus] = useState(patientList.patientList.status);
+    const patientId = patientList.patientId
+    console.log("🚀 ~ file: index.js:22 ~ EditPatientListForm ~ patientId:", patientId)
+    const clinicianId = useSelector((state) => state.session.user?.id);
+    console.log("🚀 ~ file: index.js:24 ~ EditPatientListForm ~ clinicianId:", clinicianId)
+    console.log(typeof clinicianId)
+    const patientEmail = patientList.email
+    
+    const history = useHistory();
+    const [email, setEmail] = useState('');
+    const [status, setStatus] = useState('active');
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
     
@@ -87,7 +92,7 @@ function EditPatientListForm() {
                                     <option value={"discharged"}>discharged</option> 
                                 </select>
                         </div>
-                              <input className="updatePLBtn" type="submit" value={formType} />
+                              <input className="updatePLBtn" type="submit" />
           </form>
       </div>
 

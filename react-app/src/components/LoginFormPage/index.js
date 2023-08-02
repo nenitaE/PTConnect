@@ -22,9 +22,14 @@ function LoginFormPage() {
     }
   };
 
-  const handleDemoLogin = async (e) => {
+  const handleDemoClinicianLogin = async (e) => {
     e.preventDefault();
     setEmail('demo@aa.io');
+    setPassword('password');
+  };
+  const handleDemoPatientLogin = async (e) => {
+    e.preventDefault();
+    setEmail('marnie@aa.io');
     setPassword('password');
   };
 
@@ -60,7 +65,8 @@ function LoginFormPage() {
                 required
               />
             </label>
-            <button className="demoButton" onClick={handleDemoLogin}>Click to Fill Demo User Data</button>
+            <button className="demoButton" onClick={handleDemoClinicianLogin}>Click to Fill Demo Therapist Data</button>
+            <button className="demoButton" onClick={handleDemoPatientLogin}>Click to Fill Demo Patient Data</button>
             <button className="login-button2" type="submit">Log In</button>
           </form>
         </div>

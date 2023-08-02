@@ -28,7 +28,7 @@ def edit_curr_patient_list(patientListId):
         return jsonify({'message': 'Patient List not found'}), 404
 
     #check to make sure the user is authorized to change this patientList
-    print("********************line 31")
+    print("********************ON line 31")
     print(type(patientList.clinicianId), "************ln32")
     print(int(session['_user_id']), "************ln33")
     print(type(session['_user_id']), "************ln34")
@@ -37,26 +37,26 @@ def edit_curr_patient_list(patientListId):
         print("********************line 32")
         return {'Error': 'User is not authorized'}
 
-    # if form.validate_on_submit():
-    print("********************in form")
-    data = form.data
-    print(data)
-    clinicianId = data['clinicianId']
-    print(clinicianId, "**********clinicianId IN form validate on submit backend**************")
-    patientLists = PatientList.query.filter(PatientList.clinicianId == clinicianId).all()
-    
-    if 'patientId' in data:
-        patientList.patientId = data["patientId"]
-    if 'clinicianId' in data:
-        patientList.clinicianId = data["clinicianId"]
-    if 'email' in data:
-        patientList.email = data["email"]
-    if 'status' in data:
-        patientList.status = data["status"]
+    if form.validate_on_submit():
+        print("********************in form")
+        data = form.data
+        print("******FORM DATA FROM FRONTEND", data)
+        clinicianId = data['clinicianId']
+        print(clinicianId, "**********clinicianId IN form validate on submit backend**************")
+        patientLists = PatientList.query.filter(PatientList.clinicianId == clinicianId).all()
+        
+        if 'patientId' in data:
+            patientList.patientId = data["patientId"]
+        if 'clinicianId' in data:
+            patientList.clinicianId = data["clinicianId"]
+        if 'email' in data:
+            patientList.email = data["email"]
+        if 'status' in data:
+            patientList.status = data["status"]
 
-    db.session.commit()
-    print("********************line 53")
-    return patientList.to_dict()
+        db.session.commit()
+        print("********************line 58")
+        return patientList.to_dict()
     print("********************line 27")
     return {'DEBUGGING': validation_errors_to_error_messages(form.errors)}, 401
 
