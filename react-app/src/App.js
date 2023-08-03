@@ -11,6 +11,8 @@ import PatientList from "./components/PatientList";
 import CreatePatientListForm from "./components/PatientList/CreatePatientListForm";
 import EditPatientListForm from "./components/PatientList/EditPatientListForm";
 import Message from "./components/Message";
+import SentMessage from "./components/Message/SentMessage";
+import CreateMessageForm from "./components/Message/CreateMessage";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +40,12 @@ function App() {
           </Route>
           <Route exact path="/messages/current">
             <Message/>
+          </Route>
+          <Route exact path="/messages/sent">
+            <SentMessage/>
+          </Route>
+          <Route exact path="/messages/new">
+            <CreateMessageForm/>
           </Route>
           <Route exact path="/patientLists/:patientListId/edit">
             <EditPatientListForm/>

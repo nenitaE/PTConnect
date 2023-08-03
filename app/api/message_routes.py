@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session, request
 from app.models import User, db, Message
-from sqlalchemy import and_
+from sqlalchemy import and_, desc
 from .auth_routes import validation_errors_to_error_messages
 from app.forms.create_message_form import MessageForm
 from flask_login import login_required, current_user
@@ -106,7 +106,7 @@ def get_current_messages():
         return jsonify({'error': 'User not found'}), 404
 
     else:
-        messages = Message.query.filter((Message.clinicianId == current_user_id) | (Message.patientId == current_user_id))
+        messages = Message.query.filter((Message.clinicianId == current_user_id) | (Message.patientId == current_user_id)).order_by(Message.created_at.desc()).all()
         return {'Messages': [message.to_dict() for message in messages]}
 
 

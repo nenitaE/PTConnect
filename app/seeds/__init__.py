@@ -4,6 +4,7 @@ from .patientlists import seed_patientlists, undo_patientlists
 from .exercises import seed_exercises, undo_exercises
 from .exerciseprescriptions import seed_exerciseprescriptions, undo_exerciseprescriptions
 from .bookedvisits import seed_bookedvisits, undo_bookedvisits
+from .messages import seed_messages, undo_messages
 from app.models.db import db, environment, SCHEMA
 
 # Creates a seed group to hold our commands
@@ -23,11 +24,13 @@ def seed():
         undo_patientlists()
         undo_exerciseprescriptions()
         undo_exercises()
+        undo_messages()
         undo_bookedvisits()
     seed_users()
     seed_patientlists()
     seed_exerciseprescriptions()
     seed_exercises()
+    seed_messages()
     seed_bookedvisits()
     # Add other seed functions here
 
@@ -36,6 +39,7 @@ def seed():
 @seed_commands.command('undo')
 def undo():
     undo_bookedvisits()
+    undo_messages()
     undo_exercises()
     undo_exerciseprescriptions()
     undo_patientlists()

@@ -1,24 +1,32 @@
-from app.models import db, Exercise, environment, SCHEMA
+from app.models import db, Message, environment, SCHEMA
 from sqlalchemy.sql import text
 
 
 # Adds messages
 def seed_messages():
-    msg1 = Exercise(
+    msg1 = Message(
         clinicianId = 1,
         patientId = 2,
         senderIsClinician = True,
         body = 'Hello Marnie.  You can use this link to set up an account on PT connect https://rehabportal.com '
         )
-    msg2 = Exercise(
+    msg2 = Message(
         clinicianId = 1,
         patientId = 2,
         senderIsClinician = False,
         body = 'Hi Dr. Demo.  The link doesn\'t work. '
         )
+    msg3 = Message(
+        clinicianId = 1,
+        patientId = 2,
+        senderIsClinician = True,
+        body = 'I\'m sorry Marnie.  Try this one https://rehabportal.onrender.com '
+        )
     
 
     db.session.add(msg1)
+    db.session.add(msg2)
+    db.session.add(msg3)
     db.session.commit()
 
 

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {  useHistory } from "react-router-dom/cjs/react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getMessage, getMessages} from "../../store/message";
+import { getMessage, getMessages} from "../../../store/message"
 import { NavLink } from "react-router-dom/cjs/react-router-dom";
-import DeleteMessageModal from "./DeleteMessageModal";
-import { useModal } from "../../context/Modal";
-import './Message.css';
+import { useModal } from "../../../context/Modal";
 
-const Message = () => {
+const SentMessage = () => {
     const history = useHistory();
     const[isLoaded, setIsLoaded] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
@@ -28,10 +26,6 @@ const Message = () => {
 
     if (!currentUserMessages) return null;
 
-    const openDeleteMessageModal = (messageId) => {
-      setModalContent(<DeleteMessageModal messageId={messageId}/>)
-  }
-
     return (
         <div className="message-main-container">
           <div className="link-container">
@@ -45,7 +39,6 @@ const Message = () => {
                   {isLoaded && currentUserMessages.map((currentUserMessage) => (
                     <div className="inbox" key={currentUserMessages.id}>
                       <span>{currentUserMessage.createdAt}</span><span>{currentUserMessage.body}</span>
-                      <span><button className="patientList-button" onClick={() => openDeleteMessageModal(currentUserMessage.id)}>Delete</button></span>
                     </div>
                   ))}
                   </div>
@@ -57,4 +50,4 @@ const Message = () => {
         );
 }
  
-export default Message;
+export default SentMessage;
