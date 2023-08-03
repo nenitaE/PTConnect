@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPatientLists, createPatientList} from "../../../store/patientLists"
+import { getPatientLists, createPatientList} from "../../../store/patientList"
 import './PatientListForm.css'
 
 const PatientListForm = ({ patientList, formType}) => {

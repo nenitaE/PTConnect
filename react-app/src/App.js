@@ -10,6 +10,7 @@ import Navigation from "./components/Navigation";
 import PatientList from "./components/PatientList";
 import CreatePatientListForm from "./components/PatientList/CreatePatientListForm";
 import EditPatientListForm from "./components/PatientList/EditPatientListForm";
+import Message from "./components/Message";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +35,9 @@ function App() {
           </Route>
           <Route exact path="/loginSignup">
             <LoginSignup/>
+          </Route>
+          <Route exact path="/messages/current">
+            <Message/>
           </Route>
           <Route exact path="/patientLists/:patientListId/edit">
             <EditPatientListForm/>

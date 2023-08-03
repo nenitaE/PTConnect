@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {  useHistory } from "react-router-dom/cjs/react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getPatientList, getPatientLists} from "../../store/patientLists";
+import { getPatientList, getPatientLists} from "../../store/patientList";
 import { getUsers } from "../../store/user";
 import DeletePatientListModal from "./DeletePatientListModal";
 import { useModal } from "../../context/Modal";
@@ -16,14 +16,11 @@ const PatientList = () => {
     console.log("🚀 ~ file: index.js:16 ~ PatientList ~ userIsClinician:", userIsClinician)
     const {setModalContent} = useModal();
     const dispatch = useDispatch();
-    let userIsPatient = false
-    if (userIsClinician === false) {
-        userIsPatient = true}
+    
 
         
     useEffect(() => {
         dispatch(getPatientLists())
-        dispatch(getUsers())
             .then(() => setIsLoaded(true))
     }, [dispatch])
 

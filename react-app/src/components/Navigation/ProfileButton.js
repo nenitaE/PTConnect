@@ -50,8 +50,11 @@ function ProfileButton({ user }) {
               <img src={user.profileImage} alt="profileImage" width="70" height="70" className="menu-profile-image"/>
               <li className="welcome-profile">Welcome {user.isClinician && <>Dr. </>}{user.firstName}</li>
               <li>{user.email}</li>
-              <li className="link-profileBttn">
+              {user.isClinician && <li className="link-profileBttn">
                 <NavLink className='text-link-profileBttn' to="/patientLists/current">Patient List</NavLink>
+              </li>}
+              <li className="link-profileBttn">
+                <NavLink className='text-link-profileBttn' to="/messages/current">Messages</NavLink>
               </li>
               <li>
                 <button onClick={handleLogout}>Log Out</button>

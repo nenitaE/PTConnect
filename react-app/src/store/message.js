@@ -7,28 +7,35 @@ const CREATE_MESSAGE = "messages/CREATE_MESSAGE";
 
 
 //ACTION CREATORS
-const getMessageAction = (messageId) => ({
-	type: GET_MESSAGE,
-	payload: messageId,
-});
-const getMessagesAction = (messages) => ({
-	type: GET_MESSAGES,
-	payload: messages,
-});
+const getMessageAction = (messageId) => {
+	return {
+        type: GET_MESSAGE,
+        payload: messageId}
+};
+const getMessagesAction = (messages) => {
+	return {
+        type: GET_MESSAGES,
+	    payload: messages
+    }
+};
 
-const deleteMessageAction = (messageId) => ({
-	type: DELETE_MESSAGE
-});
+const deleteMessageAction = (messageId) => {
+	return {
+        type: DELETE_MESSAGE,
+        payload: messageId
+    }
+};
 
 // const updateMessagesAction = (messageId) => ({
-// 	type: UPDATE_MESSAGES,
-// 	payload: messages,
+// 	type: UPDATE_MESSAGE,
+// 	payload: messageId,
 // });
 
-const createMessageAction = (newMessage) => ({
-	type: CREATE_MESSAGE,
-	payload: newMessage,
-});
+const createMessageAction = (newMessage) => {
+	return {
+        type: CREATE_MESSAGE,
+	    payload: newMessage}
+};
 
 //THUNK ACTIONS
 export const getMessages = () => async(dispatch) => {
@@ -43,7 +50,7 @@ export const getMessage = (messageId) => async(dispatch) => {
     const response = await fetch(`/api/messages/${messageId}`);
     if(response.ok){
         const message = await response.json();
-        dispatch(getMessageAction(messageId))
+        dispatch(getMessageAction(message))
         return message;
     }
 }
@@ -109,7 +116,6 @@ export const createMessage = (messageData) => async(dispatch) =>{
             dispatch(createMessageAction(newMessage));
             return newMessage
         } else if (response.status <= 500){
-            // console.log("FAILED BODY", JSON.stringify(messageData))
             const data = await response.json();
             if (data.errors) {
                 return data.errors;
@@ -144,9 +150,11 @@ export default function messageReducer(state = initialState, action){
                 message: action.payload
             }
         case CREATE_MESSAGE:
-            newState = {...state,
-                messages: [...state.messages, action.payload]
-                };
+            // newState = {...state,
+            //     messages: [...state.messages, action.payload]
+            //     };
+            // return newState
+            newState = {...state, [action.payload]:{...state, ...action.messages}};
             return newState
         // case UPDATE_MESSAGE:
 
@@ -156,11 +164,13 @@ export default function messageReducer(state = initialState, action){
         //         messages: state.messages?.map(message => message.id === action.payload.id ? action.payload : message)
         // }
         case DELETE_MESSAGE:
-
-            return {
-                ...state,
-                messages: state.messages.filter(message => message.id != action.payload)
-            }
+            // return {
+            //     ...state,
+            //     messages: state.messages.filter(message => message.id != action.payload)
+            // }
+            newState = {...state};
+            delete newState[action.payload]
+            return newState;
         default:
             return state
     }
