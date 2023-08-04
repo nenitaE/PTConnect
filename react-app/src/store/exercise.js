@@ -54,7 +54,7 @@ export const getExercise = (exerciseId) => async(dispatch) => {
     const response = await fetch(`/api/exercises/${exerciseId}`);
     if(response.ok){
         const exercise = await response.json();
-        dispatch(getExerciseAction(exerciseId))
+        dispatch(getExerciseAction(exercise))
         return exercise;
     }
 }
@@ -75,8 +75,6 @@ export const updateExercise = (exerciseId, exerciseData) => async(dispatch) =>{
 
         return updatedExercise;
     } else if (response.status < 500){
-
-
         const data = response.json();
 
         if(data.errors){
@@ -155,23 +153,27 @@ export default function exerciseReducer(state = initialState, action){
                 exercise: action.payload
             }
         case CREATE_EXERCISE:
-            newState = {...state,
-                exercises: [...state.exercises, action.payload]
-                };
+            // newState = {...state,
+            //     exercises: [...state.exercises, action.payload]
+            //     };
+            newState = {...state, [action.payload]:{...state, ...action.exercises}};
             return newState
         case UPDATE_EXERCISE:
-
-            return {
-                ...state,
-                exercise: action.payload,
-                exercises: state.exercises?.map(exercise => exercise.id === action.payload.id ? action.payload : exercise)
-        }
+            // return {
+            //     ...state,
+            //     exercise: action.payload,
+            //     exercises: state.exercises?.map(exercise => exercise.id === action.payload.id ? action.payload : exercise)
+            // }
+            newState = {...state, [action.payload]:{...state, ...action.exercises}};
+            return newState
         case DELETE_EXERCISE:
-
-            return {
-                ...state,
-                exercises: state.exercises.filter(exercise => exercise.id != action.payload)
-            }
+            // return {
+            //     ...state,
+            //     exercises: state.exercises.filter(exercise => exercise.id != action.payload)
+            // }
+            newState = {...state};
+            delete newState[action.payload]
+            return newState;
         default:
             return state
     }

@@ -43,10 +43,12 @@ const createExercisePrescriptionAction = (newExercisePrescription) => {
 
 //THUNK ACTIONS
 export const getExercisePrescriptions = () => async(dispatch) => {
+    console.log("******INSIDE GET EXRX THUNK****************")
     const response = await fetch('/api/exercisePrescriptions/current');
     if(response.ok){
         const data = await response.json();
         dispatch(getExercisePrescriptionsAction(data.ExercisePrescriptions))
+        console.log("******AFTER DISPATCH-INSIDE GET EXRX THUNK****************")
         return data;
     }
 }
@@ -146,6 +148,8 @@ export default function exercisePrescriptionReducer(state = initialState, action
     let newState = {};
     switch(action.type){
         case GET_EXERCISEPRESCRIPTIONS:
+
+        console.log("******REDUCER before return-- GET EXRX****************")
             return{
                 ...state,
                 ExercisePrescriptions: action.payload

@@ -5,10 +5,10 @@ from .auth_routes import validation_errors_to_error_messages
 from app.forms.create_exercise_rx_form import ExerciseRxForm
 from flask_login import login_required, current_user
 
-exercise_rx_routes = Blueprint('exercisePrescriptions', __name__)
+exercise_prescription_routes = Blueprint('exercisePrescriptions', __name__)
 
 
-@exercise_rx_routes.route('/<int:exercisePrescriptionId>', methods=['PUT'])
+@exercise_prescription_routes.route('/<int:exercisePrescriptionId>', methods=['PUT'])
 @login_required
 def edit_curr_exercise_prescription(exercisePrescriptionId):
     """
@@ -61,7 +61,7 @@ def edit_curr_exercise_prescription(exercisePrescriptionId):
 
 
 
-@exercise_rx_routes.route('/<int:exercisePrescriptionId>', methods=['DELETE'])
+@exercise_prescription_routes.route('/<int:exercisePrescriptionId>', methods=['DELETE'])
 @login_required
 def delete_curr_exercise_rx(exercisePrescriptionId):
     """
@@ -85,27 +85,31 @@ def delete_curr_exercise_rx(exercisePrescriptionId):
 
 
 
-@exercise_rx_routes.route('/current', methods=['GET'])
+@exercise_prescription_routes.route('/current', methods=['GET'])
 @login_required
 def get_current_exercise_prescriptions():
     """
     Query for all exercise prescriptions of current user
     """
-    current_user_id = current_user.get_id()
-    print('CURRENT USERID', current_user_id)
+    current_user_id = int(current_user.get_id())
+    print('**************TYPE CURRENT USERID', type(current_user_id))
     user = User.query.get(current_user_id)
+    print('**************USERTYPE', type(user))
 
     #verify that user is logged in
     if user is None:
+        print('**************line101')
         return {'error': 'User not found'}, 404
-
+    
     else:
-        exercise_prescriptions = ExercisePrescription.query.filter((ExercisePrescription.clinicianId == current_user_id) | (ExercisePrescription.patientId == current_user_id))
-        return {'Exercise Prescriptions': [exercise_prescription.to_dict_with_exercises() for exercise_prescription in exercise_prescriptions]}
+        print('**************line105')
+        exercise_prescriptions = ExercisePrescription.query.filter((ExercisePrescription.clinicianId == current_user_id) | (ExercisePrescription.patientId == current_user_id)).all()
+        # exercise_prescriptions = ExercisePrescription.query.filter(ExercisePrescription.clinicianId == current_user_id or ExercisePrescription.patientId == current_user_id).all()
+        return {'Exercise Prescriptions': [exercise_prescription.to_dict() for exercise_prescription in exercise_prescriptions]}
+        # return jsonify(user.to_dict_with_exercisePrescriptions)
 
 
-
-@exercise_rx_routes.route('/<int:exercisePrescriptionId>', methods=['GET'])
+@exercise_prescription_routes.route('/<int:exercisePrescriptionId>', methods=['GET'])
 @login_required
 def get_exercise_prescription(exercisePrescriptionId):
     '''
@@ -121,7 +125,7 @@ def get_exercise_prescription(exercisePrescriptionId):
         return jsonify(exercise_prescription.to_dict_with_exercises())
     
 
-@exercise_rx_routes.route('', methods=['POST'])
+@exercise_prescription_routes.route('', methods=['POST'])
 @login_required
 def add_exercise_prescriptions():
     """
