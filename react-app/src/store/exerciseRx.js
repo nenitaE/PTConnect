@@ -7,28 +7,39 @@ const CREATE_EXERCISEPRESCRIPTION = "exercisePrescriptions/createExercisePrescri
 
 
 //ACTION CREATORS
-const getExercisePrescriptionAction = (exercisePrescriptionId) => ({
-	type: GET_EXERCISEPRESCRIPTION,
-	payload: exercisePrescriptionId,
-});
-const getExercisePrescriptionsAction = (exercisePrescriptions) => ({
-	type: GET_EXERCISEPRESCRIPTIONS,
-	payload: exercisePrescriptions,
-});
+const getExercisePrescriptionAction = (exercisePrescriptionId) => {
+    return {
+        type: GET_EXERCISEPRESCRIPTION,
+        payload: exercisePrescriptionId
+    }
+};
+const getExercisePrescriptionsAction = (exercisePrescriptions) => {
+	return {
+        type: GET_EXERCISEPRESCRIPTIONS,
+	    payload: exercisePrescriptions
+    }
+};
 
-const deleteExercisePrescriptionAction = (exercisePrescriptionId) => ({
-	type: DELETE_EXERCISEPRESCRIPTION
-});
+const deleteExercisePrescriptionAction = (exercisePrescriptionId) => {
+	return {
+        type: DELETE_EXERCISEPRESCRIPTION,
+        payload: exercisePrescriptionId
+    }
+};
 
-const updateExercisePrescriptionAction = (exercisePrescriptionId) => ({
-	type: UPDATE_EXERCISEPRESCRIPTION,
-	payload: exercisePrescriptionId,
-});
+const updateExercisePrescriptionAction = (exercisePrescriptionId) => {
+	return {
+        type: UPDATE_EXERCISEPRESCRIPTION,
+	    payload: exercisePrescriptionId
+    }
+};
 
-const createExercisePrescriptionAction = (newExercisePrescription) => ({
-	type: CREATE_EXERCISEPRESCRIPTION,
-	payload: newExercisePrescription,
-});
+const createExercisePrescriptionAction = (newExercisePrescription) => {
+	return {
+        type: CREATE_EXERCISEPRESCRIPTION,
+	    payload: newExercisePrescription
+    }
+};
 
 //THUNK ACTIONS
 export const getExercisePrescriptions = () => async(dispatch) => {
@@ -43,10 +54,11 @@ export const getExercisePrescription = (exercisePrescriptionId) => async(dispatc
     const response = await fetch(`/api/ExercisePrescriptions/${exercisePrescriptionId}`);
     if(response.ok){
         const exercisePrescription = await response.json();
-        dispatch(getExercisePrescriptionAction(exercisePrescriptionId))
+        dispatch(getExercisePrescriptionAction(exercisePrescription))
         return exercisePrescription;
     }
 }
+
 
 export const updateExercisePrescription = (exercisePrescriptionId, exercisePrescriptionData) => async(dispatch) =>{
 
@@ -144,23 +156,27 @@ export default function exercisePrescriptionReducer(state = initialState, action
                 exercisePrescription: action.payload
             }
         case CREATE_EXERCISEPRESCRIPTION:
-            newState = {...state,
-                exercisePrescriptions: [...state.exercisePrescriptions, action.payload]
-                };
+            // newState = {...state,
+            //     exercisePrescriptions: [...state.exercisePrescriptions, action.payload]
+            //     };
+            newState = {...state, [action.payload]:{...state, ...action.exercisePrescriptions}}
             return newState
         case UPDATE_EXERCISEPRESCRIPTION:
-
-            return {
-                ...state,
-                exercisePrescription: action.payload,
-                exercisePrescriptions: state.exercisePrescriptions?.map(exercisePrescription => exercisePrescription.id === action.payload.id ? action.payload : exercisePrescription)
-        }
+            // return {
+            //     ...state,
+            //     exercisePrescription: action.payload,
+            //     exercisePrescriptions: state.exercisePrescriptions?.map(exercisePrescription => exercisePrescription.id === action.payload.id ? action.payload : exercisePrescription)
+            // }
+            newState = {...state, [action.payload]:{...state, ...action.exercisePrescriptions}}
+            return newState
         case DELETE_EXERCISEPRESCRIPTION:
-
-            return {
-                ...state,
-                exercisePrescriptions: state.exercisePrescriptions.filter(exercisePrescription => exercisePrescription.id != action.payload)
-            }
+            // return {
+            //     ...state,
+            //     exercisePrescriptions: state.exercisePrescriptions.filter(exercisePrescription => exercisePrescription.id != action.payload)
+            // }
+            newState = {...state};
+            delete newState[action.payload]
+            return newState;
         default:
             return state
     }

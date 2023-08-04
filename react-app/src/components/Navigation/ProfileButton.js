@@ -52,7 +52,14 @@ function ProfileButton({ user }) {
               <li>{user.email}</li>
               {user.isClinician && <li className="link-profileBttn">
                 <NavLink className='text-link-profileBttn' to="/patientLists/current">Patient List</NavLink>
-              </li>}
+                <div></div>
+                <NavLink className='text-link-profileBttn' to="/exercises/current">Exercises</NavLink>
+              </li>
+              }
+
+              <li className="link-profileBttn">
+                <NavLink className='text-link-profileBttn' to="/exercisePrescriptions/current">Exercise Prescriptions</NavLink>
+              </li>
               <li className="link-profileBttn">
                 <NavLink className='text-link-profileBttn' to="/messages/current">Messages</NavLink>
               </li>

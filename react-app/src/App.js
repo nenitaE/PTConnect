@@ -13,6 +13,8 @@ import EditPatientListForm from "./components/PatientList/EditPatientListForm";
 import Message from "./components/Message";
 import SentMessage from "./components/Message/SentMessage";
 import CreateMessageForm from "./components/Message/CreateMessage";
+import ExercisePrescription from "./components/ExerciseRx";
+import Exercise from "./components/Exercise"
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +39,12 @@ function App() {
           </Route>
           <Route exact path="/loginSignup">
             <LoginSignup/>
+          </Route>
+          <Route exact path="/exercisePrescriptions/current">
+            <ExercisePrescription/>
+          </Route>
+          <Route exact path="/exercises/current">
+            <Exercise/>
           </Route>
           <Route exact path="/messages/current">
             <Message/>

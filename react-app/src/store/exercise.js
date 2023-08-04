@@ -7,28 +7,39 @@ const CREATE_EXERCISE = "exercises/createExercise";
 
 
 //ACTION CREATORS
-const getExerciseAction = (exerciseId) => ({
-	type: GET_EXERCISE,
-	payload: exerciseId,
-});
-const getExercisesAction = (exercises) => ({
-	type: GET_EXERCISES,
-	payload: exercises,
-});
+const getExerciseAction = (exerciseId) => {
+	return {
+        type: GET_EXERCISE,
+	    payload: exerciseId
+    }
+};
+const getExercisesAction = (exercises) => {
+	return {
+        type: GET_EXERCISES,
+        payload: exercises
+    }
+};
 
-const deleteExerciseAction = (exerciseId) => ({
-	type: DELETE_EXERCISE
-});
+const deleteExerciseAction = (exerciseId) => {
+	return {
+        type: DELETE_EXERCISE,
+        payload: exerciseId
+    }
+};
 
-const updateExerciseAction = (exerciseId) => ({
-	type: UPDATE_EXERCISE,
-	payload: exerciseId,
-});
+const updateExerciseAction = (exerciseId) => {
+	return {
+        type: UPDATE_EXERCISE,
+	    payload: exerciseId
+    }
+};
 
-const createExerciseAction = (newExercise) => ({
-	type: CREATE_EXERCISE,
-	payload: newExercise,
-});
+const createExerciseAction = (newExercise) => {
+    return {
+        type: CREATE_EXERCISE,
+        payload: newExercise
+    }
+};
 
 //THUNK ACTIONS
 export const getExercises = () => async(dispatch) => {
