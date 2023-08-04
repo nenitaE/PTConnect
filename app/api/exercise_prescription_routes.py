@@ -105,7 +105,7 @@ def get_current_exercise_prescriptions():
         print('**************line105')
         exercise_prescriptions = ExercisePrescription.query.filter((ExercisePrescription.clinicianId == current_user_id) | (ExercisePrescription.patientId == current_user_id)).all()
         # exercise_prescriptions = ExercisePrescription.query.filter(ExercisePrescription.clinicianId == current_user_id or ExercisePrescription.patientId == current_user_id).all()
-        return {'Exercise Prescriptions': [exercise_prescription.to_dict() for exercise_prescription in exercise_prescriptions]}
+        return {'exercisePrescriptions': [exercise_prescription.to_dict_with_exercises() for exercise_prescription in exercise_prescriptions]}
         # return jsonify(user.to_dict_with_exercisePrescriptions)
 
 
@@ -116,7 +116,7 @@ def get_exercise_prescription(exercisePrescriptionId):
     Query for a specific exercise_prescription by Id
     '''
 
-    exercise_prescription = ExercisePrescription.query.get(exercisePrescriptionId)
+    exercise_prescription = ExercisePrescription.query.get(int(exercisePrescriptionId))
     print(exercise_prescription, "**********EX RX***********")
     if not exercise_prescription:
         return {'error': 'Exercise Prescription not found'}, 404

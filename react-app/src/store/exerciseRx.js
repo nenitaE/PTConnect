@@ -47,15 +47,19 @@ export const getExercisePrescriptions = () => async(dispatch) => {
     const response = await fetch('/api/exercisePrescriptions/current');
     if(response.ok){
         const data = await response.json();
-        dispatch(getExercisePrescriptionsAction(data.ExercisePrescriptions))
+        console.log("🚀 ~ file: exerciseRx.js:50 ~ getExercisePrescriptions ~ data:", data)
+        
+        dispatch(getExercisePrescriptionsAction(data.exercisePrescriptions))
+        console.log("🚀 ~ file: exerciseRx.js:53 ~ getExercisePrescriptions ~ data.ExercisePrescriptions:", data.ExercisePrescriptions)
         console.log("******AFTER DISPATCH-INSIDE GET EXRX THUNK****************")
         return data;
     }
 }
 export const getExercisePrescription = (exercisePrescriptionId) => async(dispatch) => {
-    const response = await fetch(`/api/ExercisePrescriptions/${exercisePrescriptionId}`);
+    const response = await fetch(`/api/exercisePrescriptions/${exercisePrescriptionId}`);
     if(response.ok){
         const exercisePrescription = await response.json();
+        console.log("🚀 ~ file: exerciseRx.js:62 ~ getExercisePrescription ~ exercisePrescription:", exercisePrescription)
         dispatch(getExercisePrescriptionAction(exercisePrescription))
         return exercisePrescription;
     }

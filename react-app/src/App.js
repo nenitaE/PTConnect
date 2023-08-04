@@ -15,6 +15,7 @@ import SentMessage from "./components/Message/SentMessage";
 import CreateMessageForm from "./components/Message/CreateMessage";
 import ExercisePrescription from "./components/ExerciseRx";
 import Exercise from "./components/Exercise"
+import EditExercisePrescriptionForm from "./components/ExerciseRx/EditExerciseRxForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -39,6 +40,9 @@ function App() {
           </Route>
           <Route exact path="/loginSignup">
             <LoginSignup/>
+          </Route>
+          <Route exact path="/exercisePrescriptions/:exercisePrescriptionId/edit">
+            <EditExercisePrescriptionForm/>
           </Route>
           <Route exact path="/exercisePrescriptions/current">
             <ExercisePrescription/>

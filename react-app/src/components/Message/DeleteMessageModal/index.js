@@ -6,6 +6,7 @@ import { deleteMessage, getMessages } from '../../../store/message';
 
 
 const DeleteMessageModal = ({messageId}) => {
+    console.log("🚀 ~ file: index.js:9 ~ DeleteMessageModal ~ messageId:", messageId)
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const history = useHistory();
@@ -25,10 +26,10 @@ const DeleteMessageModal = ({messageId}) => {
             <h2 className="deletetext">Confirm Delete</h2>
             <h3>Are you sure you want to delete this message?</h3>
             <button className="modal-button delete-button" onClick={(handleDelete)}>
-                {'Yes (Delete Patient)'}
+                {'Yes (Delete Message)'}
             </button>
             <button className="modal-button keep-button" onClick={closeModal}>
-                {'No (Keep Patient)'}
+                {'No (Keep Message)'}
             </button>
         </div>
      );
