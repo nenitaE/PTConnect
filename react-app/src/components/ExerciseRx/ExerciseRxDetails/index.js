@@ -36,37 +36,42 @@ const ExercisePrescriptionDetails = () => {
                     <div className="individ-exRx-container" key={exPrescription.id}>
                         <div className="exRx-inner-container">
                             <div className="exRx-header">
-                                <h4>Status: {exPrescription.status}</h4>
-                                <h4>Instructions:</h4>
-                                <div>Perform each exercise in this prescription {exPrescription.dailyFrequency} times per day;<span> {exPrescription.weeklyFrequency} days per week.</span></div> 
-                            </div>        
-                                    <div className="exercise-list">
-                                        <h4>Exercises:</h4>
-                                            {exPrescription.exercises.map(exercise => (
-                                                <div className="exercise-container" key={exercise.id}>
-                                                    <h4>{exercise.name}</h4>
-                                                    <p>Exercise Details: {exercise.exerciseData}</p>
-                                                    <p>Exercise Images: {exercise.images}</p>
-                                                    <p>Perform this exercise for {exercise.sets} set(s).</p>
-                                                    <p>Each set should be performed for {exercise.reps} rep(s) with a hold time of {exercise.holdTime} seconds.</p>
-                                                    <p>Special Notes from your therapist: {exercise.notes}.</p>
-                                                    
-                                                </div>
-                                            ))}
+                                <div className="exRx-header-inner">
+                                    <h4>Status: {exPrescription.status}</h4>
+                                    <h4>Instructions:</h4>
+                                    <div>Perform each exercise in this prescription {exPrescription.dailyFrequency} time(s) per day;<span> {exPrescription.weeklyFrequency} days per week.</span></div> 
+                                </div>    
+                                    <div  className='editExRxBtn'>
+                                                { <a href={`/exercisePrescriptions/${exPrescription.id}/edit`}>
+                                                <button className="exRx-button">Edit This Prescription</button>
+                                                </a> }
                                     </div>
-                                    
-                                    <div>
-                                        <span  className='editExRxBtn'>
-                                            { <a href={`/exercisePrescriptions/${exPrescription.id}/edit`}>
-                                            <button className="exRx-button">Edit Prescription</button>
-                                            </a> }
-                                        </span>
-                                        <span> </span>
-                                        <span  className='editExRxBtn'>
-                                            { <a href={`/exercises/${exPrescription.id}/edit`}>
-                                            <button className="exRx-button">Edit Exercises</button>
-                                            </a> }
-                                        </span>
+                            </div> 
+                                <div className="whitespace"></div>       
+                                    <div className="exercises-outer-container">
+                                        <div className="exRxTitle">
+                                            <h4>Exercises:</h4>
+                                        </div>
+                                                <div className="exercises-container">
+                                                    {exPrescription.exercises.map(exercise => (
+                                                        <div className="indiv-exercise-container" key={exercise.id}>
+                                                            <h4>{exercise.name}</h4>
+                                                            <p>Exercise Details: {exercise.exerciseData}</p>
+                                                            <p>Exercise Images: {exercise.images}</p>
+                                                            <p>Perform this exercise for {exercise.sets} set(s).</p>
+                                                            <p>Each set should be performed for {exercise.reps} rep(s) with a hold time of {exercise.holdTime} seconds.</p>
+                                                            <p>Special Notes from your therapist: {exercise.notes}.</p>
+                                                        <div>
+                                                            <span  className='editExRxBtn'>
+                                                                { <a href={`/exercises/${exercise.id}/edit`}>
+                                                                <button className="exRx-button">Edit This Exercise</button>
+                                                                </a> }
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    ))}
+                                            </div>
+                                        
                                     </div>
                         </div>
                     </div>

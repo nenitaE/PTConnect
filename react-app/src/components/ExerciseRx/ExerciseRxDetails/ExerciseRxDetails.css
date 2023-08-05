@@ -1,16 +1,53 @@
 .individ-exRx-container {
-    background-color: #EDE8EE;
     border-color: white;
     border-radius: 4px;
-    /* margin-top: 149px; */
-    /* position: absolute; */
 }
 
 .exRx-inner-container {
-    /* display: flex;
-    flex-direction: column;
-    align-items: center; */
-    padding: 45px;
-    gap: 15px;
-    /* width: 350px; */
+    padding: 10px 45px;
+}
+
+.exRx-header {
+    padding: 10px 0px;
+    background-color: #EDE8EE;
+    color: rgba(32, 0, 84);
+    /* border-top: solid rgba(80,77,111, .75) .8px; */
+    /* border-bottom: solid rgba(80,77,111, .75) .8px; */
+    box-shadow: 0 3.5px 7px 0 rgba(80,77,111, .5);
+}
+
+.exRx-header-inner {
+    display: grid;
+    justify-items: center;
+
+}
+
+.editExRxBtn {
+    display: grid;
+    justify-items: end; 
+    padding-right: 20px; 
+}
+.exRx-button-small {
+    
+    color: lightgrey;
+    font-size: 17px;
+    border: 1.5px #200054;
+    border-radius: 6px;
+    background-color: rgba(32, 0, 84, .7);
+    text-decoration: none;
+    text-align: center;
+    justify-content: center;
+    width: 150px;
+    height: 35px;
+    margin-top: 10px;
+}
+
+.exercises-container {
+    background-color: #EDE8EE;
+    padding: 20px;
+}
+
+.whitespace {
+    padding: 15px;
+    border: none;
 }
