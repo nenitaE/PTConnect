@@ -8,5 +8,23 @@
 }
 
 .ex-rx-info {
-    color: rgba(32, 0, 84);
+    color: lightgrey;
+    font-weight: bold;
+}
+
+.exRx-button {
+    color: lightgrey;
+    font-size: 17px;
+    border: 1.5px #200054;
+    border-radius: 6px;
+    background-color: rgba(32, 0, 84, .7);
+    text-decoration: none;
+    text-align: center;
+    justify-content: center;
+    width: 300px;
+    height: 35px;
+    margin-top: 10px;
+    /* border: solid rgba(32, 0, 84, .85) .2px;
+    border-radius: 6px;
+    background-color: lightgrey; */
 }

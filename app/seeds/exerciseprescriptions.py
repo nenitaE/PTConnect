@@ -36,14 +36,48 @@ def seed_exerciseprescriptions():
         clinicianId = 3,
         patientId = 6
         )
+    rx5 = ExercisePrescription(
+        title='Sciatica',
+        dailyFrequency = 3,
+        weeklyFrequency = 5,
+        status = 'current',
+        clinicianId = 1,
+        patientId = 2
+        )
+    rx6 = ExercisePrescription(
+        title='Quad Tendonitis',
+        dailyFrequency = 2,
+        weeklyFrequency = 4,
+        status = 'current',
+        clinicianId = 1,
+        patientId = 4
+        )
+    rx7 = ExercisePrescription(
+        title='Achilles Tendonitis',
+        dailyFrequency = 2,
+        weeklyFrequency = 5,
+        status = 'current',
+        clinicianId = 1,
+        patientId = 2
+        )
+    rx8 = ExercisePrescription(
+        title='Plantar Fasciitis',
+        dailyFrequency = 1,
+        weeklyFrequency = 4,
+        status = 'current',
+        clinicianId = 1,
+        patientId = 4
+        )
     
 
     db.session.add(rx1)
     db.session.add(rx2)
     db.session.add(rx3)
     db.session.add(rx4)
-    # db.session.add(rx5)
-    # db.session.add(rx6)
+    db.session.add(rx5)
+    db.session.add(rx6)
+    db.session.add(rx7)
+    db.session.add(rx8)
     db.session.commit()
 
 

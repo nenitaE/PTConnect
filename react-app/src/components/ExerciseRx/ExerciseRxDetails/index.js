@@ -21,55 +21,56 @@ const ExercisePrescriptionDetails = () => {
             .then(() => setIsLoaded(true))
     }, [dispatch, exercisePrescriptionId])
 
-    let currentExercisePrescriptions = useSelector(state => state.exercisePrescription.ExercisePrescription);
-    console.log("🚀 ~ file: index.js:26 ~ ExercisePrescription ~ currentExercisePrescriptions:", currentExercisePrescriptions)
+    let exPrescription = useSelector(state => state.exercisePrescription.exercisePrescription);
+    if (!exPrescription) return null;
     
-    if (!currentExercisePrescriptions) return null;
-    
-    const openDeleteExerciseRxModal = (exercisePrescriptionId) => {
-        setModalContent(<DeleteExerciseRxModal exercisePrescriptionId={exercisePrescriptionId}/>)
+    const openDeleteExerciseRxModal = (exPrescriptionId) => {
+        setModalContent(<DeleteExerciseRxModal exercisePrescriptionId={exPrescriptionId}/>)
     }
 
 
     return ( 
-        <div className="exerciseRxContainer">
-            <h2>Current Exercise Prescriptions:</h2>
-                {isLoaded && currentExercisePrescriptions.map(exercisePrescription => (
-                    <div className="individ-exRx-container" key={exercisePrescription.id}>
-                        <h3>{exercisePrescription.title} Protocol</h3> 
-                        <span>Assigned to PatientID: {exercisePrescription.patientId}</span>
-                        <p></p>
-                        <span>Status: {exercisePrescription.status}</span>
-                        <h4>Instructions:</h4>
-                        <div>Perform each exercise in this prescription {exercisePrescription.dailyFrequency} times per day;<span> {exercisePrescription.weeklyFrequency} days per week.</span></div> 
-                        <div className="exercise-list">
-                            <h4>Exercises:</h4>
-                                {exercisePrescription.exercises.map(exercise => (
-                                    <div className="exercise-container" key={exercise.id}>
-                                        <h4>{exercise.name}</h4>
-                                        <p>Exercise Details: {exercise.exerciseData}</p>
-                                        <p>Exercise Images: {exercise.images}</p>
-                                        <p>Perform this exercise for {exercise.sets} set(s).</p>
-                                        <p>Each set should be performed for {exercise.reps} rep(s) with a hold time of {exercise.holdTime} seconds.</p>
-                                        <p>Special Notes from your therapist: {exercise.notes}.</p>
-                                        
+        <div className="exerciseRxRoot">
+            <h2 className="exRxTitle">{exPrescription.title} Prescription for PatientId: {exPrescription.patientId}</h2>
+                {isLoaded && (
+                    <div className="individ-exRx-container" key={exPrescription.id}>
+                        <div className="exRx-inner-container">
+                            <div className="exRx-header">
+                                <h4>Status: {exPrescription.status}</h4>
+                                <h4>Instructions:</h4>
+                                <div>Perform each exercise in this prescription {exPrescription.dailyFrequency} times per day;<span> {exPrescription.weeklyFrequency} days per week.</span></div> 
+                            </div>        
+                                    <div className="exercise-list">
+                                        <h4>Exercises:</h4>
+                                            {exPrescription.exercises.map(exercise => (
+                                                <div className="exercise-container" key={exercise.id}>
+                                                    <h4>{exercise.name}</h4>
+                                                    <p>Exercise Details: {exercise.exerciseData}</p>
+                                                    <p>Exercise Images: {exercise.images}</p>
+                                                    <p>Perform this exercise for {exercise.sets} set(s).</p>
+                                                    <p>Each set should be performed for {exercise.reps} rep(s) with a hold time of {exercise.holdTime} seconds.</p>
+                                                    <p>Special Notes from your therapist: {exercise.notes}.</p>
+                                                    
+                                                </div>
+                                            ))}
                                     </div>
-                                ))}
-                        </div>
-                        
-                        <div>
-                            <span className='deleteExRxBtn'>
-                                <button className="exRx-button" onClick={() => openDeleteExerciseRxModal(exercisePrescription.id)}>Delete Prescription</button>
-                            </span>
-                            <span> </span>
-                            <span  className='editExRxBtn'>
-                                { <a href={`/exercisePrescriptions/${exercisePrescription.id}/edit`}>
-                                <button className="exRx-button">Edit Prescription</button>
-                                </a> }
-                            </span>
+                                    
+                                    <div>
+                                        <span  className='editExRxBtn'>
+                                            { <a href={`/exercisePrescriptions/${exPrescription.id}/edit`}>
+                                            <button className="exRx-button">Edit Prescription</button>
+                                            </a> }
+                                        </span>
+                                        <span> </span>
+                                        <span  className='editExRxBtn'>
+                                            { <a href={`/exercises/${exPrescription.id}/edit`}>
+                                            <button className="exRx-button">Edit Exercises</button>
+                                            </a> }
+                                        </span>
+                                    </div>
                         </div>
                     </div>
-                ))}
+                )}
         </div>
      );
 }

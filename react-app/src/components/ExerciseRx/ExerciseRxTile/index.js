@@ -1,9 +1,15 @@
+import DeleteExerciseRxModal from "../DeleteExerciseRxModal"
+import { useModal } from "../../../context/Modal";
 import './ExerciseRxTile.css'
 
 
 
 const ExercisePrescriptionTile = ({exPrescription}) => {
-    
+
+    const {setModalContent} = useModal();
+    const openDeleteExerciseRxModal = (exPrescriptionId) => {
+        setModalContent(<DeleteExerciseRxModal exercisePrescriptionId={exPrescriptionId}/>)
+    }
     
     return ( 
         <div className="ex-rx-tile-outer-container">
@@ -25,7 +31,19 @@ const ExercisePrescriptionTile = ({exPrescription}) => {
                         <span>{exPrescription.weeklyFrequency} days/week</span>
                     </div>
                     <div className="ex-rx-button-container">
-                        <button className="exRx-button">View Full Ex Rx</button>
+                        {<a href={`/exercisePrescriptions/${exPrescription.id}`}>
+                            <button className="exRx-button">View Full Ex Rx</button>
+                        </a>}
+                        <div>
+                                <div  className='editExRxBtn'>
+                                    { <a href={`/exercisePrescriptions/${exPrescription.id}/edit`}>
+                                    <button className="exRx-button">Edit Prescription</button>
+                                    </a> }
+                                </div>
+                                <div className='deleteExRxBtn'>
+                                    <button className="exRx-button" onClick={() => openDeleteExerciseRxModal(exPrescription.id)}>Delete Prescription</button>
+                                </div>                                
+                            </div>
                         
                     </div>
             </div>  

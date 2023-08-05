@@ -34,14 +34,17 @@ const ExercisePrescription = () => {
 
 
     return ( 
-        <div className="exerciseRxOuterContainer">
+        <div className="exerciseRxRoot">
             <h2 className="exRxTitle">Current Exercise Prescriptions:</h2>
-            <div className="exerciseRxContainer">
-                {isLoaded && currentExercisePrescriptions.map(exercisePrescription => (
-                    <div className="individ-exRx-tile" key={exercisePrescription.id}>
-                        <ExercisePrescriptionTile exPrescription={exercisePrescription}/>
-                    </div>
-                ))}
+            <div className="exerciseRxOuterContainer">
+                
+                <div className="exerciseRxContainer">
+                    {isLoaded && currentExercisePrescriptions.map(exercisePrescription => (
+                        <div className="individ-exRx-tile" key={exercisePrescription.id}>
+                            <ExercisePrescriptionTile exPrescription={exercisePrescription}/>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
      );
