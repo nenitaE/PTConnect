@@ -1,0 +1,30 @@
+.exerciseRxContainer{  
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 5px 5px; 
+    grid-auto-flow: row;
+    /* grid-template-areas:
+      "tile1 tile2 ."
+      "tile3 tile4 ."
+      ". . ."; */
+  }
+  
+  
+  .individ-exRx-tile {
+    position: static;
+    border: solid rgba(32, 0, 84) 3px;
+    background-color: rgba(80,77,111, .75);
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 5px;
+    /* border-width: 8px; */
+  }
+
+  .exRxTitle {
+    display: grid;
+    justify-items: center;
+    color: rgba(32, 0, 84);
+    border-top: solid rgba(80,77,111, .75) .8px;
+    border-bottom: solid rgba(80,77,111, .75) .8px;
+  }
