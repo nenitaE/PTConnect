@@ -85,6 +85,30 @@ def delete_curr_exercise_rx(exercisePrescriptionId):
 
 
 
+@exercise_prescription_routes.route('/patient/<int:patientId>', methods=['GET'])
+@login_required
+def get_patient_exercise_prescriptions(patientId):
+    """
+    Query for all exercise prescriptions of current user's patient by patient ID
+    """
+    current_user_id = int(current_user.get_id())
+    print('******line95********TYPE CURRENT USERID', type(current_user_id))
+    patient = User.query.get(int(patientId))
+    print('**************patientIdTYPE', type(patientId))
+    print('*******LINE98*******patientId', patientId)
+
+    #verify that user is logged in
+    if current_user_id is None:
+        print('**************line101')
+        return {'error': 'User not found'}, 404
+    
+    else:
+        print('**************line105')
+        exercise_prescriptions = ExercisePrescription.query.filter((ExercisePrescription.clinicianId == current_user_id) & (ExercisePrescription.patientId == patient.id)).all()
+        return {'exercisePrescriptions': [exercise_prescription.to_dict_with_exercises() for exercise_prescription in exercise_prescriptions]}
+
+
+
 @exercise_prescription_routes.route('/current', methods=['GET'])
 @login_required
 def get_current_exercise_prescriptions():

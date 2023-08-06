@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {  useHistory } from "react-router-dom/cjs/react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getPatientList, getPatientLists} from "../../store/patientList";
-import { getUsers } from "../../store/user";
+import { getPatientLists} from "../../store/patientList";
 import DeletePatientListModal from "./DeletePatientListModal";
 import { useModal } from "../../context/Modal";
 import './PatientList.css'
+import EditPatientListModal from "./EditPatientListModal";
 
 const PatientList = () => {
     const dispatch = useDispatch();
@@ -36,6 +36,9 @@ const PatientList = () => {
     const openDeletePatientListModal = (patientListId) => {
         setModalContent(<DeletePatientListModal patientListId={patientListId}/>)
     }
+    const openEditPatientListModal = (patientListId) => {
+        setModalContent(<EditPatientListModal patientListId={patientListId}/>)
+    }
 
 
     return (  
@@ -64,9 +67,7 @@ const PatientList = () => {
                                 <h4>Status:</h4> {list.status}
                                 <span>   </span>
                                 <span >
-                                    { <a href={`/patientLists/${list.id}/edit`}>
-                                    <button className='editPLBtn'>Edit</button>
-                                    </a> }
+                                    <button className='editPLBtn' onClick={() => openEditPatientListModal(list.id)}>Edit</button>
                                 </span>
                             </span>
                             <span className='medium-PLBtn'>
@@ -74,7 +75,10 @@ const PatientList = () => {
                             </span>
                                 
                             <span className='medium-PLBtn'>
-                                    {<a href={`/patientLists/${list.id}/edit`}>
+                                    {
+                                        
+                                        
+                                        <a href={`/exercisePrescriptions/patient/${list.patientId}`}>
                                     <button className="patientList-button">View Exercise Rx</button>
                                     </a>}
                             </span>

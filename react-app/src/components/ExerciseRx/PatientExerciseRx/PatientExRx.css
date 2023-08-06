@@ -1,0 +1,39 @@
+.exerciseRxRoot {
+    
+}
+.exerciseRxOuterContainer{
+    /* background-image: url("https://ipfs.io/ipfs/QmdsoNJW16Pn57yi9aeB7R2fC5hUQSFwWVF8oEQqQZT4kc?filename=exRx4.png"); */
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+    padding: 0px 40px;
+}
+
+.exerciseRxContainer{  
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-top: 15px;
+  }
+  
+  
+  .individ-exRx-tile {
+    position: static;
+    border: solid rgba(32, 0, 84) 3px;
+    background-color: rgba(80,77,111, .75);
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 5px;
+    /* border-width: 8px; */
+  }
+
+  .exRxTitle {
+    display: grid;
+    justify-items: center;
+    color: rgba(32, 0, 84);
+    border-top: solid rgba(80,77,111, .75) .8px;
+    border-bottom: solid rgba(80,77,111, .75) .8px;
+    box-shadow: 0 3.5px 7px 0 rgba(80,77,111, .5);
+  }

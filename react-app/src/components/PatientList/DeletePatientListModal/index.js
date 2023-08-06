@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useModal } from '../../../context/Modal'; 
-import { deletePatientList, getPatientLists } from '../../../store/patientList';
+import { deletePatientList, getPatientLists, getPatientList } from '../../../store/patientList';
 
 
 const DeletePatientListModal = ({patientListId}) => {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const history = useHistory();
+
+    useEffect(() => {
+        dispatch(getPatientList(patientListId))
+    }, [dispatch, patientListId])
 
     const handleDelete = async (e) => {
         e.preventDefault();
@@ -27,7 +31,7 @@ const DeletePatientListModal = ({patientListId}) => {
             <button className="modal-button delete-button" onClick={(handleDelete)}>
                 {'Yes (Delete Patient)'}
             </button>
-            <button className="modal-button keep-button" onClick={closeModal}>
+            <button className="keepPLBtn" onClick={closeModal}>
                 {'No (Keep Patient)'}
             </button>
         </div>

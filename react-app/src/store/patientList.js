@@ -88,8 +88,8 @@ export const updatePatientList = (patientListId, patientListData) => async(dispa
 
     if(response.ok){
         const updatedPatientList = await response.json();
+        console.log("🚀 ~ file: patientList.js:91 ~ updatePatientList ~ updatedPatientList:", updatedPatientList)
         dispatch(updatePatientListAction(updatedPatientList));
-
         return updatedPatientList;
     } else if (response.status < 500){
         const data = response.json();
@@ -190,7 +190,7 @@ export default function patientListReducer(state = initialState, action){
             //     patientList: action.payload,
             //     patientLists: state.patientLists?.map(patientList => patientList.id === action.payload.id ? action.payload : patientList)
             // }
-            newState = {...state, [action.payload]: {...state, ...action.patientLists}};
+            newState = {...state, [action.payload]: {...state, ...action.patientList}};
             return newState;
         case DELETE_PATIENTLIST:
             // return {

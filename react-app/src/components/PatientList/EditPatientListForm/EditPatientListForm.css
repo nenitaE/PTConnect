@@ -1,0 +1,23 @@
+.editPl-button-container {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.form-editPL-description {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+
+}
+
+.pL-status-title {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+
+}
+
+.keepPLBtn {
+    background-color: rgba(80,77,111, .5);
+}
