@@ -31,20 +31,16 @@ const ExercisePrescriptionTile = ({exPrescription}) => {
                         <span>{exPrescription.weeklyFrequency} days/week</span>
                     </div>
                     <div className="ex-rx-button-container">
-                        {<a href={`/exercisePrescriptions/${exPrescription.id}`}>
+                        {<div href={`/exercisePrescriptions/${exPrescription.id}`}>
                             <button className="exRx-button">View Full Ex Rx</button>
-                        </a>}
-                        <div>
-                                <div  className='editExRxBtn'>
-                                    { <a href={`/exercisePrescriptions/${exPrescription.id}/edit`}>
-                                    <button className="exRx-button">Edit Prescription</button>
-                                    </a> }
-                                </div>
-                                <div className='deleteExRxBtn'>
-                                    <button className="exRx-button" onClick={() => openDeleteExerciseRxModal(exPrescription.id)}>Delete Prescription</button>
-                                </div>                                
-                            </div>
+                        </div>}
                         
+                        {<div href={`/exercisePrescriptions/${exPrescription.id}/edit`}>
+                            <button className="exRx-button">Edit Prescription</button>
+                        </div> }
+                        <div className='deleteExRxBtn'>
+                            <button className="exRx-button" onClick={() => openDeleteExerciseRxModal(exPrescription.id)}>Delete Prescription</button>
+                        </div>    
                     </div>
             </div>  
         </div>

@@ -7,12 +7,10 @@ import EditPatientListForm from '../EditPatientListForm';
 const UpdatePatientListForm = () => {
     //populate patientList from Redux store
     const { patientListId } = useParams();
-    const dispatch = useDispatch();
-    useEffect(() => {
-        const data = dispatch(getPatientList(patientListId));
-    }, [dispatch, patientListId]);
+    console.log("🚀 ~ file: index.js:10 ~ UpdatePatientListForm ~ patientListId :", patientListId )
 
-    const patientListToEdit = useSelector((state) => state.patientList)
+    const patientListToEdit = useSelector((state) => state.patientLists)
+    // const patientListToEdit = useSelector((state) => state.patientLists[patientListId])
     console.log("🚀 ~ file: index.js:16 ~ UpdatePatientListForm ~ patientListToEdit:", patientListToEdit)
     return (
         <EditPatientListForm patientList={patientListToEdit} formType="Update Patient List" />

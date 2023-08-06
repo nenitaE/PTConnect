@@ -1,0 +1,83 @@
+.pListTitle {
+    display: grid;
+    justify-items: center;
+    color: rgba(32, 0, 84);
+    border-top: solid rgba(80,77,111, .75) .8px;
+    border-bottom: solid rgba(80,77,111, .75) .8px;
+    box-shadow: 0 3.5px 7px 0 rgba(80,77,111, .5);
+  }
+.patientList-container {
+  padding-bottom: 40px;
+}
+
+.indiv-pList-container {
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    justify-items: start;
+    align-items: center;
+    grid-gap: 3px;
+    color: rgba(32, 0, 84);
+    border-top: solid rgba(80,77,111, .75) .4px;
+    padding: 10px;
+}
+
+.pL-inner-container {
+  border-bottom: solid rgba(80,77,111, .75) .8px;
+  box-shadow: 0 3.5px 7px 0 rgba(80,77,111, .5);
+
+}
+
+.create-new-PL-container {
+  display: grid;
+  justify-items: end;
+  align-items: center;
+  padding: 20px 30px;
+  color: rgba(32, 0, 84);
+  border-top: solid rgba(80,77,111, .75) .4px;
+}
+
+.medium-PLBtn{
+  display: grid;
+  align-items: center;
+}
+
+.medium-PLBtn button {
+  padding: 15px;
+  color: lightgrey;
+  font-size: 17px;
+  border: 1.5px #200054;
+  border-radius: 6px;
+  background-color: rgba(32, 0, 84, .7);
+  text-decoration: none;
+  text-align: center;
+  justify-content: center;
+  width: 180px;
+}
+
+.editPLBtn {
+  padding: 5px 12px;
+  color: lightgrey;
+  border: 1.5px #200054;
+  border-radius: 3px;
+  background-color: rgba(32, 0, 84, .7);
+  text-decoration: none;
+  text-align: center;
+  justify-content: center;  
+}
+.create-new-PListBttn {
+  color: lightgrey;
+  background-color: #200054;
+  font-size: 17px;
+  border: 1.5px #200054;
+  border-radius: 6px;
+  text-decoration: none;
+  text-align: center;
+  justify-content: center;
+  padding: 15px;
+}
+
+.create-new-PListBttn:active {
+  background-color: lightgrey;
+  border: 1.5px solid #200054;
+  color: #200054;
+}

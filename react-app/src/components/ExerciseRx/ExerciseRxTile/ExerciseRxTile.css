@@ -12,6 +12,12 @@
     font-weight: bold;
 }
 
+.ex-rx-button-container {
+    display: grid;
+    justify-items: center;
+
+}
+
 .exRx-button {
     color: lightgrey;
     font-size: 17px;

@@ -1,6 +1,7 @@
 // ACTION TYPES
 const GET_PATIENTLIST = "patientLists/getPatientList";
 const GET_PATIENTLISTS = "patientLists/getPatientLists";
+const GET_ALL_PATIENTLISTS = "patientLists/getAllPatientLists";
 const DELETE_PATIENTLIST = "patientLists/deletePatientList";
 const UPDATE_PATIENTLIST = "patientLists/updatePatientList";
 const CREATE_PATIENTLIST = "patientLists/createPatientList";
@@ -17,6 +18,12 @@ const getPatientListAction = (patientListId) => {
 const getPatientListsAction = (patientLists) => {
     return {
         type: GET_PATIENTLISTS,
+        payload: patientLists
+    }
+};
+const getAllPatientListsAction = (patientLists) => {
+    return {
+        type: GET_ALL_PATIENTLISTS,
         payload: patientLists
     }
 };
@@ -44,10 +51,19 @@ const createPatientListAction = (newPatientList) => {
 
 //THUNK ACTIONS
 export const getPatientLists = () => async(dispatch) => {
+    console.log("**************INTHUNK getpatientLists of current")
     const response = await fetch('/api/patientLists/current');
     if(response.ok){
         const data = await response.json();
-        dispatch(getPatientListsAction(data.PatientLists))
+        dispatch(getPatientListsAction(data.patientLists))
+        return data;
+    }
+}
+export const getAllPatientLists = () => async(dispatch) => {
+    const response = await fetch('/api/patientLists/');
+    if(response.ok){
+        const data = await response.json();
+        dispatch(getAllPatientListsAction(data.patientLists))
         return data;
     }
 }
@@ -134,14 +150,24 @@ export const createPatientList = (patientListData) => async(dispatch) =>{
 
 //PATIENTLIST REDUCER
 
-const initialState = {
-    patientLists: null,
-    patientList: [null]
-};
+// const initialState = {
+//     patientLists: null,
+//     patientList: [null]
+// };
+const initialState = {};
 
 export default function patientListReducer(state = initialState, action){
     let newState = {};
     switch(action.type){
+        case GET_ALL_PATIENTLISTS:
+            // return{
+            //     ...state,
+            //     PatientLists: action.payload
+            // }
+            action.payload.forEach(patientList => {
+                newState[patientList.id] = patientList;
+            })
+            return newState;
         case GET_PATIENTLISTS:
             return{
                 ...state,

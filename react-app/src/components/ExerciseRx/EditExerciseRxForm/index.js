@@ -80,7 +80,7 @@ function EditExercisePrescriptionForm() {
         const editedExercisePrescription = await dispatch(updateExercisePrescription(exercisePrescriptionId, finalData))
         if (editedExercisePrescription) {
             history.push('/exercisePrescriptions/current');
-            // dispatch(getExercisePrescriptions)
+            dispatch(getExercisePrescriptions)
         }
     }
 

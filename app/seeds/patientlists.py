@@ -28,14 +28,40 @@ def seed_patientlists():
         clinicianId = 3,
         patientId = 6
         )
+    list5 = PatientList(
+        email = 'edward@aa.io',
+        status = 'active',
+        clinicianId = 1,
+        patientId = 12
+        )
+    list6 = PatientList(
+        email = 'ellie@aa.io',
+        status = 'active',
+        clinicianId = 1,
+        patientId = 9
+        )
+    list7 = PatientList(
+        email = 'craig@aa.io',
+        status = 'active',
+        clinicianId = 1,
+        patientId = 10
+        )
+    list8 = PatientList(
+        email = 'jacob@aa.io',
+        status = 'discharged',
+        clinicianId = 1,
+        patientId = 11
+        )
     
 
     db.session.add(list1)
     db.session.add(list2)
     db.session.add(list3)
     db.session.add(list4)
-    # db.session.add(rx5)
-    # db.session.add(rx6)
+    db.session.add(list5)
+    db.session.add(list6)
+    db.session.add(list7)
+    db.session.add(list8)
     db.session.commit()
 
 

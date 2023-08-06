@@ -62,5 +62,15 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'isClinician': self.isClinician,
             'profileImage': self.profileImage,
-            'exercisePrescriptions': [exercisePrescription.to_dict() for exercisePrescription in self.exercisePrescriptions]
+            'exercisePrescriptions': [prescribed_exerciseprescription.to_dict() for prescribed_exerciseprescription in self.prescribed_exerciseprescriptions]
+        }
+    def to_dict_with_patientLists(self):
+        return {
+            'id': self.id,
+            'firstName': self.firstName,
+            'username': self.username,
+            'email': self.email,
+            'isClinician': self.isClinician,
+            'profileImage': self.profileImage,
+            'patientLists': [created_patientlist.to_dict() for created_patientlist in self.created_patientlists]
         }

@@ -4,66 +4,66 @@ import { getPatientList, getPatientLists, updatePatientList } from "../../../sto
 import { useHistory, useParams } from "react-router-dom";
 import './EditPatientListForm.css';
 
-function EditPatientListForm() {
+function EditPatientListForm({patientList, formType}) {
     const { patientListId } = useParams();
-    // console.log("🚀 ~ file: index.js:9 ~ EditPatientListForm ~ patientListId:", patientListId)
+    console.log("🚀 ~ file: index.js:9 ~ EditPatientListForm ~ patientListId:", patientListId)
     
     //Get Patient List by Id
     const dispatch = useDispatch();
     let hasErrors = false;
-    useEffect(() => {
-        dispatch(getPatientList(patientListId))
-    }, [dispatch, patientListId]);
+    // useEffect(() => {
+    //     dispatch(getPatientList(patientListId))
+    // }, [dispatch, patientListId]);
 
-    const patientList = useSelector((state) => state.patientList.patientList);
-    console.log("🚀 ~ file: index.js:19 ~ EditPatientListForm ~ patientList:", patientList)
+    // const patientList = useSelector((state) => state.patientList.patientList);
+    // console.log("🚀 ~ file: index.js:19 ~ EditPatientListForm ~ patientList:", patientList)
     
-    const patientId = patientList.patientId
-    console.log("🚀 ~ file: index.js:22 ~ EditPatientListForm ~ patientId:", patientId)
-    const clinicianId = useSelector((state) => state.session.user?.id);
-    console.log("🚀 ~ file: index.js:24 ~ EditPatientListForm ~ clinicianId:", clinicianId)
-    console.log(typeof clinicianId)
-    const patientEmail = patientList.email
+    // const patientId = patientList.patientId
+    // console.log("🚀 ~ file: index.js:22 ~ EditPatientListForm ~ patientId:", patientId)
+    // const clinicianId = useSelector((state) => state.session.user?.id);
+    // console.log("🚀 ~ file: index.js:24 ~ EditPatientListForm ~ clinicianId:", clinicianId)
+    // console.log(typeof clinicianId)
+    // const patientEmail = patientList.email
     
-    const history = useHistory();
-    const [email, setEmail] = useState('');
-    const [status, setStatus] = useState('active');
-    const [errors, setErrors] = useState([]);
-    const [hasSubmitted, setHasSubmitted] = useState(false);
+    // const history = useHistory();
+    // const [email, setEmail] = useState('');
+    // const [status, setStatus] = useState('active');
+    // const [errors, setErrors] = useState([]);
+    // const [hasSubmitted, setHasSubmitted] = useState(false);
     
-    const updateEmail = (e) => setEmail(e.target.value);
-    const updateStatus = (e) => setStatus(e.target.value);
+    // const updateEmail = (e) => setEmail(e.target.value);
+    // const updateStatus = (e) => setStatus(e.target.value);
 
     
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setHasSubmitted(true);
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     setHasSubmitted(true);
 
-        const currentData = {
-            "clinicianId": clinicianId,
-            "patientId": patientId
-        }
-        const patientListData = {
-            "email": email,
-            "status": status
-        }
-        const finalData = {
-            ...currentData,
-            ...patientListData
-        }
+    //     const currentData = {
+    //         "clinicianId": clinicianId,
+    //         "patientId": patientId
+    //     }
+    //     const patientListData = {
+    //         "email": email,
+    //         "status": status
+    //     }
+    //     const finalData = {
+    //         ...currentData,
+    //         ...patientListData
+    //     }
 
-        //dispatch the edited form data
-        const editedPatientList = await dispatch(updatePatientList(patientListId, finalData))
-        if (editedPatientList) {
-            history.push('/patientLists/current');
-            dispatch(getPatientLists)
-        }
-    }
+    //     //dispatch the edited form data
+    //     const editedPatientList = await dispatch(updatePatientList(patientListId, finalData))
+    //     if (editedPatientList) {
+    //         history.push('/patientLists/current');
+    //         dispatch(getPatientLists)
+    //     }
+    // }
 
 
     return (
-        <div className='update-PL-container'>
-       
+        <div className='update-PL-container'>edit patient list
+{/*        
           <form className ='PL-form' onSubmit={handleSubmit} >      
                       <h3 className="form-editPL-description">Use This Form To Edit Your Patient List</h3>  
                         <div className='input-container'>
@@ -93,7 +93,7 @@ function EditPatientListForm() {
                                 </select>
                         </div>
                               <input className="updatePLBtn" type="submit" />
-          </form>
+          </form> */}
       </div>
 
     )

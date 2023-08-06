@@ -91,31 +91,53 @@ def get_current_patientLists():
     """
     Query for all patientLists of current user-clinician and returns them in a list of patientList dictionaries
     """
-    current_user_id = current_user.get_id()
-    print('CURRENT USERID', current_user_id)
-    user = User.query.get(current_user_id)
+    # current_user_id = current_user.get_id()
+    # print('CURRENT USERID', current_user_id)
+    # user = User.query.get(current_user_id)
 
-    #verify that user is logged in
+    # #verify that user is logged in
+    # if user is None:
+    #     return jsonify({'error': 'User not found'}), 404
+
+    # #check if current_user is a clinician
+    # curr_user_is_clinician = User.query.filter(
+    #     and_(
+    #         User.id == current_user_id
+    #     )
+    # ).filter(User.isClinician.is_(True)).first()
+
+    # print(curr_user_is_clinician, "********CURRUSERISCLINICIAN**********")
+
+    # #if current_user is not a clinician, return error msg
+    # if curr_user_is_clinician is None:
+    #     return {'message': 'Must be a registered clinician.'}, 404
+
+    # else:
+    #     clinicianPatientLists = PatientList.query.filter(PatientList.clinicianId == current_user_id).all()
+    #     return {'PatientLists': [clinicianPatientList.to_dict() for clinicianPatientList in clinicianPatientLists]}
+    current_user_id = current_user.get_id()
+    # print('CURRENT USERID', current_user_id)
+    user = User.query.get(current_user_id)
     if user is None:
         return jsonify({'error': 'User not found'}), 404
-
-    #check if current_user is a clinician
-    curr_user_is_clinician = User.query.filter(
-        and_(
-            User.id == current_user_id
-        )
-    ).filter(User.isClinician.is_(True)).first()
-
-    print(curr_user_is_clinician, "********CURRUSERISCLINICIAN**********")
-
-    #if current_user is not a clinician, return error msg
-    if curr_user_is_clinician is None:
-        return {'message': 'Must be a registered clinician.'}, 404
-
     else:
-        clinicianPatientLists = PatientList.query.filter(PatientList.clinicianId == current_user_id).all()
-        return {'PatientLists': [clinicianPatientList.to_dict() for clinicianPatientList in clinicianPatientLists]}
+        return jsonify(user.to_dict_with_patientLists())
+    
 
+
+@patient_list_routes.route('/', methods=['GET'])
+@login_required
+def get_all_patientLists():
+    '''
+    Query for all Patient Lists
+    '''
+
+    patientLists = PatientList.query.all()
+    if patientLists:
+        return {'patientLists': [patientList.to_dict() for patientList in patientLists]}
+    else:
+        return {'error': 'PatientLists not found'}, 404
+        
 @patient_list_routes.route('/<int:patientListId>', methods=['GET'])
 @login_required
 def get_patientList(patientListId):

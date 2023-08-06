@@ -18,6 +18,8 @@ import Exercise from "./components/Exercise"
 import EditExercisePrescriptionForm from "./components/ExerciseRx/EditExerciseRxForm";
 import ExercisePrescriptionForm from "./components/ExerciseRx/ExerciseRxForm";
 import ExercisePrescriptionDetails from "./components/ExerciseRx/ExerciseRxDetails";
+import UpdatePatientListForm from "./components/PatientList/UpdatePatientListForm";
+import AllPatientLists from "./components/PatientList/AllPatientList";
 
 function App() {
   const dispatch = useDispatch();
@@ -68,10 +70,13 @@ function App() {
             <CreateMessageForm/>
           </Route>
           <Route exact path="/patientLists/:patientListId/edit">
-            <EditPatientListForm/>
+            <UpdatePatientListForm/>
           </Route>
           <Route exact path="/patientLists/current">
             <PatientList/>
+          </Route>
+          <Route exact path="/patientLists/">
+            <AllPatientLists/>
           </Route>
           <Route exact path="/patientLists/new">
             <CreatePatientListForm />
