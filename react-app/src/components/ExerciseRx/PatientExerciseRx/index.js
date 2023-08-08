@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {  useParams } from "react-router-dom/cjs/react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getPatientExercisePrescriptions} from "../../../store/exerciseRx";
-import ExercisePrescriptionTile from "../ExerciseRxTile";
+import { getExercisePrescriptions} from "../../../store/exerciseRx";
+// import ExercisePrescriptionTile from "../ExerciseRxTile";
 import './PatientExRx.css'
 
-const PatientExercisePrescription = ({patientId}) => {
-console.log("🚀 ~ file: index.js:9 ~ PatientExercisePrescription ~ patientId:", patientId)
-    patientId = useParams()
+const PatientExercisePrescription = () => {
     const[isLoaded, setIsLoaded] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
     console.log("🚀 ~ file: index.js:14 ~ ExercisePrescription ~ sessionUser:", sessionUser)
@@ -15,27 +12,30 @@ console.log("🚀 ~ file: index.js:9 ~ PatientExercisePrescription ~ patientId:"
     
 
     useEffect(() => {
-        dispatch(getPatientExercisePrescriptions(patientId))
+        dispatch(getExercisePrescriptions())
             .then(() => setIsLoaded(true))
-    }, [dispatch, patientId])
+    }, [dispatch])
 
-    let patientExercisePrescriptions = useSelector(state => state.exercisePrescription.exercisePrescriptions);
-    console.log("🚀 ~ file: index.js:22 ~ ExercisePrescription ~ patientExercisePrescriptions:", patientExercisePrescriptions)
+    let exercisePrescriptions = useSelector(state => state.exercisePrescription.exercisePrescriptions);
+    console.log("🚀 ~ file: index.js:21 ~ PatientExercisePrescription ~ exercisePrescriptions:", exercisePrescriptions)
+    console.log("🚀 ~ file: index.js:21 ~ PatientExercisePrescription ~ TYPEOFexercisePrescriptions:", typeof(exercisePrescriptions))
     
-    if (!patientExercisePrescriptions) return null;
-
+    if (!exercisePrescriptions) return null;
+    // } else {
+    //     patientExercisePrescriptions.find(patientExRxs)
+    // }
     return ( 
         <div className="exerciseRxRoot">
-            <h2 className="exRxTitle">Exercise Prescriptions For PatientID {patientId}:</h2>
+            <h2 className="exRxTitle">Exercise Prescriptions For PatientID :</h2>
             <div className="exerciseRxOuterContainer">
                 
-                <div className="exerciseRxContainer">
+                {/* <div className="exerciseRxContainer">
                     {isLoaded && patientExercisePrescriptions.map(exercisePrescription => (
                         <div className="individ-exRx-tile" key={exercisePrescription.id}>
                             <ExercisePrescriptionTile exPrescription={exercisePrescription}/>
                         </div>
                     ))}
-                </div>
+                </div> */}
             </div>
         </div>
      );

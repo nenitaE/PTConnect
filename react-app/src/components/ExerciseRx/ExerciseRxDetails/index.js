@@ -53,7 +53,7 @@ const ExercisePrescriptionDetails = () => {
                                             <h4>Exercises:</h4>
                                         </div>
                                                 <div className="exercises-container">
-                                                    {exPrescription.exercises.map(exercise => (
+                                                    {exPrescription.exercises && exPrescription.exercises.map(exercise => (
                                                         <div className="indiv-exercise-container" key={exercise.id}>
                                                             <h4>{exercise.name}</h4>
                                                             <p>Exercise Details: {exercise.exerciseData}</p>

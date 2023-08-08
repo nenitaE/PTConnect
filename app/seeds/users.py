@@ -125,6 +125,56 @@ def seed_users():
         profileImage = '',
         isClinician = False, 
         password='password')
+    Abraham = User(
+        username='abe', 
+        email='abraham@aa.io',
+        firstName = 'Abraham',
+        lastName = 'Genesis', 
+        city = 'San Francisco',
+        state = 'California',
+        profileImage = 'https://tinyurl.com/2s4ezj9u',
+        isClinician = False, 
+        password='password')
+    Isaac = User(
+        username='isaac', 
+        email='isaac@aa.io',
+        firstName = 'Ellie',
+        lastName = 'Exodus', 
+        city = 'San Diego',
+        state = 'California',
+        profileImage = '',
+        isClinician = False, 
+        password='password')
+    Jake = User(
+        username='jake', 
+        email='jake@aa.io',
+        firstName = 'Jake',
+        lastName = 'Lopez', 
+        city = 'San Diego',
+        state = 'California',
+        profileImage = '',
+        isClinician = False, 
+        password='password')
+    Sarah = User(
+        username='sarahL', 
+        email='sarahL@aa.io',
+        firstName = 'Sarah',
+        lastName = 'Leslie', 
+        city = 'San Diego',
+        state = 'California',
+        profileImage = '',
+        isClinician = False, 
+        password='password')
+    John = User(
+        username='JohnB', 
+        email='johnB@aa.io',
+        firstName = 'John',
+        lastName = 'Bradshaw', 
+        city = 'San Diego',
+        state = 'California',
+        profileImage = '',
+        isClinician = False, 
+        password='password')
 
     db.session.add(demo)
     db.session.add(marnie)
@@ -138,6 +188,11 @@ def seed_users():
     db.session.add(Craig)
     db.session.add(Jacob)
     db.session.add(Edward)
+    db.session.add(Abraham)
+    db.session.add(Isaac)
+    db.session.add(Jake)
+    db.session.add(Sarah)
+    db.session.add(John)
     db.session.commit()
 
 

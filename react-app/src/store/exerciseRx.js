@@ -1,7 +1,7 @@
 // ACTION TYPES
 const GET_EXERCISEPRESCRIPTION = "exercisePrescriptions/getExercisePrescription";
 const GET_EXERCISEPRESCRIPTIONS = "exercisePrescriptions/getExercisePrescriptions";
-const GET_PATIENT_EXERCISEPRESCRIPTIONS = "exercisePrescriptions/getPatientExercisePrescriptions";
+// const GET_PATIENT_EXERCISEPRESCRIPTIONS = "exercisePrescriptions/getPatientExercisePrescriptions";
 const DELETE_EXERCISEPRESCRIPTION = "exercisePrescriptions/deleteExercisePrescription";
 const UPDATE_EXERCISEPRESCRIPTION = "exercisePrescriptions/updateExercisePrescription";
 const CREATE_EXERCISEPRESCRIPTION = "exercisePrescriptions/createExercisePrescription";
@@ -20,12 +20,12 @@ const getExercisePrescriptionsAction = (exercisePrescriptions) => {
 	    payload: exercisePrescriptions
     }
 };
-const getPatientExercisePrescriptionsAction = (patientId) => {
-	return {
-        type: GET_PATIENT_EXERCISEPRESCRIPTIONS,
-	    payload: patientId
-    }
-};
+// const getPatientExercisePrescriptionsAction = (patientId) => {
+// 	return {
+//         type: GET_PATIENT_EXERCISEPRESCRIPTIONS,
+// 	    payload: patientId
+//     }
+// };
 
 const deleteExercisePrescriptionAction = (exercisePrescriptionId) => {
 	return {
@@ -65,19 +65,19 @@ export const getExercisePrescriptions = () => async(dispatch) => {
     }
 }
 
-export const getPatientExercisePrescriptions = (patientId) => async(dispatch) => {
-    console.log("******INSIDE GET PATIENT EXRX THUNK****************")
-    const response = await fetch(`/api/exercisePrescriptions/patient/${patientId}`);
-    if(response.ok){
-        console.log("🚀 ~ file: exerciseRx.js:72 ~ getPatientExercisePrescriptions ~ response:", response)
-        const exercisePrescriptions = await response.json();
-        console.log("🚀 ~ file: exerciseRx.js:57 ~ getExercisePrescriptions ~ exercisePrescriptions:", exercisePrescriptions)
+// export const getPatientExercisePrescriptions = (patientId) => async(dispatch) => {
+//     console.log("******INSIDE GET PATIENT EXRX THUNK****************")
+//     const response = await fetch(`/api/exercisePrescriptions/patient/${patientId}`);
+//     if(response.ok){
+//         console.log("🚀 ~ file: exerciseRx.js:72 ~ getPatientExercisePrescriptions ~ response:", response)
+//         const data = await response.json();
+//         console.log("🚀 ~ file: exerciseRx.js:57 ~ getExercisePrescriptions ~ exercisePrescriptions:", data.exercisePrescriptions)
         
-        dispatch(getPatientExercisePrescriptionsAction(exercisePrescriptions))
-        console.log("******AFTER DISPATCH-INSIDE GET PATIENT EXRX THUNK****************")
-        return exercisePrescriptions;
-    }
-}
+//         dispatch(getPatientExercisePrescriptionsAction(data.exercisePrescriptions))
+//         console.log("******AFTER DISPATCH-INSIDE GET PATIENT EXRX THUNK****************")
+//         return data;
+//     }
+// }
 
 export const getExercisePrescription = (exercisePrescriptionId) => async(dispatch) => {
     const response = await fetch(`/api/exercisePrescriptions/${exercisePrescriptionId}`);
@@ -175,13 +175,13 @@ const initialState = {
 export default function exercisePrescriptionReducer(state = initialState, action){
     let newState = {};
     switch(action.type){
-        case GET_PATIENT_EXERCISEPRESCRIPTIONS:
+        // case GET_PATIENT_EXERCISEPRESCRIPTIONS:
 
-        console.log("******REDUCER before return-- GET PATIENT EXRX****************")
-            return{
-                ...state,
-                exercisePrescriptions: action.payload
-            }
+        // console.log("******REDUCER before return-- GET PATIENT EXRX****************")
+        //     return{
+        //         ...state,
+        //         exercisePrescriptions: action.payload
+        //     }
         case GET_EXERCISEPRESCRIPTIONS:
             return{
                 ...state,

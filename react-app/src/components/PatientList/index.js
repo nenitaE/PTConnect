@@ -61,6 +61,9 @@ const PatientList = () => {
                     (patientLists.map(list => (
                         <div className="indiv-pList-container" key={list.id}>
                             <span className="pList-data">
+                                <h4>Patient ID:</h4> {list.patientId} 
+                            </span>
+                            <span className="pList-data">
                                 <h4>Patient:</h4> {list.email} 
                             </span>
                             <span className="pList-data">
@@ -74,14 +77,14 @@ const PatientList = () => {
                                     <button className="patientList-button" onClick={() => openDeletePatientListModal(list.id)}>Delete Patient</button>
                             </span>
                                 
-                            <span className='medium-PLBtn'>
+                            {/* <span className='medium-PLBtn'>
                                     {
                                         
                                         
                                         <a href={`/exercisePrescriptions/patient/${list.patientId}`}>
                                     <button className="patientList-button">View Exercise Rx</button>
                                     </a>}
-                            </span>
+                            </span> */}
                                 
                                 
                         </div>

@@ -19,7 +19,7 @@ import EditExercisePrescriptionForm from "./components/ExerciseRx/EditExerciseRx
 import ExercisePrescriptionForm from "./components/ExerciseRx/ExerciseRxForm";
 import ExercisePrescriptionDetails from "./components/ExerciseRx/ExerciseRxDetails";
 import AllPatientLists from "./components/PatientList/AllPatientList";
-import PatientExercisePrescription from "./components/ExerciseRx/PatientExerciseRx";
+// import PatientExercisePrescription from "./components/ExerciseRx/PatientExerciseRx";
 
 function App() {
   const dispatch = useDispatch();
@@ -57,9 +57,9 @@ function App() {
           <Route exact path="/exercisePrescriptions/:exercisePrescriptionId">
             <ExercisePrescriptionDetails/>
           </Route>
-          <Route exact path="/exercisePrescriptions/patient/:patientId">
+          {/* <Route exact path="/exercisePrescriptions/patient">
             <PatientExercisePrescription/>
-          </Route>
+          </Route> */}
           <Route exact path="/exercises/current">
             <Exercise/>
           </Route>

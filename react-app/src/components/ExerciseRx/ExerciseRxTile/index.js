@@ -1,5 +1,6 @@
 import DeleteExerciseRxModal from "../DeleteExerciseRxModal"
 import { useModal } from "../../../context/Modal";
+import { NavLink } from "react-router-dom";
 import './ExerciseRxTile.css'
 
 
@@ -31,14 +32,13 @@ const ExercisePrescriptionTile = ({exPrescription}) => {
                         <span>{exPrescription.weeklyFrequency} days/week</span>
                     </div>
                     <div className="ex-rx-button-container">
-                        {<div href={`/exercisePrescriptions/${exPrescription.id}`}>
-                            <button className="exRx-button">View Full Ex Rx</button>
-                        </div>}
-                        
-                        {<div href={`/exercisePrescriptions/${exPrescription.id}/edit`}>
-                            <button className="exRx-button">Edit Prescription</button>
-                        </div> }
-                        <div className='deleteExRxBtn'>
+                        <div>
+                            <button className="exRx-button"><NavLink className="exRx-nav" to={`/exercisePrescriptions/${exPrescription.id}`} >View Full Ex Rx</NavLink></button>
+                        </div>
+                        <div >
+                             <button className="exRx-button"> <NavLink className="exRx-nav" to={`/exercisePrescriptions/${exPrescription.id}/edit`}>Edit Prescription</NavLink></button>
+                        </div>
+                        <div >
                             <button className="exRx-button" onClick={() => openDeleteExerciseRxModal(exPrescription.id)}>Delete Prescription</button>
                         </div>    
                     </div>

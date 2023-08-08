@@ -12,6 +12,7 @@ const DeletePatientListModal = ({patientListId}) => {
 
     useEffect(() => {
         dispatch(getPatientList(patientListId))
+        dispatch(getPatientLists())
     }, [dispatch, patientListId])
 
     const handleDelete = async (e) => {

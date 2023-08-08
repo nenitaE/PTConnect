@@ -106,7 +106,7 @@ def get_patient_exercise_prescriptions(patientId):
         print('**************line105')
         exercise_prescriptions = ExercisePrescription.query.filter((ExercisePrescription.clinicianId == current_user_id) & (ExercisePrescription.patientId == patient.id)).all()
         return {'exercisePrescriptions': [exercise_prescription.to_dict_with_exercises() for exercise_prescription in exercise_prescriptions]}
-
+        
 
 
 @exercise_prescription_routes.route('/current', methods=['GET'])
