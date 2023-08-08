@@ -23,7 +23,7 @@ const ExercisePrescription = () => {
             .then(() => setIsLoaded(true))
     }, [dispatch])
 
-    let currentExercisePrescriptions = useSelector(state => state.exercisePrescription.ExercisePrescriptions);
+    let currentExercisePrescriptions = useSelector(state => state.exercisePrescription.exercisePrescriptions);
     console.log("🚀 ~ file: index.js:26 ~ ExercisePrescription ~ currentExercisePrescriptions:", currentExercisePrescriptions)
     
     if (!currentExercisePrescriptions) return null;

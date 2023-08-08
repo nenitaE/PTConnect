@@ -9,17 +9,14 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import PatientList from "./components/PatientList";
 import CreatePatientListForm from "./components/PatientList/CreatePatientListForm";
-import EditPatientListForm from "./components/PatientList/EditPatientListForm";
 import Message from "./components/Message";
 import SentMessage from "./components/Message/SentMessage";
 import CreateMessageForm from "./components/Message/CreateMessage";
 import ExercisePrescription from "./components/ExerciseRx";
 import Exercise from "./components/Exercise"
-import EditExercisePrescriptionForm from "./components/ExerciseRx/EditExerciseRxForm";
 import ExercisePrescriptionForm from "./components/ExerciseRx/ExerciseRxForm";
 import ExercisePrescriptionDetails from "./components/ExerciseRx/ExerciseRxDetails";
 import AllPatientLists from "./components/PatientList/AllPatientList";
-// import PatientExercisePrescription from "./components/ExerciseRx/PatientExerciseRx";
 
 function App() {
   const dispatch = useDispatch();
@@ -51,15 +48,9 @@ function App() {
           <Route exact path="/exercisePrescriptions/new">
             <ExercisePrescriptionForm/>
           </Route>
-          <Route exact path="/exercisePrescriptions/:exercisePrescriptionId/edit">
-            <EditExercisePrescriptionForm/>
-          </Route>
           <Route exact path="/exercisePrescriptions/:exercisePrescriptionId">
             <ExercisePrescriptionDetails/>
           </Route>
-          {/* <Route exact path="/exercisePrescriptions/patient">
-            <PatientExercisePrescription/>
-          </Route> */}
           <Route exact path="/exercises/current">
             <Exercise/>
           </Route>

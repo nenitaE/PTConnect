@@ -20,7 +20,7 @@ const PatientList = () => {
             .then(() => setIsLoaded(true))
     }, [dispatch])
 
-    let patientLists = useSelector(state => state.patientList.PatientLists);
+    let patientLists = useSelector(state => state.patientList.patientLists);
     console.log("🚀 ~ file: index.js:24 ~ PatientList ~ patientLists :", patientLists )
     // patientLists = Object.values(patientLists)
 
@@ -29,8 +29,8 @@ const PatientList = () => {
      
     
 
-    // let currentPatientLists = useSelector(state => state.patientList.PatientLists);
-    // console.log("🚀 ~ file: index.js:23 ~ PatientList ~ currentPatientLists:", currentPatientLists)
+    // let currentPatientLists = useSelector(state => state.patientList.patientLists);
+    // console.log("🚀 ~ file: index.js:23 ~ PatientList ~ currentPatientLists:", currentpatientLists)
     if (!patientLists) return null;
     
     const openDeletePatientListModal = (patientListId) => {
@@ -57,7 +57,7 @@ const PatientList = () => {
                 </div>
 
                 <div className="pL-inner-container">
-                    {!userIsClinician && <p>You have no current patients</p> || 
+                    {!userIsClinician ? <p>You have no current patients</p> : 
                     (patientLists.map(list => (
                         <div className="indiv-pList-container" key={list.id}>
                             <span className="pList-data">

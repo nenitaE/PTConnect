@@ -58,7 +58,7 @@ def edit_curr_patient_list(patientListId):
         print("********************line 58")
         return patientList.to_dict()
     print("********************line 27")
-    return {'DEBUGGING': validation_errors_to_error_messages(form.errors)}, 401
+    return {'Error': validation_errors_to_error_messages(form.errors)}, 401
 
 
 @patient_list_routes.route('/<int:patientListId>', methods=['DELETE'])
@@ -83,7 +83,7 @@ def delete_curr_patientList(patientListId):
 
     patientLists = PatientList.query.filter(PatientList.clinicianId == userId).all()
     # print('_____________',userId,'----', patientLists, '________________')
-    return {'PatientList': [patientList.to_dict() for patientList in patientLists]}
+    return {'patientList': [patientList.to_dict() for patientList in patientLists]}
 
 
 @patient_list_routes.route('/current', methods=['GET'])

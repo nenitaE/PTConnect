@@ -160,10 +160,6 @@ export default function patientListReducer(state = initialState, action){
     let newState = {};
     switch(action.type){
         case GET_ALL_PATIENTLISTS:
-            // return{
-            //     ...state,
-            //     PatientLists: action.payload
-            // }
             action.payload.forEach(patientList => {
                 newState[patientList.id] = patientList;
             })
@@ -171,7 +167,7 @@ export default function patientListReducer(state = initialState, action){
         case GET_PATIENTLISTS:
             return{
                 ...state,
-                PatientLists: action.payload
+                patientLists: action.payload
             }
         case GET_PATIENTLIST:
             return{
@@ -179,24 +175,12 @@ export default function patientListReducer(state = initialState, action){
                 patientList: action.payload
             }
         case CREATE_PATIENTLIST:
-            // newState = {...state,
-            //     patientLists: [...state.patientLists, action.payload]
-            //     };
             newState = {...state, [action.payload]:{...state, ...action.patientLists}};
             return newState
         case UPDATE_PATIENTLIST:
-            // return {
-            //     ...state,
-            //     patientList: action.payload,
-            //     patientLists: state.patientLists?.map(patientList => patientList.id === action.payload.id ? action.payload : patientList)
-            // }
             newState = {...state, [action.payload]: {...state, ...action.patientList}};
             return newState;
         case DELETE_PATIENTLIST:
-            // return {
-            //     ...state,
-            //     patientLists: state.patientLists.filter(patientList => patientList.id != action.payload)
-            // }
             newState = {...state};
             delete newState[action.payload]
             return newState;

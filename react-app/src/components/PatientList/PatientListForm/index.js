@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPatientLists, createPatientList} from "../../../store/patientList"
+import { getPatientLists, getPatientList, createPatientList} from "../../../store/patientList"
 import './PatientListForm.css'
 
 const PatientListForm = ({ patientList, formType}) => {
+    console.log("🚀 ~ file: index.js:8 ~ PatientListForm ~ patientList:", patientList)
     const clinicianId = useSelector((state) => state.session.user?.id);
     const history = useHistory();
 
@@ -41,7 +42,7 @@ const PatientListForm = ({ patientList, formType}) => {
         if (newData.id) {
             setErrors(newData.errors);
             let patientListId = newData.id;
-            dispatch(getPatientLists(patientListId))
+            dispatch(getPatientList(patientListId))
             history.push('/patientLists/current')
         } else {
             alert('Patient is already on your list.')

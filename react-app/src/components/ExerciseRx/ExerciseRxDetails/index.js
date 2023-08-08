@@ -3,6 +3,7 @@ import {  useHistory, useParams } from "react-router-dom/cjs/react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getExercisePrescription, getExercisePrescriptions} from "../../../store/exerciseRx";
 import DeleteExerciseRxModal from "../DeleteExerciseRxModal"
+import EditExerciseRxModal from "../EditExerciseRxModal"
 import { useModal } from "../../../context/Modal";
 import './ExerciseRxDetails.css'
 
@@ -27,6 +28,9 @@ const ExercisePrescriptionDetails = () => {
     const openDeleteExerciseRxModal = (exPrescriptionId) => {
         setModalContent(<DeleteExerciseRxModal exercisePrescriptionId={exPrescriptionId}/>)
     }
+    const openEditExerciseRxModal = (exPrescriptionId) => {
+        setModalContent(<EditExerciseRxModal exercisePrescriptionId={exPrescriptionId}/>)
+    }
 
 
     return ( 
@@ -42,9 +46,9 @@ const ExercisePrescriptionDetails = () => {
                                     <div>Perform each exercise in this prescription {exPrescription.dailyFrequency} time(s) per day;<span> {exPrescription.weeklyFrequency} days per week.</span></div> 
                                 </div>    
                                     <div  className='editExRxBtn'>
-                                                { <a href={`/exercisePrescriptions/${exPrescription.id}/edit`}>
-                                                <button className="exRx-button">Edit This Prescription</button>
-                                                </a> }
+                                    <span >
+                                        <button className="exRx-button" onClick={() => openEditExerciseRxModal(exPrescription.id)}>Edit</button>
+                                    </span>
                                     </div>
                             </div> 
                                 <div className="whitespace"></div>       

@@ -175,17 +175,10 @@ const initialState = {
 export default function exercisePrescriptionReducer(state = initialState, action){
     let newState = {};
     switch(action.type){
-        // case GET_PATIENT_EXERCISEPRESCRIPTIONS:
-
-        // console.log("******REDUCER before return-- GET PATIENT EXRX****************")
-        //     return{
-        //         ...state,
-        //         exercisePrescriptions: action.payload
-        //     }
         case GET_EXERCISEPRESCRIPTIONS:
             return{
                 ...state,
-                ExercisePrescriptions: action.payload
+                exercisePrescriptions: action.payload
             }
         case GET_EXERCISEPRESCRIPTION:
             return{
@@ -193,24 +186,12 @@ export default function exercisePrescriptionReducer(state = initialState, action
                 exercisePrescription: action.payload
             }
         case CREATE_EXERCISEPRESCRIPTION:
-            // newState = {...state,
-            //     exercisePrescriptions: [...state.exercisePrescriptions, action.payload]
-            //     };
             newState = {...state, [action.payload]:{...state, ...action.exercisePrescriptions}}
             return newState
         case UPDATE_EXERCISEPRESCRIPTION:
-            // return {
-            //     ...state,
-            //     exercisePrescription: action.payload,
-            //     exercisePrescriptions: state.exercisePrescriptions?.map(exercisePrescription => exercisePrescription.id === action.payload.id ? action.payload : exercisePrescription)
-            // }
             newState = {...state, [action.payload]:{...state, ...action.exercisePrescriptions}}
             return newState
         case DELETE_EXERCISEPRESCRIPTION:
-            // return {
-            //     ...state,
-            //     exercisePrescriptions: state.exercisePrescriptions.filter(exercisePrescription => exercisePrescription.id != action.payload)
-            // }
             newState = {...state};
             delete newState[action.payload]
             return newState;
