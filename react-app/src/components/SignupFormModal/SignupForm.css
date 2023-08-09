@@ -1,0 +1,14 @@
+ul {
+    list-style-type: none;
+}
+
+.form-validation-errors {
+    color: lightgrey;
+    font-weight: 500;
+    background-color: rgba(32, 0, 84, .7);
+    /* border: 2px solid grey; */
+    display: grid;
+    justify-items: center;
+    border-radius: 5px;
+    padding: 5px;
+}

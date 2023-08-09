@@ -23,6 +23,7 @@ function SignupFormModal() {
 		e.preventDefault();
 		if (password === confirmPassword) {
 			const data = await dispatch(signUp(username, email, firstName, lastName, city, state, profileImage, isClinician, password));
+			console.log("🚀 ~ file: index.js:26 ~ handleSubmit ~ data:", data)
 			if (data) {
 				setErrors(data);
 			} else {
@@ -39,7 +40,7 @@ function SignupFormModal() {
 		<>
 			<h1>Sign Up</h1>
 			<form onSubmit={handleSubmit}>
-				<ul>
+				<ul className="form-validation-errors">
 					{errors.map((error, idx) => (
 						<li key={idx}>{error}</li>
 					))}

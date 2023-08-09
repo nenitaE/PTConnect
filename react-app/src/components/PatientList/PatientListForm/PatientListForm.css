@@ -40,11 +40,12 @@ select {
 .PLcreate-button-container {
     display: grid;
     justify-items: end;
+    padding-top: 15px;
 }
 
 .pLform-demo-button-container {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 33.3% 33.3% 33.3%;
     justify-items: center;
     row-gap: 8px;
 
@@ -59,6 +60,17 @@ select {
     text-decoration: none;
     text-align: center;
     justify-content: center;
-    width: 275px;
+    width: 85%;
     padding: 8px;
+}
+
+.newPL-inputs input {
+    padding-top: 15px;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }

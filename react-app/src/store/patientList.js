@@ -130,8 +130,10 @@ export const createPatientList = (patientListData) => async(dispatch) =>{
             },
             body: JSON.stringify(patientListData)
         });
+        console.log("🚀 ~ file: patientList.js:133 ~ createPatientList ~ response:", response)
         if(response.ok){
             const newPatientList = await response.json();
+            console.log("🚀 ~ file: patientList.js:135 ~ createPatientList ~ newPatientList:", newPatientList)
             dispatch(createPatientListAction(newPatientList));
             return newPatientList
         } else if (response.status <= 500){

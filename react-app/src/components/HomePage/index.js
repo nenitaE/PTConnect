@@ -21,9 +21,10 @@ const HomePage = () => {
                     <p>Connecting Physical Therapists</p> 
                     <p>With Their Patients</p>
                 </div>
-                {!sessionUser && <NavLink className='Login-Signup-NavLink' exact to="/loginSignup">Get Connected Now!</NavLink>}
-
-            </div>
+                </div>
+                <div className="login-signup-nav-container">
+                    {!sessionUser && <NavLink className='Login-Signup-NavLink' exact to="/loginSignup">Get Connected Now!</NavLink>}
+                </div>
         </div>
      );
 }

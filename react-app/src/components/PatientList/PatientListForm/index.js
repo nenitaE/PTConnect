@@ -38,14 +38,12 @@ const PatientListForm = ({ patientList, formType}) => {
             status
         }
         const newData = await dispatch(createPatientList(patientList));
+        history.push('/patientLists/current')
         console.log("🚀 ~ file: index.js:43 ~ handleSubmit ~ newData:", newData)
-        if (newData.id) {
-            setErrors(newData.errors);
-            let patientListId = newData.id;
-            dispatch(getPatientList(patientListId))
-            history.push('/patientLists/current')
+        if (newData) {
+            setErrors(newData);
         } else {
-            alert('Patient is already on your list.')
+            history.push('/patientLists/current')
         }
     }
     
@@ -93,6 +91,7 @@ const PatientListForm = ({ patientList, formType}) => {
     return (
         <div className='newPLFormContainer'>
             <form className='PLForm' onSubmit={handleSubmit}>
+                
                 <h2>{formType}</h2>
                     <div className='newPLInnerContainer'>
                             <h3 className='newPL-TitleContainer'>Use this form to add a new patient to your patient list.</h3>              
@@ -137,7 +136,6 @@ const PatientListForm = ({ patientList, formType}) => {
                                                     onChange={updateStatus} 
                                                     required={true}
                                                 >
-                                                    <option >Select an option</option>
                                                     <option value={"active"}>active</option>
                                                     <option value={"pending"}>pending</option>
                                                     <option value={"discharged"}>discharged</option> 
@@ -146,7 +144,12 @@ const PatientListForm = ({ patientList, formType}) => {
                                         <div className="PLcreate-button-container">
                                                 <input className='newPLSubmitBTN' type="submit" value={formType} />
                                         </div>
-                                    </h3> 
+                                    </h3>
+                                    <ul className='form-validation-errors'>
+                                        {errors.length > 0 && errors.map((error, idx) => (
+                                            <li key={idx}>{error}</li>
+                                        ))}
+                                    </ul> 
                                 </div>
                                 <div className="demoPLcontainer">
                                     <h3>For demonstration purposes click one of the demo patients below to test form.</h3>

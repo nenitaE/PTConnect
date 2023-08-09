@@ -5,9 +5,9 @@ import { signUp } from "../../store/session";
 import './SignupForm.css';
 
 function SignupFormPage() {
-  const dispatch = useDispatch();
-  const sessionUser = useSelector((state) => state.session.user);
-  const [email, setEmail] = useState("");
+	const dispatch = useDispatch();
+	const sessionUser = useSelector((state) => state.session.user);
+	const [email, setEmail] = useState("");
 	const [username, setUsername] = useState("");
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
@@ -17,21 +17,21 @@ function SignupFormPage() {
 	const [isClinician, setIsClinician] = useState(false);
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  	const [errors, setErrors] = useState([]);
 
-  if (sessionUser) return <Redirect to="/" />;
+	if (sessionUser) return <Redirect to="/" />;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (password === confirmPassword) {
-        const data = await dispatch(signUp(username, email, firstName, lastName, city, state, profileImage, isClinician, password));
-        if (data) {
-          setErrors(data)
-        }
-    } else {
-        setErrors(['Confirm Password field must be the same as the Password field']);
-    }
-  };
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		if (password === confirmPassword) {
+			const data = await dispatch(signUp(username, email, firstName, lastName, city, state, profileImage, isClinician, password));
+			if (data) {
+			setErrors(data)
+			}
+		} else {
+			setErrors(['Confirm Password field must be the same as the Password field']);
+		}
+	};
 
 	return (
 		<>
