@@ -3,6 +3,7 @@ from app.models import User, db, PatientList
 from sqlalchemy import and_
 from .auth_routes import validation_errors_to_error_messages
 from app.forms.create_patient_list_form import PatientListForm
+from app.forms.edit_patient_list_form import EditPatientListForm
 from flask_login import login_required, current_user
 
 patient_list_routes = Blueprint('patientLists', __name__)
@@ -15,7 +16,7 @@ def edit_curr_patient_list(patientListId):
     Edit a patientList 
     """
     print("IN ROUTE******************")
-    form = PatientListForm()
+    form = EditPatientListForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     #query the patientList to edit
