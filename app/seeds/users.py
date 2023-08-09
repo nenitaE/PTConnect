@@ -175,6 +175,16 @@ def seed_users():
         profileImage = '',
         isClinician = False, 
         password='password')
+    April = User(
+        username='April', 
+        email='april@aa.io',
+        firstName = 'April',
+        lastName = 'May', 
+        city = 'San Diego',
+        state = 'California',
+        profileImage = '',
+        isClinician = False, 
+        password='password')
 
     db.session.add(demo)
     db.session.add(marnie)
@@ -193,6 +203,7 @@ def seed_users():
     db.session.add(Jake)
     db.session.add(Sarah)
     db.session.add(John)
+    db.session.add(April)
     db.session.commit()
 
 

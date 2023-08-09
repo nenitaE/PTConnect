@@ -48,9 +48,45 @@ const PatientListForm = ({ patientList, formType}) => {
             alert('Patient is already on your list.')
         }
     }
-        if (!clinicianId) return (<div><p>You must be a logged in clinician to access this page</p>{history.push('/')}</div>)
+    
+    if (!clinicianId) return (<div><p>You must be a logged in clinician to access this page</p>{history.push('/')}</div>)
 
-       
+    const handleDemoPatient1 = async (e) => {
+        e.preventDefault();
+        setPatientId(13);
+        setEmail('abraham@aa.io');
+        setStatus('active')
+    };   
+    const handleDemoPatient2 = async (e) => {
+        e.preventDefault();
+        setPatientId(14);
+        setEmail('isaac@aa.io');
+        setStatus('active')
+    };   
+    const handleDemoPatient3 = async (e) => {
+        e.preventDefault();
+        setPatientId(15);
+        setEmail('jake@aa.io');
+        setStatus('active')
+    };   
+    const handleDemoPatient4 = async (e) => {
+        e.preventDefault();
+        setPatientId(16);
+        setEmail('sarahL@aa.io');
+        setStatus('active')
+    };   
+    const handleDemoPatient5 = async (e) => {
+        e.preventDefault();
+        setPatientId(17);
+        setEmail('johnB@aa.io');
+        setStatus('active')
+    };   
+    const handleDemoPatient6 = async (e) => {
+        e.preventDefault();
+        setPatientId(18);
+        setEmail('april@aa.io');
+        setStatus('active')
+    };   
 
 
 
@@ -60,9 +96,9 @@ const PatientListForm = ({ patientList, formType}) => {
                 <h2>{formType}</h2>
                     <div className='newPLInnerContainer'>
                             <h3 className='newPL-TitleContainer'>Use this form to add a new patient to your patient list.</h3>              
-                                <div className='newTTcontainer'>
-                                    <h3>
-                                        <div>
+                                <div className='newPLcontainer'>
+                                    <h3 >
+                                        <div className='newPL-inputs'>
                                             <label htmlFor='patientId'>Enter new patient's ID number. </label>
                                                 {hasSubmitted && !patientId && (
                                                     <label htmlFor='patientId' className='patientId-label'>Patient's ID number is required</label>
@@ -75,7 +111,8 @@ const PatientListForm = ({ patientList, formType}) => {
                                                     onChange={updatePatientId}
                                                 />
                                         </div>
-                                        <div>
+                                        <div className='whitespace10'></div>
+                                        <div className='newPL-inputs'>
                                             <label htmlFor='email'>Enter new patient's email address. </label>
                                                 {hasSubmitted && !email && (
                                                     <label htmlFor='email' className='email-label'>Email is required</label>
@@ -88,23 +125,39 @@ const PatientListForm = ({ patientList, formType}) => {
                                                     onChange={updateEmail}
                                                 />
                                         </div>
-                                        <div>
-                                                        <label  htmlFor='status'>Patient Status </label>
-                                                            {hasSubmitted && !status && (
-                                                                <label htmlFor='status' className='field-error'>Status is required</label>
-                                                            )}
-                                                            <select 
-                                                                className='createPLdropdown'
-                                                                id="status" 
-                                                                onChange={updateStatus} 
-                                                                required={true}
-                                                            >
-                                                                <option value={"active"}>active</option>
-                                                                <option value={"discharged"}>discharged</option> 
-                                                            </select>
-                                                    </div>
+                                        <div className='whitespace10'></div>
+                                        <div className='newPL-inputs'>
+                                            <label className='newPL-inputs' htmlFor='status'>Patient Status </label>
+                                                {hasSubmitted && !status && (
+                                                    <label htmlFor='status' className='field-error'>Status is required</label>
+                                                )}
+                                                <select 
+                                                    className='createPLdropdown'
+                                                    id="status" 
+                                                    onChange={updateStatus} 
+                                                    required={true}
+                                                >
+                                                    <option >Select an option</option>
+                                                    <option value={"active"}>active</option>
+                                                    <option value={"pending"}>pending</option>
+                                                    <option value={"discharged"}>discharged</option> 
+                                                </select>
+                                        </div>
+                                        <div className="PLcreate-button-container">
                                                 <input className='newPLSubmitBTN' type="submit" value={formType} />
+                                        </div>
                                     </h3> 
+                                </div>
+                                <div className="demoPLcontainer">
+                                    <h3>For demonstration purposes click one of the demo patients below to test form.</h3>
+                                        <div className="pLform-demo-button-container">
+                                            <button onClick={handleDemoPatient1}>Click to Fill Demo New Patient1 Data</button>
+                                            <button onClick={handleDemoPatient2}>Click to Fill Demo New Patient2 Data</button>
+                                            <button onClick={handleDemoPatient3}>Click to Fill Demo New Patient3 Data</button>
+                                            <button onClick={handleDemoPatient4}>Click to Fill Demo New Patient4 Data</button>
+                                            <button onClick={handleDemoPatient5}>Click to Fill Demo New Patient5 Data</button>
+                                            <button onClick={handleDemoPatient6}>Click to Fill Demo New Patient6 Data</button>
+                                        </div>
                                 </div> 
                     </div>
 

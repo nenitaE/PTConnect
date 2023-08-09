@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getMessages, createMessage} from "../../../store/message";
 import { NavLink } from 'react-router-dom/cjs/react-router-dom';
 import { getPatientLists } from '../../../store/patientList';
+import './MessageForm.css'
 
 const MessageForm = ({ message, formType}) => {
     const currUserId = useSelector((state) => state.session.user?.id);

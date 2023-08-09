@@ -5,8 +5,7 @@ import { useModal } from '../../../context/Modal';
 import { updatePatientList, getPatientLists, getPatientList } from '../../../store/patientList';
 
 const EditPatientListModal = ({patientListId}) => {
-    console.log("🚀 ~ file: index.js:8 ~ EditPatientListModal ~ patientListId:", patientListId)
-
+    console.log("🚀 ~ file: index.js:8 ~ EditPatientListModal ~ patientList:", patientListId)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -35,7 +34,7 @@ const EditPatientListModal = ({patientListId}) => {
         if (currPatientList) {
             setStatus(currPatientList.status)
         }
-    }, [dispatch, currPatientList, currPatientList.status])
+    }, [dispatch, currPatientList])
 
    
    

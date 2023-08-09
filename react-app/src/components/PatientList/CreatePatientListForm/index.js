@@ -10,7 +10,7 @@ const CreatePatientListForm = () => {
   
 
   return (
-    <PatientListForm patientList={patientList} formType="Connect A New Patient" />
+    <PatientListForm patientList={patientList} formType="Connect Me to This Patient" />
   );
 }
 

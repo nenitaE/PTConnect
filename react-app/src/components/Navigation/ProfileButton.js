@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom/cjs/react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import "./Navigation.css"
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -50,19 +51,24 @@ function ProfileButton({ user }) {
               <img src={user.profileImage} alt="profileImage" width="70" height="70" className="menu-profile-image"/>
               <li className="welcome-profile">Welcome {user.isClinician && <>Dr. </>}{user.firstName}</li>
               <li>{user.email}</li>
-              {user.isClinician && <li className="link-profileBttn">
-                <NavLink className='text-link-profileBttn' to="/patientLists/current">Patient List</NavLink>
-                <div></div>
-                <NavLink className='text-link-profileBttn' to="/exercises/current">Exercises</NavLink>
-              </li>
+              {user.isClinician && 
+                <div>
+                  <li className="link-profileBttn">
+                    <NavLink className='text-link-profileBttn' to="/patientLists/current">Patient List</NavLink>
+                  </li>
+                  <li>
+                    <NavLink className='text-link-profileBttn' to="/exercises/current">Exercises</NavLink>
+                  </li>
+                </div>
               }
 
               <li className="link-profileBttn">
-                <NavLink className='text-link-profileBttn' to="/exercisePrescriptions/current">Exercise Prescriptions</NavLink>
-              </li>
-              <li className="link-profileBttn">
                 <NavLink className='text-link-profileBttn' to="/messages/current">Messages</NavLink>
               </li>
+              <li className="link-profileBttn">
+                <NavLink className='text-link-profileBttn' to="/exercisePrescriptions/current">Exercise Prescriptions</NavLink>
+              </li>
+              
               <li>
                 <button onClick={handleLogout}>Log Out</button>
               </li>

@@ -61,9 +61,9 @@ function LoginFormModal() {
             required
           />
         </label>
-        <button type="submit">Log In</button>
         <button onClick={handleDemoClinicianLogin}>Click to Fill Demo Therapist-User Data</button>
         <button onClick={handleDemoPatientLogin}>Click to Fill Demo Patient-User Data</button>
+        <button className="submit-modal-button" type="submit">Log In</button>
       </form>
     </>
   );

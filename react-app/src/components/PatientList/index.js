@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {  useHistory } from "react-router-dom/cjs/react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getPatientLists} from "../../store/patientList";
+import { getPatientLists, getPatientList} from "../../store/patientList";
 import DeletePatientListModal from "./DeletePatientListModal";
 import { useModal } from "../../context/Modal";
 import './PatientList.css'
@@ -22,21 +22,14 @@ const PatientList = () => {
 
     let patientLists = useSelector(state => state.patientList.patientLists);
     console.log("🚀 ~ file: index.js:24 ~ PatientList ~ patientLists :", patientLists )
-    // patientLists = Object.values(patientLists)
-
-    // patientLists = patientLists.filter(patientList=> patientList.clinicianId === sessionUser.id)
     
-     
-    
-
-    // let currentPatientLists = useSelector(state => state.patientList.patientLists);
-    // console.log("🚀 ~ file: index.js:23 ~ PatientList ~ currentPatientLists:", currentpatientLists)
     if (!patientLists) return null;
     
     const openDeletePatientListModal = (patientListId) => {
         setModalContent(<DeletePatientListModal patientListId={patientListId}/>)
     }
     const openEditPatientListModal = (patientListId) => {
+        dispatch(getPatientList(patientListId))
         setModalContent(<EditPatientListModal patientListId={patientListId}/>)
     }
 

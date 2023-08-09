@@ -150,20 +150,20 @@ export const createPatientList = (patientListData) => async(dispatch) =>{
 
 //PATIENTLIST REDUCER
 
-// const initialState = {
-//     patientLists: null,
-//     patientList: [null]
-// };
-const initialState = {};
+const initialState = {
+    patientLists: null,
+    patientList: [null]
+};
+// const initialState = {};
 
 export default function patientListReducer(state = initialState, action){
     let newState = {};
     switch(action.type){
-        case GET_ALL_PATIENTLISTS:
-            action.payload.forEach(patientList => {
-                newState[patientList.id] = patientList;
-            })
-            return newState;
+        // case GET_ALL_PATIENTLISTS:
+        //     action.payload.forEach(patientList => {
+        //         newState[patientList.id] = patientList;
+        //     })
+        //     return newState;
         case GET_PATIENTLISTS:
             return{
                 ...state,
