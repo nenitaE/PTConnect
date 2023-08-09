@@ -38,10 +38,11 @@ const PatientListForm = ({ patientList, formType}) => {
             status
         }
         const newData = await dispatch(createPatientList(patientList));
-        history.push('/patientLists/current')
+        // history.push('/patientLists/current')
         console.log("🚀 ~ file: index.js:43 ~ handleSubmit ~ newData:", newData)
         if (newData) {
             setErrors(newData);
+            alert('Invalid Form Input')
         } else {
             history.push('/patientLists/current')
         }
