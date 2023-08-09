@@ -5,9 +5,9 @@ const CreateExercisePrescriptionForm = () => {
     clinicianId: '', 
     patientId: '',
     title: '',
+    status: '',
     dailyFrequency: '',
-    weeklyFrequency: '',
-    status: ''
+    weeklyFrequency: '' 
 };
   
 

@@ -37,7 +37,17 @@ const ExercisePrescription = () => {
         <div className="exerciseRxRoot">
             <h2 className="exRxTitle">Current Exercise Prescriptions:</h2>
             <div className="exerciseRxOuterContainer">
-                
+                <div className="create-new-exRx-container">
+                    {!sessionUser || (
+                        <div  className='create-new-exRx'>
+                            <a href="/exercisePrescriptions/new">
+                                <button className="create-new-exRx-Bttn">
+                                    Create a New Exercise Rx
+                                </button>
+                            </a>
+                        </div>
+                    )}
+                </div>
                 <div className="exerciseRxContainer">
                     {isLoaded && currentExercisePrescriptions.map(exercisePrescription => (
                         <div className="individ-exRx-tile" key={exercisePrescription.id}>

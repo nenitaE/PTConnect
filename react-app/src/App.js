@@ -13,10 +13,10 @@ import Message from "./components/Message";
 import SentMessage from "./components/Message/SentMessage";
 import CreateMessageForm from "./components/Message/CreateMessage";
 import ExercisePrescription from "./components/ExerciseRx";
-import Exercise from "./components/Exercise"
-import ExercisePrescriptionForm from "./components/ExerciseRx/ExerciseRxForm";
+import Exercise from "./components/Exercise";
 import ExercisePrescriptionDetails from "./components/ExerciseRx/ExerciseRxDetails";
 import AllPatientLists from "./components/PatientList/AllPatientList";
+import CreateExercisePrescriptionForm from "./components/ExerciseRx/CreateExerciseRxForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ function App() {
             <ExercisePrescription/>
           </Route>
           <Route exact path="/exercisePrescriptions/new">
-            <ExercisePrescriptionForm/>
+            <CreateExercisePrescriptionForm/>
           </Route>
           <Route exact path="/exercisePrescriptions/:exercisePrescriptionId">
             <ExercisePrescriptionDetails/>

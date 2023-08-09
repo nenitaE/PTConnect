@@ -5,8 +5,8 @@ import { useHistory, useParams } from "react-router-dom";
 import './ExerciseRxForm.css';
 
 function ExercisePrescriptionForm({ exercisePrescription, formType}) {
-    
-    
+    console.log("🚀 ~ file: index.js:8 ~ ExercisePrescriptionForm ~ exercisePrescription:", exercisePrescription)
+
     
     const patientId = exercisePrescription.patientId
     const clinicianId = useSelector((state) => state.session.user?.id);
@@ -24,6 +24,7 @@ function ExercisePrescriptionForm({ exercisePrescription, formType}) {
     const updateStatus = (e) => setStatus(e.target.value);
 
     const dispatch = useDispatch();
+
     useEffect(() => {
         const data = dispatch(getExercisePrescriptions())
     }, [dispatch]);
@@ -41,21 +42,89 @@ function ExercisePrescriptionForm({ exercisePrescription, formType}) {
             status
         }
         const newData = await dispatch(createExercisePrescription(exercisePrescription))
-        if (newData.id) {
-            setErrors(newData.errors);
-            let exercisePrescriptionId = newData.id;
-            dispatch(getExercisePrescriptions(exercisePrescriptionId))
-            history.push('/exercisePrescriptions/current')
+        history.push('/exercisePrescriptions/current')
+        if (newData) {
+            setErrors(newData);
         } else {
-            alert('Exercise Prescription already exists.')
+            history.push('/exercisePrescriptions/current')
         }
     }
-        if (!clinicianId) return (<div><p>You must be a logged in clinician to access this page</p>{history.push('/')}</div>)
-
-
+    if (!clinicianId) return (<div><p>You must be a logged in clinician to access this page</p>{history.push('/')}</div>)
 
     return (
-        <div className="createExRxContainer">Create ExRx Form</div>
+        <div className='newexRxFormContainer'>
+            <form className='exRxForm' onSubmit={handleSubmit}>
+                    <h2>{formType}</h2>
+                    <div className='newexRxInnerContainer'>
+                            <h3 className='newexRx-TitleContainer'>Use this form to create a new Exercise Prescription.</h3>              
+                            <div className='newexRxcontainer'>
+                                    <div className='newexRx-inputs'>
+                                        <div className='input-container'>
+                                            <label htmlFor='title'>Enter a Title for this ExRx</label>
+                                            
+                                            <input 
+                                                type="text"
+                                                placeholder="title"
+                                                required={true}
+                                                value={title}
+                                                onChange={updateTitle}
+                                            />
+                                        </div>
+                                        <div>
+                                            <label  htmlFor='dailyFrequency'>ExRx Daily Frequency </label>
+                                                {hasSubmitted && !dailyFrequency && (
+                                                    <label htmlFor='status' className='field-error'>Daily Frequency is required</label>
+                                                )}
+                                            <input
+                                                className='createExRxInput'
+                                                type='number'
+                                                id="dailyFrequency"
+                                                maxLength={1} 
+                                                onChange={updateDailyFrequency} 
+                                                required={true}
+                                            />
+                                        </div>
+                                        <div>
+                                            <label  htmlFor='weeklyFrequency'>ExRx Weekly Frequency </label>
+                                                {hasSubmitted && !dailyFrequency && (
+                                                    <label htmlFor='status' className='field-error'>Weekly Frequency is required</label>
+                                                )}
+                                                <input
+                                                    className='createExRxInput'
+                                                    type='number'
+                                                    id="weeklyFrequency" 
+                                                    maxLength={1}
+                                                    onChange={updateWeeklyFrequency} 
+                                                    required={true}
+                                                />
+                                        </div>
+                                        <div>
+                                            <label  htmlFor='status'>ExRx Status </label>
+                                                {hasSubmitted && !status && (
+                                                    <label htmlFor='status' className='field-error'>Status is required</label>
+                                                )}
+                                                <select 
+                                                    className='createExRxdropdown'
+                                                    id="status" 
+                                                    onChange={updateStatus} 
+                                                    required={true}
+                                                >
+                                                    <option value={"current"}>current</option>
+                                                    <option value={"completed"}>completed</option> 
+                                                </select>
+                                        </div>
+                                    </div>
+                                        <ul className='form-validation-errors'>
+                                            {errors.length > 0 && errors.map((error, idx) => (
+                                                <li key={idx}>{error}</li>
+                                            ))}
+                                        </ul> 
+                            </div> 
+                    </div>
+
+            </form>
+
+        </div>
     )
 
 }

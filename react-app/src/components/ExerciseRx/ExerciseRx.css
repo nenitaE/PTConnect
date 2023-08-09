@@ -9,7 +9,6 @@
     width: 100vw;
     height: 100vh;
     padding: 0px 40px;
-    z-index: ;
 }
 
 .exerciseRxContainer{  
@@ -37,4 +36,32 @@
     border-top: solid rgba(80,77,111, .75) .8px;
     border-bottom: solid rgba(80,77,111, .75) .8px;
     box-shadow: 0 3.5px 7px 0 rgba(80,77,111, .5);
+  }
+
+  .create-new-exRx-container {
+    display: grid;
+    grid-template-columns: 90% 10%;
+    justify-items: end;
+    align-items: center;
+    padding: 20px 50px 20px 20px;
+    color: rgba(32, 0, 84);
+    border-top: solid rgba(80,77,111, .75) .4px;
+  }
+
+  .create-new-exRx-Bttn {
+    color: lightgrey;
+    background-color: #200054;
+    font-size: 17px;
+    border: 1.5px #200054;
+    border-radius: 6px;
+    text-decoration: none;
+    text-align: center;
+    justify-content: center;
+    padding: 15px;
+  }
+  
+  .create-new-exRx-Bttn:active {
+    background-color: lightgrey;
+    border: 1.5px solid #200054;
+    color: #200054;
   }

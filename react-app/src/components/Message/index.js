@@ -33,27 +33,30 @@ const Message = () => {
   }
 
     return (
-        <div className="message-main-container">
-          <div className="link-container">
-                <NavLink className="message-link" activeclassname="is-active"  to="/messages/current">Inbox</NavLink>
-                <NavLink className="message-link" activeclassname="is-active"  to="/messages/sent">Sent Messages</NavLink>
-                <NavLink className="message-link" activeclassname="is-active"  to="/messages/new">Compose New Message</NavLink>
-            </div>
-              <div></div>
-              <div className="message-container">
-                <div className="inbox-container">
-                  {isLoaded && currentUserMessages.map((currentUserMessage) => (
-                    <div className="inbox" key={currentUserMessages.id}>
-                      <span>{currentUserMessage.createdAt}</span><span>{currentUserMessage.body}</span>
-                      <span><button className="patientList-button" onClick={() => openDeleteMessageModal(currentUserMessage.id)}>Delete</button></span>
-                    </div>
-                  ))}
+      <div className="message-outer-container">
+        <div className="background-image-messages">
+            <div className="message-main-container">
+              <div className="link-container">
+                    <NavLink className="message-link" activeclassname="is-active"  to="/messages/current">Inbox</NavLink>
+                    <NavLink className="message-link" activeclassname="is-active"  to="/messages/sent">Sent Messages</NavLink>
+                    <NavLink className="message-link" activeclassname="is-active"  to="/messages/new">Compose New Message</NavLink>
+                </div>
+                  <div></div>
+                  <div className="message-container">
+                    <div className="inbox-container">
+                      {isLoaded && currentUserMessages.map((currentUserMessage) => (
+                        <div className="inbox" key={currentUserMessages.id}>
+                          <span>{currentUserMessage.createdAt}</span><span>{currentUserMessage.body}</span>
+                          <span><button className="patientList-button" onClick={() => openDeleteMessageModal(currentUserMessage.id)}>Delete</button></span>
+                        </div>
+                      ))}
+                      </div>
+
+
                   </div>
-
-
-              </div>
+            </div>
+            </div>
         </div>
-        
         );
 }
  

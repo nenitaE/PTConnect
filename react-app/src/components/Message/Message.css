@@ -1,4 +1,5 @@
 .message-main-container {
+    padding-top: 150px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,7 +7,17 @@
     width: 100%;
     /* max-width: 50%; */
     margin: 0 auto;
-    background-color: #f9fafb
+    background-color:rgba(80,77,111, .25);
+}
+.background-image-messages {
+    background-image: url("https://myofitclinic.com/wp-content/uploads/2015/08/whatisphysicaltherapy.jpg");
+    /* opacity: .35; */
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+    padding: 0px 40px;
 }
 
 .message-link {
