@@ -42,53 +42,68 @@ function ProfileButton({ user }) {
   return (
     <>
       <div className="profileButtonContainer">
-        <button id="navProfileBTTN" onClick={openMenu}>
-        <i className="fa-solid fa-bars" style={{color: "#1e0048",}} />
-        </button>
-        <ul className={ulClassName} ref={ulRef}>
-          {user ? (
-            <>
-              <img src={user.profileImage} alt="profileImage" width="70" height="70" className="menu-profile-image"/>
-              <li className="welcome-profile">Welcome {user.isClinician && <>Dr. </>}{user.firstName}</li>
-              <li>{user.email}</li>
-              {user.isClinician && 
-                <div>
+         <i className="fa-solid fa-user" onClick={openMenu} style={{color: "#200054"}}></i>
+         {/* <i className="fa-solid fa-bars" style={{color: "#200054",}} /> */}
+            <ul className={ulClassName} ref={ulRef}>
+              {user ? (
+                <>
+                  <div className="profile-image-container">
+                    <img src={user.profileImage} alt="profileImage" width="70" height="70" className="menu-profile-image"/>
+                  
+                    <div className="welcome-profile">
+                      <div>
+                        Welcome {user.isClinician && <>Dr. </>}{user.firstName}
+                      </div>
+                    </div>
+                    <div className="profile-email">
+                      {user.email}
+                    </div>
+                  </div>
+                  <div className="lower-profile-container">
+                  {user.isClinician && 
+                    <div className="profile-link-container">
+                      <li className="link-profileBttn">
+                        <NavLink className='text-link-profileBttn' to="/patientLists/current">Patient List</NavLink>
+                      </li>
+                      <li>
+                        <NavLink className='text-link-profileBttn' to="/exercises/current">Exercises</NavLink>
+                      </li>
+                    </div>
+                  }
+
                   <li className="link-profileBttn">
-                    <NavLink className='text-link-profileBttn' to="/patientLists/current">Patient List</NavLink>
+                    <NavLink className='text-link-profileBttn' to="/messages/current">Messages</NavLink>
                   </li>
-                  <li>
-                    <NavLink className='text-link-profileBttn' to="/exercises/current">Exercises</NavLink>
+                  <li className="link-profileBttn">
+                    <NavLink className='text-link-profileBttn' to="/exercisePrescriptions/current">Exercise Prescriptions</NavLink>
                   </li>
+                  <div className="profile-logout-button-container">
+                    <li>
+                      <button className="profile-logout-button" onClick={handleLogout}>Log Out</button>
+                    </li>
+                  </div>
                 </div>
-              }
+                </>
+              ) : (
+                <>
+                <div className="profile-login-logout-container">
+                  <OpenModalButton
+                    className="profile-login-logout-buttons"
+                    buttonText="Log In"
+                    onItemClick={closeMenu}
+                    modalComponent={<LoginFormModal />}
+                  />
 
-              <li className="link-profileBttn">
-                <NavLink className='text-link-profileBttn' to="/messages/current">Messages</NavLink>
-              </li>
-              <li className="link-profileBttn">
-                <NavLink className='text-link-profileBttn' to="/exercisePrescriptions/current">Exercise Prescriptions</NavLink>
-              </li>
-              
-              <li>
-                <button onClick={handleLogout}>Log Out</button>
-              </li>
-            </>
-          ) : (
-            <>
-              <OpenModalButton
-                buttonText="Log In"
-                onItemClick={closeMenu}
-                modalComponent={<LoginFormModal />}
-              />
-
-              <OpenModalButton
-                buttonText="Sign Up"
-                onItemClick={closeMenu}
-                modalComponent={<SignupFormModal />}
-              />
-            </>
-          )}
-        </ul>
+                  <OpenModalButton
+                    className="profile-login-logout-buttons"
+                    buttonText="Sign Up"
+                    onItemClick={closeMenu}
+                    modalComponent={<SignupFormModal />}
+                  />
+                </div>
+                </>
+              )}
+            </ul>
       </div>
     </>
   );

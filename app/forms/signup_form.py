@@ -15,7 +15,7 @@ def email_is_valid(form, field):
         emailinfo = emailinfo.normalized
     except EmailNotValidError as e:
         print(str(e))
-        raise ValidationError('Please use valid email address.')
+        raise ValidationError('Please use a valid email address.')
     
 def user_exists(form, field):
     # Checking if user exists

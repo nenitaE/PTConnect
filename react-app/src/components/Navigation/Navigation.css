@@ -3,7 +3,7 @@
   right: 20px;
   width: 200px;
   height: 300px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   z-index: 3;
 }
 .profile-dropdown li{
@@ -12,7 +12,7 @@
 }
 .profile-dropdown li:hover{
   background-color: lightgray;
-  color: black;
+  color: #200054;
 }
 
 .profile-dropdown .text-link {
@@ -29,13 +29,15 @@
   list-style-type: none;
 }
 
-.profileButtonContainer {
-  position: relative;
-  float: right;
-  margin-right: 10px;
+.profileButton {
+  /* position: relative; */
+  /* float: right; */
+  padding-right: 3%;
 }
 
 .navContainer{
+  position: sticky;
+  top: 0;
   background-color: white;
   display: flex;
   justify-content: space-between;
@@ -46,4 +48,74 @@
 
 .text-link-profileBttn {
   text-decoration: none;
+  color: #200054;
+}
+
+.menu-profile-image {
+  border-radius: 50%;
+}
+
+.profile-logout-button {
+  padding: 5px 12px;
+  color: lightgrey;
+  border: 1.5px #200054;
+  border-radius: 3px;
+  background-color: rgba(32, 0, 84, .7);
+  text-decoration: none;
+  text-align: center;
+  justify-content: center; 
+}
+.profile-login-logout-buttons {
+  padding: 5px 12px;
+  color: lightgrey;
+  /* border: 10px lightgrey; */
+  border-radius: 3px;
+  background-color: #200054;
+  text-decoration: none;
+  text-align: center;
+  justify-content: center; 
+}
+
+.profile-login-logout-buttons:active {
+  background-color: lightgrey;
+  border: 1.5px solid #200054;
+  color: #200054;
+}
+.welcome-profile {
+  color: #200054;
+  font-weight: 600;
+}
+.profile-email {
+  color: #200054;
+  font-weight: 600;
+}
+
+.profile-image-container {
+  display: grid;
+  justify-items: center;
+  padding-top: 4.5%;
+  background-color: white;
+  border: 1.5px solid lightgrey;
+  border-radius: 3px;
+}
+
+.lower-profile-container {
+  padding-top: 4.5%;
+  background-color: white;
+  border: 1.5px solid lightgrey;
+  border-radius: 3px;
+}
+.profile-logout-button-container{
+  display: grid;
+  justify-items: end;
+  background-color: white;
+}
+.profile-login-logout-container{
+  display: grid;
+  grid-template-columns: 40% 40%;
+  column-gap: 10%;
+}
+
+.navProfileBTTN {
+  background: none;
 }
