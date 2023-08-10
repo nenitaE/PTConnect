@@ -1,6 +1,10 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector  } from "react-redux";
+import { getPatientLists } from "../../../store/patientList"
 import ExercisePrescriptionForm from "../ExerciseRxForm";
 
 const CreateExercisePrescriptionForm = () => {
+  const dispatch = useDispatch();
   const exercisePrescription = {
     clinicianId: '', 
     patientId: '',
@@ -8,11 +12,15 @@ const CreateExercisePrescriptionForm = () => {
     status: '',
     dailyFrequency: '',
     weeklyFrequency: '' 
-};
+  };
+  useEffect(() => {
+    dispatch(getPatientLists())
+  }, [dispatch])
   
-
+  let patientLists = useSelector(state => state.patientList.patientLists);
+    
   return (
-    <ExercisePrescriptionForm exercisePrescription={exercisePrescription} formType="Create A New Exercise Prescription" />
+    <ExercisePrescriptionForm exercisePrescription={exercisePrescription} patientLists={patientLists} formType="Create A New Exercise Prescription" />
   );
 }
 

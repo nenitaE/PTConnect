@@ -30,33 +30,33 @@ def edit_curr_exercise_prescription(exercisePrescriptionId):
     if (exercisePrescription.clinicianId) != int(session['_user_id']):
         return {'Error': 'User is not authorized'}
 
-    # if form.validate_on_submit():
-    print("********************in EDIT EXRX form")
-    data = form.data
-    print("******FORM DATA FROM FRONTEND", data)
-    # print(data)
-    clinicianId = data['clinicianId']
-    print(clinicianId, "**********clinicianId**************")
-    exercisePrescriptions = ExercisePrescription.query.filter(ExercisePrescription.clinicianId == clinicianId).all()
-    
-    if 'patientId' in data:
-        exercisePrescription.patientId = data["patientId"]
-    if 'clinicianId' in data:
-        exercisePrescription.clinicianId = data["clinicianId"]
-    if 'title' in data:
-        exercisePrescription.title = data["title"]
-    if 'status' in data:
-        exercisePrescription.status = data["status"]
-    if 'dailyFrequency' in data:
-        exercisePrescription.dailyFrequency = data["dailyFrequency"]
-    if 'weeklyFrequency' in data:
-        exercisePrescription.weeklyFrequency = data["weeklyFrequency"]
+    if form.validate_on_submit():
+        print("********************in EDIT EXRX form")
+        data = form.data
+        print("******FORM DATA FROM FRONTEND", data)
+        # print(data)
+        clinicianId = data['clinicianId']
+        print(clinicianId, "**********clinicianId**************")
+        exercisePrescriptions = ExercisePrescription.query.filter(ExercisePrescription.clinicianId == clinicianId).all()
+        
+        if 'patientId' in data:
+            exercisePrescription.patientId = data["patientId"]
+        if 'clinicianId' in data:
+            exercisePrescription.clinicianId = data["clinicianId"]
+        if 'title' in data:
+            exercisePrescription.title = data["title"]
+        if 'status' in data:
+            exercisePrescription.status = data["status"]
+        if 'dailyFrequency' in data:
+            exercisePrescription.dailyFrequency = data["dailyFrequency"]
+        if 'weeklyFrequency' in data:
+            exercisePrescription.weeklyFrequency = data["weeklyFrequency"]
 
-    db.session.commit()
-    print("********************line 56 AFTER COMMIT")
-    return exercisePrescription.to_dict()
+        db.session.commit()
+        print("********************line 56 AFTER COMMIT")
+        return exercisePrescription.to_dict()
 
-# return {'Error': validation_errors_to_error_messages(form.errors)}, 401
+    return {'Error': validation_errors_to_error_messages(form.errors)}, 401
 
 
 
@@ -67,8 +67,9 @@ def delete_curr_exercise_rx(exercisePrescriptionId):
     Deletes an exercisePrescription by Id for logged in user
     """
     exercisePrescription = ExercisePrescription.query.get(exercisePrescriptionId)
+    print("***********exercisePrescription", exercisePrescription)
     userId = session['_user_id']
-
+    print("******USERID*****", userId)
     if not exercisePrescription:
        return {'Error': 'Exercise Prescription not found'}
 
@@ -80,7 +81,7 @@ def delete_curr_exercise_rx(exercisePrescriptionId):
 
     exercisePrescriptions = ExercisePrescription.query.filter(ExercisePrescription.clinicianId == userId).all()
    
-    return {'exercisePrescription': [exercisePrescription.to_dict() for exercisePrescription in exercisePrescriptions]}
+    return {'exercisePrescription': [exercisePrescription.to_dict_with_exercises() for exercisePrescription in exercisePrescriptions]}
 
 
 
@@ -154,48 +155,48 @@ def add_exercise_prescriptions():
     """
     Creates a new exercise_prescription 
     """
-    current_user_id = current_user.get_id()
-    print('CURRENT USERID', current_user_id)
-    #check if current_user is a clinician
-    curr_user_is_clinician = User.query.filter(
-        and_(
-            User.id == current_user_id
-        )
-    ).filter(User.isClinician.is_(True)).first()
-    print(curr_user_is_clinician, "***********CURRUSERISCLINICIAN?*********")
-
     form = ExerciseRxForm()
     # print(form.data, "**********FORM*************")
     form['csrf_token'].data = request.cookies['csrf_token']
+    
+    current_user_id = current_user.get_id()
+    print('CURRENT USERID', current_user_id)
+    #check if current_user is a clinician
+    curr_user_is_clinician = User.query.filter(User.id == current_user_id).filter(User.isClinician.is_(True)).first()
+    print("***********CURRUSERISCLINICIAN?*********", curr_user_is_clinician )
 
-    if curr_user_is_clinician and form.validate_on_submit():
+    
+
+    # if curr_user_is_clinician and form.validate_on_submit():
+    if form.validate_on_submit():
         data = form.data
         clinicianId = data['clinicianId']
         patientId = data['patientId']
-        print(clinicianId, "**********clinicianId**************")
-        print(patientId, "**********patientId**************")
-        exercise_prescriptions = ExercisePrescription.query.filter(ExercisePrescription.clinicianId == clinicianId).all()
-
+        print(clinicianId, "**********CREATE EXRX clinicianId**************")
+        print(patientId, "**********CREATE EXRX patientId**************")
+        exercisePrescriptions = ExercisePrescription.query.filter(ExercisePrescription.clinicianId == clinicianId).all()
+        print("*********CREATEEXRX, exPrescriptions", exercisePrescriptions)
         # print(exercise_prescriptions, "**********exercise_prescriptionS**************")
 
-        for exercisePrescription in exercise_prescriptions:
-            if data["dailyFrequency"] <= 0:
+        for exercisePrescription in exercisePrescriptions:
+            if int(data["dailyFrequency"]) <= 0:
                 return {'errors': 'Daily frequency must be greater than 0.'}, 400
-            if data["weeklyFrequency"] <= 0:
+            if int(data["weeklyFrequency"]) <= 0:
                 return {'errors': 'Weekly frequency must be greater than 0.'}, 400
 
 
         #Create new exercise rx
-        new_exercise_prescription = ExercisePrescription(
+        newExercisePrescription = ExercisePrescription(
                                             patientId=data["patientId"],
                                             clinicianId=data["clinicianId"],
                                             title=data["title"],
                                             dailyFrequency=data["dailyFrequency"],
                                             weeklyFrequency=data["weeklyFrequency"],
-                                            status=data["status"],
+                                            status=data["status"]
                                             )
-        # print(new_exercisePrescription, "*******NEWEXRX******")
-        db.session.add(new_exercise_prescription)
+        print(newExercisePrescription, "*******LN198 IN CREATE EXRX ROUTE--NEWEXRX******")
+        db.session.add(newExercisePrescription)
         db.session.commit()
-        return new_exercise_prescription.to_dict()
-    return {'Error': 'User must be a clinician to use this feature.'}, 401
+        return newExercisePrescription.to_dict_with_exercises()
+    return {'Errors': validation_errors_to_error_messages(form.errors)}, 401
+

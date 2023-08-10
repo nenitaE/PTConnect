@@ -24,7 +24,7 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(db.DateTime, default=datetime.now)
 
     exerciseprescriptions = db.relationship('ExercisePrescription', foreign_keys='ExercisePrescription.patientId',back_populates='patient',  cascade="all, delete-orphan")
-    prescribed_exerciseprescriptions = db.relationship('ExercisePrescription', foreign_keys='ExercisePrescription.clinicianId', back_populates='clinician')
+    prescribed_exerciseprescriptions = db.relationship('ExercisePrescription', foreign_keys='ExercisePrescription.clinicianId', back_populates='clinician',  cascade="all, delete-orphan")
     messages = db.relationship('Message', foreign_keys='Message.patientId', back_populates='patient', cascade="all, delete-orphan")
     received_messages = db.relationship('Message', foreign_keys='Message.clinicianId', back_populates='clinician', cascade="all, delete-orphan")
     bookedvisits = db.relationship('BookedVisit', foreign_keys='BookedVisit.patientId', back_populates='patient', cascade="all, delete-orphan")

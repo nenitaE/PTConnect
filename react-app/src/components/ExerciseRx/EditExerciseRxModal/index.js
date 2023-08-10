@@ -5,7 +5,6 @@ import { useModal } from '../../../context/Modal';
 import { updateExercisePrescription, getExercisePrescription,getExercisePrescriptions } from '../../../store/exerciseRx';
 
 const EditExerciseRxModal = ({exercisePrescriptionId}) => {
-    console.log("🚀 ~ file: index.js:8 ~ EditExerciseRxModal ~ exercisePrescriptionId:", exercisePrescriptionId)
     const dispatch = useDispatch();
     const history = useHistory();
     const { closeModal } = useModal();
@@ -15,22 +14,14 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
     }, [dispatch, exercisePrescriptionId]);
     
     const currExercisePrescription = useSelector((state) => state.exercisePrescription.exercisePrescription);
-    console.log("🚀 ~ file: index.js:18 ~ EditExerciseRxModal ~ currExercisePrescription:", currExercisePrescription)
     const patientId = currExercisePrescription.patientId
-    console.log("🚀 ~ file: index.js:20 ~ EditExerciseRxModal ~ patientId:", patientId)
     const clinicianId = useSelector((state) => state.session.user?.id);
-    console.log("🚀 ~ file: index.js:22 ~ EditExerciseRxModal ~ clinicianId:", clinicianId)
     const exercises = useSelector((state) => currExercisePrescription.exercises);
-    console.log("🚀 ~ file: index.js:24 ~ EditExerciseRxModal ~ exercises:", exercises)
     
     const [title, setTitle] = useState(currExercisePrescription.title);
-    console.log("🚀 ~ file: index.js:25 ~ EditExerciseRxModal ~ title:", title)
     const [dailyFrequency, setDailyFrequency] = useState(currExercisePrescription.dailyFrequency);
-    console.log("🚀 ~ file: index.js:27 ~ EditExerciseRxModal ~ dailyFrequency:", dailyFrequency)
     const [weeklyFrequency, setWeeklyFrequency] = useState(currExercisePrescription.weeklyFrequency);
-    console.log("🚀 ~ file: index.js:29 ~ EditExerciseRxModal ~ weeklyFrequency:", weeklyFrequency)
     const [status, setStatus] = useState("current");
-    console.log("🚀 ~ file: index.js:29 ~ EditExerciseRxModal ~ status:", status)
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
     
@@ -39,8 +30,6 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
     const updateWeeklyFrequency = (e) => setWeeklyFrequency(e.target.value);
     const updateStatus = (e) => setStatus(e.target.value);
     
-    console.log("🚀 ~ file: index.js:40 ~ useEffect ~ currExercisePrescription:", currExercisePrescription)
-    console.log("🚀 ~ file: index.js:41 ~ useEffect ~ exercisePrescriptionId:", exercisePrescriptionId)
     
     useEffect(() => {
         if (!currExercisePrescription) {
@@ -88,8 +77,6 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
             "patientId": patientId,
             "exercises": exercises
         }
-        console.log("🚀 ~ file: index.js:76 ~ handleSubmit ~ currentData:", currentData)
-
         
         const exercisePrescriptionData = {
             "title": title,
@@ -97,14 +84,11 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
             "weeklyFrequency": weeklyFrequency,
             "status": status
         }
-        console.log("🚀 ~ file: index.js:83 ~ handleSubmit ~ exercisePrescriptionData:", exercisePrescriptionData)
         
         const finalData = {
             ...currentData,
             ...exercisePrescriptionData
         } 
-        console.log("🚀 ~ file: index.js:91 ~ handleSubmit ~ finalData:", finalData)
-
         const editedExercisePrescription = await dispatch(updateExercisePrescription(exercisePrescriptionId, finalData))
         
         if (editedExercisePrescription) {

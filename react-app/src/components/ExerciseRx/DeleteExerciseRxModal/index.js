@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useModal } from '../../../context/Modal'; 
-import * as exRxActions from '../../../store/exerciseRx';
+import { deleteExercisePrescription, getExercisePrescription, getExercisePrescriptions } from '../../../store/exerciseRx';
 
 
 const DeleteExerciseRxModal = ({exercisePrescriptionId}) => {
@@ -11,13 +11,14 @@ const DeleteExerciseRxModal = ({exercisePrescriptionId}) => {
     const history = useHistory();
 
     useEffect(() => {
-        dispatch(exRxActions.getExercisePrescription(exercisePrescriptionId))
+        dispatch(getExercisePrescription(exercisePrescriptionId))
+        dispatch(getExercisePrescriptions())
     }, [dispatch, exercisePrescriptionId])
 
     const handleDelete = async (e) => {
         e.preventDefault();
-        await dispatch(exRxActions.deleteExercisePrescription(exercisePrescriptionId))
-        .then(dispatch(exRxActions.getExercisePrescriptions()))
+        await dispatch(deleteExercisePrescription(exercisePrescriptionId))
+        .then(dispatch(getExercisePrescriptions()))
         .then(closeModal)
         .then(history.push('/exercisePrescriptions/current'))
     }

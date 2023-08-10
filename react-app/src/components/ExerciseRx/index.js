@@ -1,38 +1,30 @@
 import React, { useEffect, useState } from "react";
-import {  useHistory } from "react-router-dom/cjs/react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getExercisePrescription, getExercisePrescriptions} from "../../store/exerciseRx";
-import { getUsers } from "../../store/user";
+import { getExercisePrescriptions} from "../../store/exerciseRx";
+import { getPatientLists} from "../../store/patientList";
 import ExercisePrescriptionTile from "./ExerciseRxTile";
-import DeleteExerciseRxModal from "./DeleteExerciseRxModal"
-import { useModal } from "../../context/Modal";
 import './ExerciseRx.css'
 
 const ExercisePrescription = () => {
 
     const[isLoaded, setIsLoaded] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
-    console.log("🚀 ~ file: index.js:14 ~ ExercisePrescription ~ sessionUser:", sessionUser)
-    const userIsClinician = useSelector(state => state.session.user.isClinician)
-    const {setModalContent} = useModal();
     const dispatch = useDispatch();
     
 
     useEffect(() => {
         dispatch(getExercisePrescriptions())
+        dispatch(getPatientLists())
             .then(() => setIsLoaded(true))
     }, [dispatch])
-
+    
+    let patientLists = useSelector(state => state.patientList.patientLists);
     let currentExercisePrescriptions = useSelector(state => state.exercisePrescription.exercisePrescriptions);
-    console.log("🚀 ~ file: index.js:26 ~ ExercisePrescription ~ currentExercisePrescriptions:", currentExercisePrescriptions)
     
     if (!currentExercisePrescriptions) return null;
     
-    const openDeleteExerciseRxModal = (exercisePrescriptionId) => {
-        setModalContent(<DeleteExerciseRxModal exercisePrescriptionId={exercisePrescriptionId}/>)
-    }
-
-
+    
+    
     return ( 
         <div className="exerciseRxRoot">
             <h2 className="exRxTitle">Current Exercise Prescriptions:</h2>

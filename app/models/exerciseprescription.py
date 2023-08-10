@@ -21,7 +21,7 @@ class ExercisePrescription(db.Model):
     patient = db.relationship('User',foreign_keys='ExercisePrescription.patientId', back_populates='exerciseprescriptions')
     clinician = db.relationship('User', foreign_keys='ExercisePrescription.clinicianId', back_populates='prescribed_exerciseprescriptions')
 
-    exercises = db.relationship('Exercise', back_populates='exerciseprescriptions')
+    exercises = db.relationship('Exercise', back_populates='exerciseprescriptions', cascade="all, delete-orphan")
 
     def to_dict(self):
         return {

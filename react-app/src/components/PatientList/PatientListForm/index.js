@@ -23,7 +23,7 @@ const PatientListForm = ({ patientList, formType}) => {
     const updateStatus = (e) => setStatus(e.target.value);
 
     useEffect(() => {
-        const data = dispatch(getPatientLists());
+        dispatch(getPatientLists());
     }, [dispatch]);
 
     const handleSubmit = async (e) => {
@@ -38,13 +38,16 @@ const PatientListForm = ({ patientList, formType}) => {
             status
         }
         const newData = await dispatch(createPatientList(patientList));
-        // history.push('/patientLists/current')
+        console.log("🚀 ~ file: index.js:41 ~ handleSubmit ~ patientList:", patientList)
+        
         console.log("🚀 ~ file: index.js:43 ~ handleSubmit ~ newData:", newData)
-        if (newData) {
-            setErrors(newData);
-            alert('Invalid Form Input')
-        } else {
+        if (newData.id) {
+            let patientListId = newData.id;
+            dispatch(getPatientList(patientListId));
             history.push('/patientLists/current')
+        } else {
+            setErrors(newData)
+            return alert('Invalid Form Input')
         }
     }
     
@@ -147,7 +150,7 @@ const PatientListForm = ({ patientList, formType}) => {
                                         </div>
                                     </h3>
                                     <ul className='form-validation-errors'>
-                                        {errors.length > 0 && errors.map((error, idx) => (
+                                    {hasSubmitted && errors.length > 0 && errors.map((error, idx) => (
                                             <li key={idx}>{error}</li>
                                         ))}
                                     </ul> 

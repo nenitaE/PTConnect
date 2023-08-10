@@ -1,23 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getExercisePrescription, getExercisePrescriptions, createExercisePrescription } from "../../../store/exerciseRx";
+import { getPatientLists } from "../../../store/patientList";
 import { useHistory, useParams } from "react-router-dom";
 import './ExerciseRxForm.css';
 
-function ExercisePrescriptionForm({ exercisePrescription, formType}) {
+function ExercisePrescriptionForm({ exercisePrescription, patientLists, formType}) {
+    console.log("🚀 ~ file: index.js:9 ~ ExercisePrescriptionForm ~ patientLists:", patientLists)
     console.log("🚀 ~ file: index.js:8 ~ ExercisePrescriptionForm ~ exercisePrescription:", exercisePrescription)
-
     
-    const patientId = exercisePrescription.patientId
     const clinicianId = useSelector((state) => state.session.user?.id);
+    console.log("🚀 ~ file: index.js:14 ~ ExercisePrescriptionForm ~ clinicianId:", clinicianId)
     const history = useHistory();
     const [title, setTitle] = useState('');
+    const [patientId, setPatientId] = useState('');
+    console.log("🚀 ~ file: index.js:17 ~ ExercisePrescriptionForm ~ title:", title)
     const [dailyFrequency, setDailyFrequency] = useState('');
+    console.log("🚀 ~ file: index.js:19 ~ ExercisePrescriptionForm ~ dailyFrequency:", dailyFrequency)
     const [weeklyFrequency, setWeeklyFrequency] = useState('');
-    const [status, setStatus] = useState('');
+    console.log("🚀 ~ file: index.js:21 ~ ExercisePrescriptionForm ~ weeklyFrequency:", weeklyFrequency)
+    const [status, setStatus] = useState("current");
+    console.log("🚀 ~ file: index.js:23 ~ ExercisePrescriptionForm ~ status:", status)
     const [errors, setErrors] = useState([]);
+    console.log("🚀 ~ file: index.js:25 ~ ExercisePrescriptionForm ~ errors:", errors)
     const [hasSubmitted, setHasSubmitted] = useState(false);
 
+    const updatePatientId = (e) => setPatientId(e.target.value);
     const updateTitle = (e) => setTitle(e.target.value);
     const updateDailyFrequency = (e) => setDailyFrequency(e.target.value);
     const updateWeeklyFrequency = (e) => setWeeklyFrequency(e.target.value);
@@ -26,10 +34,19 @@ function ExercisePrescriptionForm({ exercisePrescription, formType}) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const data = dispatch(getExercisePrescriptions())
+        dispatch(getExercisePrescriptions())
     }, [dispatch]);
 
+    if (!patientLists) {
+        return (
+            <h1>Loading...</h1>
+        )
+    }
+    let patientListsArr = Object.values(patientLists)
+    console.log("🚀 ~ file: index.js:42 ~ ExercisePrescriptionForm ~ patientListsArr:", patientListsArr)
+
     const handleSubmit = async (e) => {
+        console.log("****INSIDE HANDLE SUBMIT CREATE EXRX")
         e.preventDefault();
         setHasSubmitted(true);
 
@@ -42,29 +59,59 @@ function ExercisePrescriptionForm({ exercisePrescription, formType}) {
             status
         }
         const newData = await dispatch(createExercisePrescription(exercisePrescription))
-        history.push('/exercisePrescriptions/current')
+        console.log("🚀 ~ file: index.js:62 ~ handleSubmit ~ exercisePrescription:", exercisePrescription)
+        console.log("🚀 ~ file: index.js:62 ~ handleSubmit ~ newData:", newData)
+        
         if (newData) {
-            setErrors(newData);
-        } else {
+            let exercisePrescriptionId = newData.id;
+            dispatch(getExercisePrescription(exercisePrescriptionId))
             history.push('/exercisePrescriptions/current')
+        } else {
+            setErrors({errors: newData});
+            return alert('Invalid Form Input.')
         }
     }
     if (!clinicianId) return (<div><p>You must be a logged in clinician to access this page</p>{history.push('/')}</div>)
 
+    const handleAlert = async (e) => {
+        alert("Feature coming soon!");
+    }
+
+
+
     return (
-        <div className='newexRxFormContainer'>
-            <form className='exRxForm' onSubmit={handleSubmit}>
+        <div className='newExRxFormContainer'>
+            <form className='ExRxForm' onSubmit={handleSubmit}>
                     <h2>{formType}</h2>
-                    <div className='newexRxInnerContainer'>
-                            <h3 className='newexRx-TitleContainer'>Use this form to create a new Exercise Prescription.</h3>              
-                            <div className='newexRxcontainer'>
-                                    <div className='newexRx-inputs'>
+                    <div className='newExRxInnerContainer'>
+                            <h3 className='newExRx-TitleContainer'>Use this form to create a new Exercise Prescription.</h3>              
+                            <div className='newExRxcontainer'>
+                                <h3>
+                                    <div className='newExRx-inputs'>
                                         <div className='input-container'>
+                                            <div>
+                                                <label  htmlFor='patientId'>Patient ID </label>
+                                                    {hasSubmitted && !patientId && (
+                                                        <label htmlFor='patientId' className='field-error'>Patient ID is required</label>
+                                                    )}
+                                                    <select 
+                                                        className='createExRxdropdown'
+                                                        id="patientId" 
+                                                        type="number"
+                                                        onChange={updatePatientId} 
+                                                        required={true}
+                                                    >
+                                                    <option>Which of your patients is this prescription for?</option> 
+                                                    {(patientLists && patientLists.map(list => (    
+                                                        <option value={list.patientId}>PatientID: {list.patientId}, Email: {list.email}</option>)))}
+                                                    </select>
+                                            </div>
+                                            {hasSubmitted && !title && (
                                             <label htmlFor='title'>Enter a Title for this ExRx</label>
-                                            
+                                            )}
                                             <input 
                                                 type="text"
-                                                placeholder="title"
+                                                placeholder="Name this exercise prescription (eg. 'Hamstring Tear')"
                                                 required={true}
                                                 value={title}
                                                 onChange={updateTitle}
@@ -77,23 +124,27 @@ function ExercisePrescriptionForm({ exercisePrescription, formType}) {
                                                 )}
                                             <input
                                                 className='createExRxInput'
-                                                type='number'
-                                                id="dailyFrequency"
-                                                maxLength={1} 
+                                                type="number"
+                                                placeholder="How many times per day should this prescription be performed?"
+                                                // id="dailyFrequency"
+                                                maxLength={1}
+                                                value={dailyFrequency} 
                                                 onChange={updateDailyFrequency} 
                                                 required={true}
                                             />
                                         </div>
                                         <div>
                                             <label  htmlFor='weeklyFrequency'>ExRx Weekly Frequency </label>
-                                                {hasSubmitted && !dailyFrequency && (
+                                                {hasSubmitted && !weeklyFrequency && (
                                                     <label htmlFor='status' className='field-error'>Weekly Frequency is required</label>
                                                 )}
                                                 <input
                                                     className='createExRxInput'
-                                                    type='number'
-                                                    id="weeklyFrequency" 
+                                                    type="number"
+                                                    placeholder="How many days per week should this prescription be performed?"
+                                                    // id="weeklyFrequency" 
                                                     maxLength={1}
+                                                    value={weeklyFrequency}
                                                     onChange={updateWeeklyFrequency} 
                                                     required={true}
                                                 />
@@ -113,7 +164,17 @@ function ExercisePrescriptionForm({ exercisePrescription, formType}) {
                                                     <option value={"completed"}>completed</option> 
                                                 </select>
                                         </div>
+                                        
+                                        
+                                        <div className="add-exercises-container">
+                                            <button onClick={(handleAlert)} className="exRx-button">Select Exercises</button>
+                                            
+                                        </div>
                                     </div>
+                                        <div className="ExRxcreate-button-container">
+                                                <input className='newPLSubmitBTN' type="submit" value={formType} />
+                                        </div>
+                                </h3>
                                         <ul className='form-validation-errors'>
                                             {errors.length > 0 && errors.map((error, idx) => (
                                                 <li key={idx}>{error}</li>
