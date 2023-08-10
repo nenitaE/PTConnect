@@ -36,9 +36,6 @@ const EditPatientListModal = ({patientListId}) => {
         }
     }, [dispatch, currPatientList])
 
-   
-   
-    // const patientList = patientListsById[patientListId]
     const patientId = currPatientList.patientId
     console.log("🚀 ~ file: index.js:23 ~ EditPatientListModal ~ patientId:", patientId)
     const patientEmail = currPatientList.email

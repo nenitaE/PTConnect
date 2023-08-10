@@ -15,7 +15,7 @@ def edit_curr_patient_list(patientListId):
     """
     Edit a patientList 
     """
-    print("IN ROUTE******************")
+    print("IN EDIT ROUTE******************")
     form = EditPatientListForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 

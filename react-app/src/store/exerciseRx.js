@@ -90,7 +90,9 @@ export const getExercisePrescription = (exercisePrescriptionId) => async(dispatc
 }
 
 
-export const updateExercisePrescription = (exercisePrescriptionId, exercisePrescriptionData) => async(dispatch) =>{
+export const updateExercisePrescription = (exercisePrescriptionId, exercisePrescriptionData) => async(dispatch) => {
+    console.log("🚀 ~ file: exerciseRx.js:94 ~ updateExercisePrescription ~ exercisePrescriptionData:", exercisePrescriptionData)
+    console.log("🚀 ~ file: exerciseRx.js:94 ~ updateExercisePrescription ~ exercisePrescriptionId:", exercisePrescriptionId)
 
     const response = await fetch(`/api/exercisePrescriptions/${exercisePrescriptionId}`, {
         method: "PUT",
@@ -102,14 +104,12 @@ export const updateExercisePrescription = (exercisePrescriptionId, exercisePresc
 
     if(response.ok){
         const updatedExercisePrescription = await response.json();
+        console.log("🚀 ~ file: exerciseRx.js:108 ~ updatedExercisePrescription:", updatedExercisePrescription)
         dispatch(updateExercisePrescriptionAction(updatedExercisePrescription));
 
         return updatedExercisePrescription;
     } else if (response.status < 500){
-
-
         const data = response.json();
-
         if(data.errors){
             return data.errors;
         } else {
@@ -119,12 +119,15 @@ export const updateExercisePrescription = (exercisePrescriptionId, exercisePresc
 }
 
 export const deleteExercisePrescription = (exercisePrescriptionId) => async(dispatch) => {
+    console.log("********INSIDE DELETE ExercisePrescription THUNK******")
     const response = await fetch(`/api/exercisePrescriptions/${exercisePrescriptionId}`, {
         method: "DELETE"
     })
     if(response.ok){
         const data = await response.json();
+        console.log("🚀 ~ file: exerciseRx.js:128 ~ deleteExercisePrescription ~ data:", data)
         dispatch(deleteExercisePrescriptionAction(exercisePrescriptionId))
+        console.log("🚀 ~ file: exerciseRx.js:130 ~ deleteExercisePrescription ~ exercisePrescriptionId:", exercisePrescriptionId)
     }else if(response.status < 500){
         const data = await response.json()
         if(data.errors){
@@ -146,8 +149,10 @@ export const createExercisePrescription = (exercisePrescriptionData) => async(di
             },
             body: JSON.stringify(exercisePrescriptionData)
         });
+        console.log("🚀 ~ file: exerciseRx.js:149 ~ createExercisePrescription ~ response:", response)
         if(response.ok){
             const newExercisePrescription = await response.json();
+            console.log("🚀 ~ file: exerciseRx.js:151 ~ createExercisePrescription ~ newExercisePrescription:", newExercisePrescription)
             dispatch(createExercisePrescriptionAction(newExercisePrescription));
             return newExercisePrescription
         } else if (response.status <= 500){

@@ -2,24 +2,35 @@ import React, {useState, useEffect} from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { useModal } from '../../../context/Modal'; 
-import * as exRxActions from '../../../store/exerciseRx';
+import { updateExercisePrescription, getExercisePrescription,getExercisePrescriptions } from '../../../store/exerciseRx';
 
 const EditExerciseRxModal = ({exercisePrescriptionId}) => {
+    console.log("🚀 ~ file: index.js:8 ~ EditExerciseRxModal ~ exercisePrescriptionId:", exercisePrescriptionId)
     const dispatch = useDispatch();
+    const history = useHistory();
     const { closeModal } = useModal();
 
     useEffect(() => {
-        dispatch(exRxActions.getExercisePrescription(exercisePrescriptionId))
+        dispatch(getExercisePrescription(exercisePrescriptionId))
     }, [dispatch, exercisePrescriptionId]);
     
-    const exercisePrescription = useSelector((state) => state.exercisePrescription.exercisePrescription);
-    const patientId = exercisePrescription.patientId
+    const currExercisePrescription = useSelector((state) => state.exercisePrescription.exercisePrescription);
+    console.log("🚀 ~ file: index.js:18 ~ EditExerciseRxModal ~ currExercisePrescription:", currExercisePrescription)
+    const patientId = currExercisePrescription.patientId
+    console.log("🚀 ~ file: index.js:20 ~ EditExerciseRxModal ~ patientId:", patientId)
     const clinicianId = useSelector((state) => state.session.user?.id);
-    const history = useHistory();
-    const [title, setTitle] = useState(exercisePrescription.title);
-    const [dailyFrequency, setDailyFrequency] = useState(exercisePrescription.dailyFrequency);
-    const [weeklyFrequency, setWeeklyFrequency] = useState(exercisePrescription.weeklyFrequency);
-    const [status, setStatus] = useState(exercisePrescription.status);
+    console.log("🚀 ~ file: index.js:22 ~ EditExerciseRxModal ~ clinicianId:", clinicianId)
+    const exercises = useSelector((state) => currExercisePrescription.exercises);
+    console.log("🚀 ~ file: index.js:24 ~ EditExerciseRxModal ~ exercises:", exercises)
+    
+    const [title, setTitle] = useState(currExercisePrescription.title);
+    console.log("🚀 ~ file: index.js:25 ~ EditExerciseRxModal ~ title:", title)
+    const [dailyFrequency, setDailyFrequency] = useState(currExercisePrescription.dailyFrequency);
+    console.log("🚀 ~ file: index.js:27 ~ EditExerciseRxModal ~ dailyFrequency:", dailyFrequency)
+    const [weeklyFrequency, setWeeklyFrequency] = useState(currExercisePrescription.weeklyFrequency);
+    console.log("🚀 ~ file: index.js:29 ~ EditExerciseRxModal ~ weeklyFrequency:", weeklyFrequency)
+    const [status, setStatus] = useState("current");
+    console.log("🚀 ~ file: index.js:29 ~ EditExerciseRxModal ~ status:", status)
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
     
@@ -27,13 +38,13 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
     const updateDailyFrequency = (e) => setDailyFrequency(e.target.value);
     const updateWeeklyFrequency = (e) => setWeeklyFrequency(e.target.value);
     const updateStatus = (e) => setStatus(e.target.value);
-
-    const currExercisePrescription = useSelector((state) => state.exercisePrescription.exercisePrescription);
-        console.log("🚀 ~ file: index.js:33 ~ EditExerciseRxModal ~ currExercisePrescription:", currExercisePrescription)
- 
+    
+    console.log("🚀 ~ file: index.js:40 ~ useEffect ~ currExercisePrescription:", currExercisePrescription)
+    console.log("🚀 ~ file: index.js:41 ~ useEffect ~ exercisePrescriptionId:", exercisePrescriptionId)
+    
     useEffect(() => {
         if (!currExercisePrescription) {
-            dispatch(exRxActions.getExercisePrescription(exercisePrescriptionId))
+            dispatch(getExercisePrescription(exercisePrescriptionId))
         }
     }, [dispatch, currExercisePrescription, exercisePrescriptionId])
     
@@ -44,30 +55,24 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
             setWeeklyFrequency(currExercisePrescription.weeklyFrequency)
             setStatus(currExercisePrescription.status)
         }
-    }, [dispatch, 
-        currExercisePrescription,
-        currExercisePrescription.title,
-        currExercisePrescription.dailyFrequency,
-        currExercisePrescription.weeklyFrequency,
-        currExercisePrescription.status
-        ])  
+    }, [dispatch, currExercisePrescription])  
 
     const handleSubmit = async (e) => {
-        console.log("**********inside submit editModal")
+        console.log("**********inside handle submit editRXModal")
         e.preventDefault();
         const errors = {};
         if (!dailyFrequency) {
             errors.dailyFrequency = "Daily Frequency is required."
         }
-        if (6 <= dailyFrequency <= 0) {
-            errors.dailyFrequency = 'Must enter a daily Frequency between 1 and 6.'
-        }
+        // if (6 <= dailyFrequency <= 0) {
+        //     errors.dailyFrequency = 'Must enter a daily Frequency between 1 and 6.'
+        // }
         if (!weeklyFrequency) {
             errors.weeklyFrequency = "Weekly Frequency is required."
         }
-        if (8 <= weeklyFrequency <= 0) {
-            errors.weeklyFrequency = 'Must enter a weekly Frequency between 1 and 7.'
-        }
+        // if (8 <= weeklyFrequency <= 0) {
+        //     errors.weeklyFrequency = 'Must enter a weekly Frequency between 1 and 7.'
+        // }
         if (!title) {
             errors.title = "Title is required."
         }
@@ -80,8 +85,10 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
 
         const currentData = {
             "clinicianId": clinicianId,
-            "patientId": patientId
+            "patientId": patientId,
+            "exercises": exercises
         }
+        console.log("🚀 ~ file: index.js:76 ~ handleSubmit ~ currentData:", currentData)
 
         
         const exercisePrescriptionData = {
@@ -90,21 +97,23 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
             "weeklyFrequency": weeklyFrequency,
             "status": status
         }
+        console.log("🚀 ~ file: index.js:83 ~ handleSubmit ~ exercisePrescriptionData:", exercisePrescriptionData)
         
         const finalData = {
             ...currentData,
             ...exercisePrescriptionData
         } 
+        console.log("🚀 ~ file: index.js:91 ~ handleSubmit ~ finalData:", finalData)
 
-        const editedExercisePrescription = await dispatch(exRxActions.updateExercisePrescription(exercisePrescriptionId, finalData))
+        const editedExercisePrescription = await dispatch(updateExercisePrescription(exercisePrescriptionId, finalData))
         
         if (editedExercisePrescription) {
-            console.log("**********line 92 editModal")
-            dispatch(exRxActions.getExercisePrescriptions())
+            console.log("**********line 99 editModal")
+            dispatch(getExercisePrescriptions())
             .then(closeModal)
             .then(history.push('/exercisePrescriptions/current'))            
         } else {
-            console.log("**********line 97 editModal")
+            console.log("**********line 104 editModal")
             setErrors({ errors: editedExercisePrescription });
             closeModal();
         }
@@ -117,6 +126,9 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
             <h3 className="form-editExRx-description">Edit Exercise Prescription</h3>   
                 <form className ='ExRx-form' onSubmit={handleSubmit} >      
                     <ul className="errors">
+                        {errors.status && <li>{errors.title}</li>}
+                        {errors.status && <li>{errors.dailyFrequency}</li>}
+                        {errors.status && <li>{errors.weeklyFrequency}</li>}
                         {errors.status && <li>{errors.status}</li>}
                         {errors.errors && errors.errors.map((error, idx) => <li key={idx}>{error}</li>)}
                     </ul>
@@ -140,7 +152,8 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
                                 className='createExRxInput'
                                 type='number'
                                 id="dailyFrequency"
-                                maxLength={1} 
+                                maxLength={1}
+                                value={dailyFrequency} 
                                 onChange={updateDailyFrequency} 
                                 required={true}
                             />
@@ -155,6 +168,7 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
                                 type='number'
                                 id="weeklyFrequency" 
                                 maxLength={1}
+                                value={weeklyFrequency}
                                 onChange={updateWeeklyFrequency} 
                                 required={true}
                             />
@@ -170,6 +184,7 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
                                 onChange={updateStatus} 
                                 required={true}
                             >
+                                <option>Select Status</option>
                                 <option value={"current"}>current</option>
                                 <option value={"completed"}>completed</option> 
                             </select>
