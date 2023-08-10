@@ -10,8 +10,8 @@ const ExercisePrescription = () => {
     const[isLoaded, setIsLoaded] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
     const dispatch = useDispatch();
-    
-
+    const userIsClinician = sessionUser.userIsClinician
+  
     useEffect(() => {
         dispatch(getExercisePrescriptions())
         dispatch(getPatientLists())
@@ -23,14 +23,16 @@ const ExercisePrescription = () => {
     
     if (!currentExercisePrescriptions) return null;
     
-    
+    // if (userIsClinician === true) {
+
+    // }
     
     return ( 
         <div className="exerciseRxRoot">
             <h2 className="exRxTitle">Current Exercise Prescriptions:</h2>
             <div className="exerciseRxOuterContainer">
                 <div className="create-new-exRx-container">
-                    {!sessionUser || (
+                    {userIsClinician && (
                         <div  className='create-new-exRx'>
                             <a href="/exercisePrescriptions/new">
                                 <button className="create-new-exRx-Bttn">

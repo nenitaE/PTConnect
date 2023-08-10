@@ -12,7 +12,7 @@ const ExercisePrescriptionDetails = () => {
     const[isLoaded, setIsLoaded] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
     console.log("🚀 ~ file: index.js:14 ~ ExercisePrescription ~ sessionUser:", sessionUser)
-    const userIsClinician = useSelector(state => state.session.user.isClinician)
+    const userIsClinician = sessionUser.userIsClinician
     const {setModalContent} = useModal();
     const dispatch = useDispatch();
     
@@ -45,11 +45,12 @@ const ExercisePrescriptionDetails = () => {
                                     <h4>Instructions:</h4>
                                     <div>Perform each exercise in this prescription {exPrescription.dailyFrequency} time(s) per day;<span> {exPrescription.weeklyFrequency} days per week.</span></div> 
                                 </div>    
+                                {userIsClinician && (
                                     <div  className='editExRxBtn'>
                                     <span >
                                         <button className="exRx-button" onClick={() => openEditExerciseRxModal(exPrescription.id)}>Edit</button>
                                     </span>
-                                    </div>
+                                    </div>)}
                             </div> 
                                 <div className="whitespace"></div>       
                                     <div className="exercises-outer-container">
@@ -66,11 +67,13 @@ const ExercisePrescriptionDetails = () => {
                                                             <p>Each set should be performed for {exercise.reps} rep(s) with a hold time of {exercise.holdTime} seconds.</p>
                                                             <p>Special Notes from your therapist: {exercise.notes}.</p>
                                                         <div>
-                                                            <span  className='editExRxBtn'>
-                                                                { <a href={`/exercises/${exercise.id}/edit`}>
-                                                                <button className="exRx-button">Edit This Exercise</button>
-                                                                </a> }
-                                                            </span>
+                                                            {userIsClinician && (
+                                                                <span  className='editExRxBtn'>
+                                                                    { <a href={`/exercises/${exercise.id}/edit`}>
+                                                                    <button className="exRx-button">Edit This Exercise</button>
+                                                                    </a> }
+                                                                </span>
+                                                            )}
                                                         </div>
                                                     </div>
                                                     ))}
