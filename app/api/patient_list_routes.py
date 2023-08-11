@@ -126,7 +126,7 @@ def get_current_patientLists():
     
 
 
-@patient_list_routes.route('/', methods=['GET'])
+@patient_list_routes.route('/all', methods=['GET'])
 @login_required
 def get_all_patientLists():
     '''

@@ -17,6 +17,7 @@ import Exercise from "./components/Exercise";
 import ExercisePrescriptionDetails from "./components/ExerciseRx/ExerciseRxDetails";
 import AllPatientLists from "./components/PatientList/AllPatientList";
 import CreateExercisePrescriptionForm from "./components/ExerciseRx/CreateExerciseRxForm";
+import PatientDashboard from "./components/Dashboard/PatientDashboard";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +36,9 @@ function App() {
           </Route>
           <Route path="/login" >
             <LoginFormPage />
+          </Route>
+          <Route path="/patient" >
+            <PatientDashboard />
           </Route>
           <Route path="/signup">
             <SignupFormPage />
@@ -66,7 +70,7 @@ function App() {
           <Route exact path="/patientLists/current">
             <PatientList/>
           </Route>
-          <Route exact path="/patientLists/">
+          <Route exact path="/patientLists/all">
             <AllPatientLists/>
           </Route>
           <Route exact path="/patientLists/new">

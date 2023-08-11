@@ -128,6 +128,7 @@ def get_current_exercise_prescriptions():
     else:
         print('**************line105')
         exercise_prescriptions = ExercisePrescription.query.filter((ExercisePrescription.clinicianId == current_user_id) | (ExercisePrescription.patientId == current_user_id)).all()
+        print("**********LINE131 EXRX", exercise_prescriptions)
         # exercise_prescriptions = ExercisePrescription.query.filter(ExercisePrescription.clinicianId == current_user_id or ExercisePrescription.patientId == current_user_id).all()
         return {'exercisePrescriptions': [exercise_prescription.to_dict_with_exercises() for exercise_prescription in exercise_prescriptions]}
         # return jsonify(user.to_dict_with_exercisePrescriptions)

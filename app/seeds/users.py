@@ -8,7 +8,7 @@ def seed_users():
         email='demo@aa.io',
         username='Demo',
         firstName = 'Demo',
-        lastName = 'Clinician', 
+        lastName = 'Smith', 
         city = 'San Diego',
         state = 'CA',
         profileImage = 'https://rb.gy/7cyhf',
@@ -185,6 +185,76 @@ def seed_users():
         profileImage = '',
         isClinician = False, 
         password='password')
+    Luz = User(
+        username='Luz', 
+        email='luz@aa.io',
+        firstName = 'Luz',
+        lastName = 'Hernandez', 
+        city = 'San Diego',
+        state = 'California',
+        profileImage = 'https://rb.gy/nw3jc',
+        isClinician = True, 
+        password='password')
+    Thomas = User(
+        username='Thomas', 
+        email='thomas@aa.io',
+        firstName = 'Thomas',
+        lastName = 'Smith', 
+        city = 'San Diego',
+        state = 'California',
+        profileImage = 'https://rb.gy/tyqdk',
+        isClinician = True, 
+        password='password')
+    Jessica = User(
+        username='Jess', 
+        email='Jess@aa.io',
+        firstName = 'Jessica',
+        lastName = 'Robbins', 
+        city = 'San Diego',
+        state = 'California',
+        profileImage = 'https://rb.gy/prbar',
+        isClinician = True, 
+        password='password')
+    Tracey = User(
+        username='Tracey', 
+        email='tracey@aa.io',
+        firstName = 'Tracey',
+        lastName = 'McRae', 
+        city = 'San Diego',
+        state = 'California',
+        profileImage = 'https://rb.gy/puni6',
+        isClinician = True, 
+        password='password')
+    Anne = User(
+        username='Anne', 
+        email='anne@aa.io',
+        firstName = 'Anne',
+        lastName = 'Carmichael', 
+        city = 'San Diego',
+        state = 'California',
+        profileImage = 'https://rb.gy/vfcfo',
+        isClinician = True, 
+        password='password')
+    Derek = User(
+        username='Derek', 
+        email='derek@aa.io',
+        firstName = 'Derek',
+        lastName = 'Jones', 
+        city = 'San Diego',
+        state = 'California',
+        profileImage = 'https://shorturl.at/lFNQR',
+        isClinician = True, 
+        password='password')
+    Sam = User(
+        username='Sam', 
+        email='sam@aa.io',
+        firstName = 'Sam',
+        lastName = 'Smith', 
+        city = 'San Diego',
+        state = 'California',
+        profileImage = 'https://shorturl.at/mqBQU',
+        isClinician = True, 
+        password='password')
 
     db.session.add(demo)
     db.session.add(marnie)
@@ -204,6 +274,13 @@ def seed_users():
     db.session.add(Sarah)
     db.session.add(John)
     db.session.add(April)
+    db.session.add(Luz)
+    db.session.add(Thomas)
+    db.session.add(Jessica)
+    db.session.add(Tracey)
+    db.session.add(Anne)
+    db.session.add(Derek)
+    db.session.add(Sam)
     db.session.commit()
 
 

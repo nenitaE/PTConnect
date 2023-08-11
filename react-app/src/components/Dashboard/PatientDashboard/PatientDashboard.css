@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+/* .patient-dash-root{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} */
+
+.patient-dash-background {
+    position:relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 700px;
+    background-size: cover;
+    background-image: url("https://ipfs.io/ipfs/QmPmtSWvWuzwXF8J6Zz8cSxidtuNcXRfNtTYPBGkEHeApp?filename=medBallPT.png");
+}
+
+.patient-dash-outer-container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.patient-dash-right-container {
+    width: 500px;
+    height: 90%;
+    padding: 25% 5%;
+    justify-items: center;
+    align-items: center; 
+}
+
+.patient-dash-right-inner {
+    color: #200054;
+    padding: 35px 10px;
+    border: solid rgba(80,77,111, .75);
+    display: grid;
+
+}
+
+.clinician-profile-image {
+    border-radius: 10%;
+    border: solid rgba(80,77,111, .75)
+}
+.patient-dash-title{
+    display: grid;
+    justify-items: center;
+}
+.pdTitle{
+    display: grid;
+    justify-items: center;
+    text-align: center;
+}
+
+.pDprofile{
+    padding: 8px;
+    background-color: rgba(220,220,220, .5);
+    border-radius: 2.5px;
+}
+.patient-dashboard-submit {
+    color: #200054;
+    background-color: lightgrey;
+    font-size: 17px;
+    border: 1.5px solid #200054;
+    border-radius: 4px;
+    text-decoration: none;
+    text-align: center;
+    width: 300px;
+    height: 35px;
+    margin-top: 10px;
+}
+
+button.patient-dashboard-submit:hover {
+    background-color: #200054;
+    color: lightgrey;
+}

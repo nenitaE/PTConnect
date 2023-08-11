@@ -1,6 +1,7 @@
 // ACTION TYPES
 const GET_USER = "users/getUser";
 const GET_USERS = "users/getUsers";
+const GET_USER_CLINICIANS = "users/getUserClinicians";
 
 //ACTION CREATORS
 const getUserAction = (userId) => {
@@ -16,6 +17,12 @@ const getUsersAction = (users) => {
         payload: users
     }
 };
+const getUserCliniciansAction = (users) => {
+    return {
+        type: GET_USER_CLINICIANS,
+        payload: users
+    }
+};
 
 
 //THUNK ACTIONS
@@ -24,6 +31,14 @@ export const getUsers = () => async(dispatch) => {
     if(response.ok){
         const data = await response.json();
         dispatch(getUsersAction(data.Users))
+        return data;
+    }
+}
+export const getUserClinicians = () => async(dispatch) => {
+    const response = await fetch('/api/users/clinicians');
+    if(response.ok){
+        const data = await response.json();
+        dispatch(getUserCliniciansAction(data.Users))
         return data;
     }
 }
@@ -46,6 +61,11 @@ export default function userReducer(state = initialState, action){
     
     switch(action.type){
         case GET_USERS:
+            return{
+                ...state,
+                users: action.payload
+            }
+        case GET_USER_CLINICIANS:
             return{
                 ...state,
                 users: action.payload

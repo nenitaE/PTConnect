@@ -23,6 +23,24 @@ function LoginFormModal() {
     }
   };
 
+  // if (!userIsClinician) {
+  //   return (
+  //       <h1>Loading...</h1>
+  //   )
+  // }
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const data = await dispatch(login(email, password));
+  //   if (data) {
+  //     setErrors(data);
+  //   } else if (userIsClinician){
+  //       closeModal();
+  //       <Redirect to="/" />;
+  //   } else if (!userIsClinician){
+  //       <Redirect to="/patients" />;
+  //   }
+  // };
+
   const handleDemoClinicianLogin = async (e) => {
     e.preventDefault();
     setEmail('demo@aa.io');

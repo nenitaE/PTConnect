@@ -17,7 +17,7 @@
     background-size: cover;
     background-image: url("https://ipfs.io/ipfs/QmexePy2Xpg1GUhXrWSoWLi9SuhNCkVp5vijsKox8RLNRb?filename=spine.png");
     /* background-image: url("https://ipfs.io/ipfs/QmZTZa3JnxiW4FpsK2H1QKLcHU7ifvBdBwLxWBh1iSoZyS?filename=Pre-Surgical-Physiotherapy-The-Running-Physio-Toronto-ON.png.png"); */
-    z-index: -1;
+
 }
 
 .HomeWelcome {
@@ -67,6 +67,7 @@
     box-shadow: 2px 2px darkgrey;
     text-decoration: none;
     position: relative;
+    font-size: 25px;
 }
 
 .Login-Signup-NavLink.active {
