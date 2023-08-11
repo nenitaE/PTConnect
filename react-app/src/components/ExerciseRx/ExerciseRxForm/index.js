@@ -127,7 +127,8 @@ function ExercisePrescriptionForm({ exercisePrescription, patientLists, formType
                                                 type="number"
                                                 placeholder="How many times per day should this prescription be performed?"
                                                 // id="dailyFrequency"
-                                                maxLength={1}
+                                                min={1}
+                                                max={6}
                                                 value={dailyFrequency} 
                                                 onChange={updateDailyFrequency} 
                                                 required={true}
@@ -143,7 +144,8 @@ function ExercisePrescriptionForm({ exercisePrescription, patientLists, formType
                                                     type="number"
                                                     placeholder="How many days per week should this prescription be performed?"
                                                     // id="weeklyFrequency" 
-                                                    maxLength={1}
+                                                    min={1}
+                                                    max={7}
                                                     value={weeklyFrequency}
                                                     onChange={updateWeeklyFrequency} 
                                                     required={true}
