@@ -22,6 +22,10 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
     const [dailyFrequency, setDailyFrequency] = useState(currExercisePrescription.dailyFrequency);
     const [weeklyFrequency, setWeeklyFrequency] = useState(currExercisePrescription.weeklyFrequency);
     const [status, setStatus] = useState("current");
+    const [titleError, setTitleError] = useState('');
+    const [statusError, setStatusError] = useState('');
+    const [dailyError, setDailyError] = useState('');
+    const [weeklyError, setWeeklyError] = useState('');
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
     
@@ -29,7 +33,7 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
     const updateDailyFrequency = (e) => setDailyFrequency(e.target.value);
     const updateWeeklyFrequency = (e) => setWeeklyFrequency(e.target.value);
     const updateStatus = (e) => setStatus(e.target.value);
-    
+    let hasErrors = false;
     
     useEffect(() => {
         if (!currExercisePrescription) {
@@ -52,24 +56,41 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
         const errors = {};
         if (!dailyFrequency) {
             errors.dailyFrequency = "Daily Frequency is required."
+            setDailyError("Daily Frequency is required.")
+            hasErrors = true;
         }
-        // if (6 <= dailyFrequency <= 0) {
-        //     errors.dailyFrequency = 'Must enter a daily Frequency between 1 and 6.'
-        // }
+        if (dailyFrequency <= 0 || dailyFrequency >=7 ) {
+            errors.dailyFrequency = 'Must enter a daily Frequency between 1 and 6.'
+            setDailyError('Must enter a daily Frequency between 1 and 6.')
+            hasErrors = true;
+        }
         if (!weeklyFrequency) {
             errors.weeklyFrequency = "Weekly Frequency is required."
+            setWeeklyError("Weekly Frequency is required.")
+            hasErrors = true;
         }
-        // if (8 <= weeklyFrequency <= 0) {
-        //     errors.weeklyFrequency = 'Must enter a weekly Frequency between 1 and 7.'
-        // }
+        if (weeklyFrequency <= 0 || weeklyFrequency >= 8) {
+            errors.weeklyFrequency = 'Must enter a weekly Frequency between 1 and 7.'
+            setWeeklyError('Must enter a weekly Frequency between 1 and 7.')
+            hasErrors = true;
+        }
         if (!title) {
             errors.title = "Title is required."
+            setTitleError("Title is required.")
+            hasErrors = true;
         }
         if (!status) {
             errors.status = "Status is required."
+            setStatusError("Status is required.")
+            hasErrors = true;
         }
         if (Object.keys(errors) && Object.keys(errors).length > 0) {
             return setErrors(errors);
+        }
+
+        // Disable form submission if errors are present
+        if (hasErrors) {
+            return;
         }
 
         const currentData = {
@@ -122,10 +143,19 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
                                     <input 
                                         type="text"
                                         placeholder="title"
+                                        maxLength={40}
                                         required={true}
                                         value={title}
                                         onChange={updateTitle}
                                     />
+                    </div>
+                    <div>
+                        <p className="field-error">
+                            {titleError &&   <span className="error"> 
+                                                <i className="fa-solid fa-triangle-exclamation"></i>
+                                                {titleError}
+                                            </span>}
+                        </p>
                     </div>
                     <div>
                         <label  htmlFor='dailyFrequency'>ExRx Daily Frequency </label>
@@ -136,26 +166,44 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
                                 className='createExRxInput'
                                 type='number'
                                 id="dailyFrequency"
-                                maxLength={1}
+                                min={1}
+                                max={6}
                                 value={dailyFrequency} 
                                 onChange={updateDailyFrequency} 
                                 required={true}
                             />
                     </div>
                     <div>
+                        <p className="field-error">
+                            {dailyError &&   <span className="error"> 
+                                                <i className="fa-solid fa-triangle-exclamation"></i>
+                                                {dailyError}
+                                            </span>}
+                        </p>
+                    </div>
+                    <div>
                         <label  htmlFor='weeklyFrequency'>ExRx Weekly Frequency </label>
-                            {hasSubmitted && !dailyFrequency && (
+                            {hasSubmitted && !weeklyFrequency && (
                                 <label htmlFor='status' className='field-error'>Weekly Frequency is required</label>
                             )}
                             <input
                                 className='createExRxInput'
                                 type='number'
                                 id="weeklyFrequency" 
-                                maxLength={1}
+                                min={1}
+                                max={7}
                                 value={weeklyFrequency}
                                 onChange={updateWeeklyFrequency} 
                                 required={true}
                             />
+                    </div>
+                    <div>
+                        <p className="field-error">
+                            {weeklyError &&   <span className="error"> 
+                                                <i className="fa-solid fa-triangle-exclamation"></i>
+                                                {weeklyError}
+                                            </span>}
+                        </p>
                     </div>
                     <div>
                         <label  htmlFor='status'>ExRx Status </label>
@@ -172,6 +220,14 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
                                 <option value={"current"}>current</option>
                                 <option value={"completed"}>completed</option> 
                             </select>
+                    </div>
+                    <div>
+                        <p className="field-error">
+                            {statusError &&   <span className="error"> 
+                                                <i className="fa-solid fa-triangle-exclamation"></i>
+                                                {statusError}
+                                            </span>}
+                        </p>
                     </div>
                         <div className="editExRx-button-container">
                             <button className="updateExRxBtn" type="submit" >
