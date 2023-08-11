@@ -12,7 +12,7 @@ const ExercisePrescriptionDetails = () => {
     const[isLoaded, setIsLoaded] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
     console.log("🚀 ~ file: index.js:14 ~ ExercisePrescription ~ sessionUser:", sessionUser)
-    const userIsClinician = sessionUser.userIsClinician
+    const userIsClinician = useSelector(state => state.session.user.userIsClinician);
     const {setModalContent} = useModal();
     const dispatch = useDispatch();
     
@@ -45,7 +45,7 @@ const ExercisePrescriptionDetails = () => {
                                     <h4>Instructions:</h4>
                                     <div>Perform each exercise in this prescription {exPrescription.dailyFrequency} time(s) per day;<span> {exPrescription.weeklyFrequency} days per week.</span></div> 
                                 </div>    
-                                {userIsClinician && (
+                                {sessionUser.isClinician && (
                                     <div  className='editExRxBtn'>
                                     <span >
                                         <button className="exRx-button" onClick={() => openEditExerciseRxModal(exPrescription.id)}>Edit</button>

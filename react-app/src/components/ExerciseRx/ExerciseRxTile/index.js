@@ -7,9 +7,7 @@ import './ExerciseRxTile.css'
 
 
 
-const ExercisePrescriptionTile = ({exPrescription}) => {
-    const sessionUser = useSelector(state => state.session.user);
-    const userIsClinician = sessionUser.userIsClinician;
+const ExercisePrescriptionTile = ({exPrescription, user}) => {
     const {setModalContent} = useModal();
     const openDeleteExerciseRxModal = (exPrescriptionId) => {
         setModalContent(<DeleteExerciseRxModal exercisePrescriptionId={exPrescriptionId}/>)
@@ -41,11 +39,14 @@ const ExercisePrescriptionTile = ({exPrescription}) => {
                         <div>
                             <button className="exRx-button"><NavLink className="exRx-nav" to={`/exercisePrescriptions/${exPrescription.id}`} >View Full Ex Rx</NavLink></button>
                         </div>
-                        {userIsClinician && (
-                            <div >
-                                <button className="exRx-button" onClick={() => openEditExerciseRxModal(exPrescription.id)}>Edit Prescription</button>
-                           
-                                <button className="exRx-button" onClick={() => openDeleteExerciseRxModal(exPrescription.id)}>Delete Prescription</button>
+                        {user.isClinician && (
+                            <div>
+                                <div>
+                                    <button className="exRx-button" onClick={() => openEditExerciseRxModal(exPrescription.id)}>Edit Prescription</button>
+                                </div>
+                                <div>
+                                    <button className="exRx-button" onClick={() => openDeleteExerciseRxModal(exPrescription.id)}>Delete Prescription</button>
+                                </div>
                             </div>
                         )}   
                     </div>

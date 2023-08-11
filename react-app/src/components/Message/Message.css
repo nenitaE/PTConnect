@@ -10,7 +10,7 @@
     background-color:rgba(80,77,111, .25);
 }
 .background-image-messages {
-    background-image: url("https://myofitclinic.com/wp-content/uploads/2015/08/whatisphysicaltherapy.jpg");
+    /* background-image: url("https://myofitclinic.com/wp-content/uploads/2015/08/whatisphysicaltherapy.jpg"); */
     /* opacity: .35; */
     background-position: center center;
     background-size: contain;

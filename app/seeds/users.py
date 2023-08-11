@@ -138,7 +138,7 @@ def seed_users():
     Isaac = User(
         username='isaac', 
         email='isaac@aa.io',
-        firstName = 'Ellie',
+        firstName = 'Isaac',
         lastName = 'Exodus', 
         city = 'San Diego',
         state = 'California',

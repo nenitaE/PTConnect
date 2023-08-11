@@ -162,10 +162,14 @@ export default function patientListReducer(state = initialState, action){
     let newState = {};
     switch(action.type){
         case GET_ALL_PATIENTLISTS:
-            action.payload.forEach(patientList => {
-                newState[patientList.id] = patientList;
-            })
-            return newState;
+            // action.payload.forEach(patientList => {
+            //     newState[patientList.id] = patientList;
+            // })
+            // return newState;
+            return{
+                ...state,
+                patientLists: action.payload
+            }
         case GET_PATIENTLISTS:
             return{
                 ...state,

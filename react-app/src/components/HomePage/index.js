@@ -3,8 +3,7 @@ import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { useDispatch, useSelector} from 'react-redux';
 import React, { useEffect, useState } from "react";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
-import { NavLink } from "react-router-dom/cjs/react-router-dom";
+import { useHistory, Redirect, NavLink } from 'react-router-dom';
 import circleimg from "./images/PTwgreyBG.png"
 import './HomePage.css'
 
@@ -12,21 +11,25 @@ const HomePage = () => {
     const sessionUser = useSelector((state) => state.session.user);
     const[userIsPatient, setUserIsPatient] = useState(false);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     useEffect(() => {
         if (!sessionUser) {
-            return <Redirect to="/" />;
-        } else if (sessionUser.userIsClinician === true) {
-            return <Redirect to="/" />;
-        } else if (sessionUser.userIsClinician === false){
-            setUserIsPatient(true)  
-            return <Redirect to="/patient" />   
+            history.push('/');
+        } else if (sessionUser.isClinician === false){
+            setUserIsPatient(true)
+            history.push('/patient');  
         } else {
-            return <Redirect to="/" />
+            history.push('/');
         }
-    }, [dispatch, sessionUser])
+    }, [dispatch, sessionUser, history])
 
-    if (userIsPatient === true) return <Redirect to="/patient" />; 
+    if (userIsPatient === true) {
+       history.push('/patient');
+    }
+    if (sessionUser?.isClinician) {
+        history.push('/');
+    }
 
     
     console.log("🚀 ~ file: index.js:16 ~ HomePage ~ userIsPatient:", userIsPatient)
