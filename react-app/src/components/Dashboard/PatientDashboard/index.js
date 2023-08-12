@@ -17,6 +17,7 @@ const PatientDashboard = () => {
     const email = useSelector((state) => state.session.user?.email);
     const [hasSubmitted, setHasSubmitted] = useState(false);
     const [isConnected, setIsConnected] = useState(false);
+    const [status, setStatus] = useState('pending')
     const {setModalContent} = useModal();
     useEffect(() => {
         dispatch(getAllPatientLists())
@@ -35,6 +36,7 @@ const PatientDashboard = () => {
             console.log("🚀 ~ file: index.js:33 ~ useEffect ~ connectedPatient:", connectedPatient)
             if (connectedPatient && connectedPatient.length >0) {
                 setIsConnected(true)
+                setStatus(connectedPatient.status)
             }
         }
     }, [patientLists, patientId])
@@ -81,10 +83,12 @@ const PatientDashboard = () => {
                                             <h3>Interested in connecting with Dr. {clinician.firstName}?</h3>
                                             <button className="patient-dashboard-submit" onClick={() => openConnectPatientListModal(patientList, patientLists)}>CLICK HERE</button>
                                         </div>)}
-                                    {hasSubmitted && <ul>"Congratulations!  You are now connected with Dr. Demo.  
+                                    {isConnected && (status === 'pending') &&(
+                                        <h2 className="congrats-connected">"Congratulations!  You are now connected with Dr. Demo.  
                                         Please wait for Dr. Demo to activate your request and prescribe your 
                                         first Exercise Prescription."
-                                    </ul>}
+                                        </h2>
+                                    )}
 
                                 </div>
 
