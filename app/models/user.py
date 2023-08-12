@@ -11,12 +11,12 @@ class User(db.Model, UserMixin):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    firstName = db.Column(db.String(40), nullable=False)
-    lastName = db.Column(db.String(40), nullable=False)
-    email = db.Column(db.String(255), nullable=False, unique=True)
-    username = db.Column(db.String(40), nullable=False, unique=True)
-    city = db.Column(db.String(40), nullable=False)
-    state = db.Column(db.String(40), nullable=False)
+    firstName = db.Column(db.String(20), nullable=False)
+    lastName = db.Column(db.String(20), nullable=False)
+    email = db.Column(db.String(50), nullable=False, unique=True)
+    username = db.Column(db.String(20), nullable=False, unique=True)
+    city = db.Column(db.String(20), nullable=False)
+    state = db.Column(db.String(20), nullable=False)
     profileImage = db.Column(db.String(200))
     isClinician = db.Column(db.Boolean, nullable = False)
     hashed_password = db.Column(db.String(255), nullable=False)

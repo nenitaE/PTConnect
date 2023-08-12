@@ -199,5 +199,5 @@ def add_exercise_prescriptions():
         db.session.add(newExercisePrescription)
         db.session.commit()
         return newExercisePrescription.to_dict_with_exercises()
-    return {'Errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 

@@ -18,7 +18,7 @@ function LoginSignup() {
                     {/* <div className="login-signup-title">PT Connect</div> */}
                     <Link to={"/signup"} >
                         <button className="signup-button">
-                            Sign up 
+                            Create An Account
                         </button>
                     </Link>
                     
@@ -26,10 +26,6 @@ function LoginSignup() {
                     <Link to={"/login"}>
                         <button className='login-button'>Log in</button>
                     </Link>
-
-                    <div className="agreement-section">
-                        By signing up, I agree that site use is for educational purposes only.
-                    </div>
                 </div>
             </div>
         </div>

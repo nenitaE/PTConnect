@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, BooleanField
-from wtforms.validators import DataRequired, Email, ValidationError
+from wtforms.validators import DataRequired, Email, ValidationError, Length
 from email_validator import validate_email, EmailNotValidError
 from app.models import User
 
@@ -35,12 +35,12 @@ def username_exists(form, field):
 
 class SignUpForm(FlaskForm):
     username = StringField(
-        'username', validators=[DataRequired(), username_exists])
-    firstName = StringField('firstName', validators=[DataRequired()])
-    lastName = StringField('lastName', validators=[DataRequired()])
-    city = StringField('city', validators=[DataRequired()])
-    state = StringField('state', validators=[DataRequired()])
+        'username', validators=[DataRequired(), Length(min=4, max=20, message='Username must be between 4 and 20 characters.'), username_exists])
+    firstName = StringField('firstName', validators=[DataRequired(), Length(min=4, max=20, message='First name must be between 4 and 20 characters.')])
+    lastName = StringField('lastName', validators=[DataRequired(), Length(min=4, max=20, message='Last name must be between 4 and 20 characters.')])
+    city = StringField('city', validators=[DataRequired(), Length(min=4, max=20, message='City must be between 4 and 20 characters.')])
+    state = StringField('state', validators=[DataRequired(), Length(min=4, max=20, message='State must be between 4 and 20 characters.')])
     profileImage = StringField('profileImage')
-    email = StringField('email', validators=[DataRequired(), user_exists, email_is_valid])
+    email = StringField('email', validators=[DataRequired(), user_exists, email_is_valid, Length(max=20, message='Email can not exceed 50 characters.')])
     isClinician = BooleanField('isClinician')
     password = StringField('password', validators=[DataRequired()])

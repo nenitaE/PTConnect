@@ -9,7 +9,7 @@ class ExercisePrescription(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(40), nullable=False)
+    title = db.Column(db.String(20), nullable=False)
     dailyFrequency = db.Column(db.Integer)
     weeklyFrequency = db.Column(db.Integer)
     status = db.Column(db.String(40), nullable=False)

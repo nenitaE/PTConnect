@@ -62,12 +62,12 @@ function ExercisePrescriptionForm({ exercisePrescription, patientLists, formType
         console.log("🚀 ~ file: index.js:62 ~ handleSubmit ~ exercisePrescription:", exercisePrescription)
         console.log("🚀 ~ file: index.js:62 ~ handleSubmit ~ newData:", newData)
         
-        if (newData) {
+        if (newData.id) {
             let exercisePrescriptionId = newData.id;
             dispatch(getExercisePrescription(exercisePrescriptionId))
             history.push('/exercisePrescriptions/current')
         } else {
-            setErrors({errors: newData});
+            setErrors(newData);
             return alert('Invalid Form Input.')
         }
     }
@@ -127,8 +127,8 @@ function ExercisePrescriptionForm({ exercisePrescription, patientLists, formType
                                                 type="number"
                                                 placeholder="How many times per day should this prescription be performed?"
                                                 // id="dailyFrequency"
-                                                min={1}
-                                                max={6}
+                                                // min={1}
+                                                // max={6}
                                                 value={dailyFrequency} 
                                                 onChange={updateDailyFrequency} 
                                                 required={true}
@@ -144,8 +144,8 @@ function ExercisePrescriptionForm({ exercisePrescription, patientLists, formType
                                                     type="number"
                                                     placeholder="How many days per week should this prescription be performed?"
                                                     // id="weeklyFrequency" 
-                                                    min={1}
-                                                    max={7}
+                                                    // min={1}
+                                                    // max={7}
                                                     value={weeklyFrequency}
                                                     onChange={updateWeeklyFrequency} 
                                                     required={true}
