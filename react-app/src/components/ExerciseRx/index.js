@@ -50,7 +50,7 @@ const ExercisePrescription = () => {
                         <div className="create-emptyPL">
                             <div className="header-noPL">
                                 <h2>This feature will be activated once you add patients to your patient list.</h2>
-                                <button className="exRx-button" ><NavLink className="exRx-nav" to={`/patientLists/current`} >Click here to add patients to your list</NavLink></button>
+                                <button className="exRx-button" ><NavLink className="exRx-nav" to={`/patientLists/new`} >Click here to add patients to your list</NavLink></button>
                             </div>
                         </div>
                      )}

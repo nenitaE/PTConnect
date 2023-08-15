@@ -6,23 +6,15 @@ import { useHistory, useParams } from "react-router-dom";
 import './ExerciseRxForm.css';
 
 function ExercisePrescriptionForm({ exercisePrescription, patientLists, formType}) {
-    console.log("🚀 ~ file: index.js:9 ~ ExercisePrescriptionForm ~ patientLists:", patientLists)
-    console.log("🚀 ~ file: index.js:8 ~ ExercisePrescriptionForm ~ exercisePrescription:", exercisePrescription)
     
     const clinicianId = useSelector((state) => state.session.user?.id);
-    console.log("🚀 ~ file: index.js:14 ~ ExercisePrescriptionForm ~ clinicianId:", clinicianId)
     const history = useHistory();
     const [title, setTitle] = useState('');
     const [patientId, setPatientId] = useState('');
-    console.log("🚀 ~ file: index.js:17 ~ ExercisePrescriptionForm ~ title:", title)
-    const [dailyFrequency, setDailyFrequency] = useState('');
-    console.log("🚀 ~ file: index.js:19 ~ ExercisePrescriptionForm ~ dailyFrequency:", dailyFrequency)
-    const [weeklyFrequency, setWeeklyFrequency] = useState('');
-    console.log("🚀 ~ file: index.js:21 ~ ExercisePrescriptionForm ~ weeklyFrequency:", weeklyFrequency)
+    const [dailyFrequency, setDailyFrequency] = useState(1);
+    const [weeklyFrequency, setWeeklyFrequency] = useState(1);
     const [status, setStatus] = useState("current");
-    console.log("🚀 ~ file: index.js:23 ~ ExercisePrescriptionForm ~ status:", status)
     const [errors, setErrors] = useState([]);
-    console.log("🚀 ~ file: index.js:25 ~ ExercisePrescriptionForm ~ errors:", errors)
     const [hasSubmitted, setHasSubmitted] = useState(false);
 
     const updatePatientId = (e) => setPatientId(e.target.value);
@@ -43,8 +35,6 @@ function ExercisePrescriptionForm({ exercisePrescription, patientLists, formType
         )
     }
     let patientListsArr = Object.values(patientLists)
-    console.log("🚀 ~ file: index.js:42 ~ ExercisePrescriptionForm ~ patientListsArr:", patientListsArr)
-
     const handleSubmit = async (e) => {
         console.log("****INSIDE HANDLE SUBMIT CREATE EXRX")
         e.preventDefault();
@@ -59,8 +49,6 @@ function ExercisePrescriptionForm({ exercisePrescription, patientLists, formType
             status
         }
         const newData = await dispatch(createExercisePrescription(exercisePrescription))
-        console.log("🚀 ~ file: index.js:62 ~ handleSubmit ~ exercisePrescription:", exercisePrescription)
-        console.log("🚀 ~ file: index.js:62 ~ handleSubmit ~ newData:", newData)
         
         if (newData.id) {
             let exercisePrescriptionId = newData.id;
@@ -82,82 +70,136 @@ function ExercisePrescriptionForm({ exercisePrescription, patientLists, formType
     return (
         <div className='newExRxFormContainer'>
             <form className='ExRxForm' onSubmit={handleSubmit}>
-                    <h2>{formType}</h2>
-                    <div className='newExRxInnerContainer'>
-                            <h3 className='newExRx-TitleContainer'>Use this form to create a new Exercise Prescription.</h3>              
+                        <h2 className='newExRx-TitleContainer'>Use this form to create a new Exercise Prescription.</h2> 
+                    <div className='newExRxInnerContainer'>             
                             <div className='newExRxcontainer'>
                                 <h3>
                                     <div className='newExRx-inputs'>
                                         <div className='input-container'>
                                             <div>
-                                                <label  htmlFor='patientId'>Patient ID </label>
-                                                    {hasSubmitted && !patientId && (
-                                                        <label htmlFor='patientId' className='field-error'>Patient ID is required</label>
-                                                    )}
-                                                    <select 
-                                                        className='createExRxdropdown'
-                                                        id="patientId" 
-                                                        type="number"
-                                                        onChange={updatePatientId} 
-                                                        required={true}
-                                                    >
-                                                    <option>Which of your patients is this prescription for?</option> 
-                                                    {(patientLists && patientLists.map(list => (    
-                                                        <option value={list.patientId}>PatientID: {list.patientId}, Email: {list.email}</option>)))}
-                                                    </select>
+                                                <div className="createExRx-form-title">
+                                                    <label  htmlFor='patientId'>Patient ID </label>
+                                                </div>
+                                                <div className="createExRx-form-section">
+                                                        {hasSubmitted && !patientId && (
+                                                            <label htmlFor='patientId' className='field-error'>Patient ID is required</label>
+                                                        )}
+                                                        <select 
+                                                            className='createExRx-patientId-dropdown'
+                                                            id="patientId" 
+                                                            type="number"
+                                                            onChange={updatePatientId} 
+                                                            required={true}
+                                                        >
+                                                        <option>Which of your patients is this prescription for?</option> 
+                                                        {(patientLists && patientLists.map(list => (    
+                                                            <option value={list.patientId}>PatientID: {list.patientId}, Email: {list.email}</option>)))}
+                                                        </select>
+                                                </div>
                                             </div>
-                                            {hasSubmitted && !title && (
-                                            <label htmlFor='title'>Enter a Title for this ExRx</label>
-                                            )}
-                                            <input 
-                                                type="text"
-                                                placeholder="Name this exercise prescription (eg. 'Hamstring Tear')"
-                                                required={true}
-                                                value={title}
-                                                onChange={updateTitle}
-                                            />
-                                        </div>
-                                        <div>
-                                            <label  htmlFor='dailyFrequency'>ExRx Daily Frequency </label>
-                                                {hasSubmitted && !dailyFrequency && (
-                                                    <label htmlFor='status' className='field-error'>Daily Frequency is required</label>
+                                            <div className="createExRx-form-title">
+                                                <label htmlFor='title'>Enter a Title for this ExRx</label>
+                                            </div>
+                                            <div className="createExRx-form-section">   
+                                                {hasSubmitted && !title && (
+                                                <label htmlFor='title' className='field-error'>Title is required</label>
                                                 )}
-                                            <input
-                                                className='createExRxInput'
-                                                type="number"
-                                                placeholder="How many times per day should this prescription be performed?"
-                                                // id="dailyFrequency"
-                                                // min={1}
-                                                // max={6}
-                                                value={dailyFrequency} 
-                                                onChange={updateDailyFrequency} 
-                                                required={true}
-                                            />
-                                        </div>
-                                        <div>
-                                            <label  htmlFor='weeklyFrequency'>ExRx Weekly Frequency </label>
-                                                {hasSubmitted && !weeklyFrequency && (
-                                                    <label htmlFor='status' className='field-error'>Weekly Frequency is required</label>
-                                                )}
-                                                <input
-                                                    className='createExRxInput'
-                                                    type="number"
-                                                    placeholder="How many days per week should this prescription be performed?"
-                                                    // id="weeklyFrequency" 
-                                                    // min={1}
-                                                    // max={7}
-                                                    value={weeklyFrequency}
-                                                    onChange={updateWeeklyFrequency} 
+                                                <input 
+                                                    type="text"
+                                                    placeholder="eg. 'Hamstring Tear Protocol'"
                                                     required={true}
+                                                    value={title}
+                                                    onChange={updateTitle}
                                                 />
+                                            </div>     
+                                        </div>
+                                        <div className="createExRx-form-section">
+                                                    <label  htmlFor='dailyFrequency'>How often should this prescription be performed? </label>
+                                        </div>
+                                        <div className="createExRx-frequency">        
+                                            <span>    
+                                                <div className="createExRx-form-section">   
+                                                    {hasSubmitted && !dailyFrequency && (
+                                                        <label htmlFor='status' className='field-error'>Daily Frequency is required</label>
+                                                    )}
+                                                    {/* <input
+                                                        className='createExRxInput'
+                                                        type="number"
+                                                        placeholder="times per day"
+                                                        // id="dailyFrequency"
+                                                        // min={1}
+                                                        // max={6}
+                                                        value={dailyFrequency} 
+                                                        onChange={updateDailyFrequency} 
+                                                        required={true}
+                                                    /> */}
+                                                    <select 
+                                                    className='createExRx-frequency-dropdown'
+                                                    id="dailyFrequency" 
+                                                    type="number"
+                                                    onChange={updateDailyFrequency}  
+                                                    required={true}
+                                                    >
+                                                        <option value={1}>1</option> 
+                                                        <option value={2}>2</option> 
+                                                        <option value={3}>3</option> 
+                                                        <option value={4}>4</option> 
+                                                        <option value={5}>5</option> 
+                                                        <option value={6}>6</option> 
+                                                    </select>
+                                                     {dailyFrequency && dailyFrequency >= 2 &&(<span> times per day</span>)}
+                                                     {dailyFrequency && dailyFrequency === 1 &&(<span> time per day</span>)}
+                                                </div>
+                                            </span>
+                                            <span>
+                                                <div className="createExRx-form-section">
+                                                    <label  htmlFor='weeklyFrequency'></label>
+                                                
+                                                    {hasSubmitted && !weeklyFrequency && (
+                                                        <label htmlFor='status' className='field-error'>Weekly Frequency is required</label>
+                                                    )}
+                                                    {/* <input
+                                                        className='createExRxInput'
+                                                        type="number"
+                                                        placeholder="days per week"
+                                                        // id="weeklyFrequency" 
+                                                        // min={1}
+                                                        // max={7}
+                                                        value={weeklyFrequency}
+                                                        onChange={updateWeeklyFrequency} 
+                                                        required={true}
+                                                    />  */}
+                                                    <select 
+                                                    className='createExRx-frequency-dropdown'
+                                                    id="weeklyFrequency" 
+                                                    type="number"
+                                                    onChange={updateWeeklyFrequency}  
+                                                    required={true}
+                                                    >
+                                                        <option value={1}>1</option> 
+                                                        <option value={2}>2</option> 
+                                                        <option value={3}>3</option> 
+                                                        <option value={4}>4</option> 
+                                                        <option value={5}>5</option> 
+                                                        <option value={6}>6</option> 
+                                                        <option value={7}>7</option> 
+                                                    </select>
+                                                     {weeklyFrequency && weeklyFrequency >= 2 &&(<span> days per week</span>)}
+                                                     {weeklyFrequency && weeklyFrequency === 1 &&(<span> day per week</span>)}
+                                                </div>
+                                            </span>
+                                            <span></span>
                                         </div>
                                         <div>
-                                            <label  htmlFor='status'>ExRx Status </label>
+                                            <div className="createExRx-form-section">
+                                                <label  htmlFor='status'>ExRx Status </label>
+                                            </div>
+                                            <div className="createExRx-form-section">
                                                 {hasSubmitted && !status && (
                                                     <label htmlFor='status' className='field-error'>Status is required</label>
                                                 )}
                                                 <select 
-                                                    className='createExRxdropdown'
+                                                    className='createExRx-status-dropdown'
                                                     id="status" 
                                                     onChange={updateStatus} 
                                                     required={true}
@@ -165,12 +207,7 @@ function ExercisePrescriptionForm({ exercisePrescription, patientLists, formType
                                                     <option value={"current"}>current</option>
                                                     <option value={"completed"}>completed</option> 
                                                 </select>
-                                        </div>
-                                        
-                                        
-                                        <div className="add-exercises-container">
-                                            <button onClick={(handleAlert)} className="exRx-button">Select Exercises</button>
-                                            
+                                            </div>
                                         </div>
                                     </div>
                                         <div className="ExRxcreate-button-container">

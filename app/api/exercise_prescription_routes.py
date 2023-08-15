@@ -28,7 +28,7 @@ def edit_curr_exercise_prescription(exercisePrescriptionId):
 
     #check to make sure the user is authorized to change this exercisePrescription
     if (exercisePrescription.clinicianId) != int(session['_user_id']):
-        return {'Error': 'User is not authorized'}
+        return {'errors': 'User is not authorized'}
 
     if form.validate_on_submit():
         print("********************in EDIT EXRX form")
@@ -55,8 +55,7 @@ def edit_curr_exercise_prescription(exercisePrescriptionId):
         db.session.commit()
         print("********************line 56 AFTER COMMIT")
         return exercisePrescription.to_dict()
-
-    return {'Error': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 
@@ -71,10 +70,10 @@ def delete_curr_exercise_rx(exercisePrescriptionId):
     userId = session['_user_id']
     print("******USERID*****", userId)
     if not exercisePrescription:
-       return {'Error': 'Exercise Prescription not found'}
+       return {'errors': 'Exercise Prescription not found'}
 
     if int(exercisePrescription.clinicianId) != int(userId):
-        return {'Error': 'User is not authorized'}
+        return {'errors': 'User is not authorized'}
 
     db.session.delete(exercisePrescription)
     db.session.commit()
@@ -100,7 +99,7 @@ def get_patient_exercise_prescriptions(patientId):
     #verify that user is logged in
     if current_user_id is None:
         print('**************line101')
-        return {'error': 'User not found'}, 404
+        return {'errors': 'User not found'}, 404
     
     else:
         print('**************line105')
@@ -123,7 +122,7 @@ def get_current_exercise_prescriptions():
     #verify that user is logged in
     if user is None:
         print('**************line101')
-        return {'error': 'User not found'}, 404
+        return {'errors': 'User not found'}, 404
     
     else:
         print('**************line105')
@@ -144,7 +143,7 @@ def get_exercise_prescription(exercisePrescriptionId):
     exercise_prescription = ExercisePrescription.query.get(int(exercisePrescriptionId))
     print(exercise_prescription, "**********EX RX***********")
     if not exercise_prescription:
-        return {'error': 'Exercise Prescription not found'}, 404
+        return {'errors': 'Exercise Prescription not found'}, 404
     
     else:
         return jsonify(exercise_prescription.to_dict_with_exercises())

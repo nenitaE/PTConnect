@@ -23,16 +23,16 @@
 #modal-content {
   /* position: absolute; */
   z-index: 1;
-  background-color: lightgrey;
-  font-size: 17px;
+  background-color: whitesmoke;
+  /* font-size: 17px; */
   border: 1.5px #200054;
   border-radius: 6px;
-  text-align: center;
+  /* text-align: center; */
   color: #200054;
-  padding: 0px 20px 20px 20px;
+  padding: 0px 20px 20px 20px; 
 }
 
-#modal-content button {
+/* #modal-content button {
   color: #200054;
   font-size: 17px;
   border-radius: 6px;
@@ -40,4 +40,4 @@
   justify-content: center;
   padding: 7px;
   margin: 25px;
-}
+} */

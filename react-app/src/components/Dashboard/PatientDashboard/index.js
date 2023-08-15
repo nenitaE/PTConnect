@@ -18,6 +18,7 @@ const PatientDashboard = () => {
     const [hasSubmitted, setHasSubmitted] = useState(false);
     const [isConnected, setIsConnected] = useState(false);
     const [status, setStatus] = useState('pending')
+    console.log("🚀 ~ file: index.js:21 ~ PatientDashboard ~ status:", status)
     const {setModalContent} = useModal();
     useEffect(() => {
         dispatch(getAllPatientLists())
@@ -36,10 +37,13 @@ const PatientDashboard = () => {
             console.log("🚀 ~ file: index.js:33 ~ useEffect ~ connectedPatient:", connectedPatient)
             if (connectedPatient && connectedPatient.length >0) {
                 setIsConnected(true)
-                setStatus(connectedPatient.status)
+                const newStatus = connectedPatient.find(obj => {return obj})
+                console.log("🚀 ~ file: index.js:41 ~ useEffect ~ newStatus:", newStatus)
+                setStatus(newStatus.status)
+                console.log("🚀 ~ file: index.js:43 ~ useEffect ~ connectedPatient.status:", connectedPatient.status)
             }
         }
-    }, [patientLists, patientId])
+    }, [patientLists, patientId, isConnected, status])
     console.log("🚀 ~ file: index.js:35 ~ PatientDashboard ~ isConnected:", isConnected)
 
     const clinician = useSelector(state => state.user.user);
@@ -84,8 +88,8 @@ const PatientDashboard = () => {
                                             <button className="patient-dashboard-submit" onClick={() => openConnectPatientListModal(patientList, patientLists)}>CLICK HERE</button>
                                         </div>)}
                                     {isConnected && (status === 'pending') &&(
-                                        <h2 className="congrats-connected">"Congratulations!  You are now connected with Dr. Demo.  
-                                        Please wait for Dr. Demo to activate your request and prescribe your 
+                                        <h2 className="congrats-connected">"Congratulations!  You are now connected with Dr. {clinician.firstName}.  
+                                        Please wait for Dr. {clinician.firstName} to activate your request and prescribe your 
                                         first Exercise Prescription."
                                         </h2>
                                     )}

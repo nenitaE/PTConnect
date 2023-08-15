@@ -3,6 +3,7 @@ import { useDispatch, useSelector} from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { useModal } from '../../../context/Modal'; 
 import { updateExercisePrescription, getExercisePrescription,getExercisePrescriptions } from '../../../store/exerciseRx';
+import './EditExerciseRxModal.css';
 
 const EditExerciseRxModal = ({exercisePrescriptionId}) => {
     const dispatch = useDispatch();
@@ -53,6 +54,7 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
     const handleSubmit = async (e) => {
         console.log("**********inside handle submit editRXModal")
         e.preventDefault();
+        setHasSubmitted(true);
         const errors = {};
         if (!dailyFrequency) {
             errors.dailyFrequency = "Daily Frequency is required."
@@ -77,6 +79,11 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
         if (!title) {
             errors.title = "Title is required."
             setTitleError("Title is required.")
+            hasErrors = true;
+        }
+        if (title.length>20) {
+            errors.title = "Title can not exceed 20 characters."
+            setTitleError("Title can not exceed 20 characters.")
             hasErrors = true;
         }
         if (!status) {
@@ -111,15 +118,17 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
             ...exercisePrescriptionData
         } 
         const editedExercisePrescription = await dispatch(updateExercisePrescription(exercisePrescriptionId, finalData))
+        console.log("🚀 ~ file: index.js:114 ~ handleSubmit ~ editedExercisePrescription:", editedExercisePrescription)
         
-        if (editedExercisePrescription) {
+        if (editedExercisePrescription.id) {
             console.log("**********line 99 editModal")
             dispatch(getExercisePrescriptions())
             .then(closeModal)
             .then(history.push('/exercisePrescriptions/current'))            
         } else {
             console.log("**********line 104 editModal")
-            setErrors({ errors: editedExercisePrescription });
+            setErrors(editedExercisePrescription);
+            alert('Invalid Form Input.')
             closeModal();
         }
         
@@ -128,115 +137,164 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
 
     return ( 
         <div className='update-ExRx-container'>
-            <h3 className="form-editExRx-description">Edit Exercise Prescription</h3>   
+            <h2 className="form-editExRx-description">Edit Exercise Prescription For PatientID: {patientId}</h2>   
                 <form className ='ExRx-form' onSubmit={handleSubmit} >      
-                    <ul className="errors">
-                        {errors.status && <li>{errors.title}</li>}
-                        {errors.status && <li>{errors.dailyFrequency}</li>}
-                        {errors.status && <li>{errors.weeklyFrequency}</li>}
-                        {errors.status && <li>{errors.status}</li>}
-                        {errors.errors && errors.errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                    </ul>
-                    <div className='input-container'>
-                                <label htmlFor='title'>Enter a Title for this ExRx</label>
-                                    
-                                    <input 
-                                        type="text"
-                                        placeholder="title"
-                                        maxLength={40}
-                                        required={true}
-                                        value={title}
-                                        onChange={updateTitle}
-                                    />
+                    <div className='edit-input-container'>
+                        <h3>
+                            <div className="editExRx-title">
+                                <span className="exRx-title">
+                                    <label htmlFor='title'>Enter a Title for this ExRx</label>
+                                        {hasSubmitted && !title && (
+                                            <label htmlFor='status' className='field-error'>Title is required</label>
+                                        )}
+                                        <input 
+                                            type="text"
+                                            placeholder="title"
+                                            maxLength={40}
+                                            required={true}
+                                            value={title}
+                                            onChange={updateTitle}
+                                        />
+                                </span>
+                                        <p className="field-error">
+                                        {titleError &&   <p className="error"> 
+                                                            <i className="fa-solid fa-triangle-exclamation"></i>
+                                                            {titleError}
+                                                        </p>}
+                                        </p>
+                                
+                            </div>
+                            <div className="create-form-frequency">
+                                <span className="editExRx-daily">
+                                <span>    
+                                                <div className="createExRx-form-section">   
+                                                    {hasSubmitted && !dailyFrequency && (
+                                                        <label htmlFor='status' className='field-error'>Daily Frequency is required</label>
+                                                    )}
+                                                    {/* <input
+                                                        className='createExRxInput'
+                                                        type="number"
+                                                        placeholder="times per day"
+                                                        // id="dailyFrequency"
+                                                        // min={1}
+                                                        // max={6}
+                                                        value={dailyFrequency} 
+                                                        onChange={updateDailyFrequency} 
+                                                        required={true}
+                                                    /> */}
+                                                    <span>Daily Frequency</span>
+                                                    <span>
+                                                    <select 
+                                                    className='createExRx-frequency-dropdown'
+                                                    id="dailyFrequency" 
+                                                    type="number"
+                                                    onChange={updateDailyFrequency}  
+                                                    required={true}
+                                                    >
+                                                        <option value={1}>1</option> 
+                                                        <option value={2}>2</option> 
+                                                        <option value={3}>3</option> 
+                                                        <option value={4}>4</option> 
+                                                        <option value={5}>5</option> 
+                                                        <option value={6}>6</option> 
+                                                    </select>
+                                                     {dailyFrequency && dailyFrequency >= 2 &&(<span> times per day</span>)}
+                                                     {dailyFrequency && dailyFrequency === 1 &&(<span> time per day</span>)}
+                                                     </span>
+                                                </div>
+                                            </span>
+                                            <span>
+                                                <div className="createExRx-form-section">
+                                                    <label  htmlFor='weeklyFrequency'></label>
+                                                
+                                                    {hasSubmitted && !weeklyFrequency && (
+                                                        <label htmlFor='status' className='field-error'>Weekly Frequency is required</label>
+                                                    )}
+                                                    {/* <input
+                                                        className='createExRxInput'
+                                                        type="number"
+                                                        placeholder="days per week"
+                                                        // id="weeklyFrequency" 
+                                                        // min={1}
+                                                        // max={7}
+                                                        value={weeklyFrequency}
+                                                        onChange={updateWeeklyFrequency} 
+                                                        required={true}
+                                                    />  */}
+                                                    <span>Weekly Frequency</span>
+                                                    <span></span>
+                                                    <span>
+                                                    <select 
+                                                    className='createExRx-frequency-dropdown'
+                                                    id="weeklyFrequency" 
+                                                    type="number"
+                                                    onChange={updateWeeklyFrequency}  
+                                                    required={true}
+                                                    >
+                                                        <option value={1}>1</option> 
+                                                        <option value={2}>2</option> 
+                                                        <option value={3}>3</option> 
+                                                        <option value={4}>4</option> 
+                                                        <option value={5}>5</option> 
+                                                        <option value={6}>6</option> 
+                                                        <option value={7}>7</option> 
+                                                    </select>
+                                                     {weeklyFrequency && weeklyFrequency >= 2 &&(<span> days per week</span>)}
+                                                     {weeklyFrequency && weeklyFrequency === 1 &&(<span> day per week</span>)}
+                                                     </span>
+                                                </div>
+                                            </span>
+                                </span>
+                                </div>
+                                <div className='editExRx-status'>
+                                    <div></div>
+                                    <div>
+                                        <label  htmlFor='status'>ExRx Status </label>
+                                        {hasSubmitted && !status && (
+                                            <label htmlFor='status' className='field-error'>Status is required</label>
+                                        )}
+                                        <p>
+                                            <select 
+                                                className='editExRx-dropdown'
+                                                id="status" 
+                                                onChange={updateStatus} 
+                                                required={true}
+                                            >
+                                                <option value={"current"}>current</option>
+                                                <option value={"completed"}>completed</option> 
+                                            </select>
+                                            <p className="field-error">
+                                            {statusError &&   <span className="error"> 
+                                                                <i className="fa-solid fa-triangle-exclamation"></i>
+                                                                {statusError}
+                                                            </span>}
+                                            </p>
+                                        </p>
+                                    </div>
+                                    <div></div>
+                                </div>
+                        </h3>        
                     </div>
-                    <div>
-                        <p className="field-error">
-                            {titleError &&   <span className="error"> 
-                                                <i className="fa-solid fa-triangle-exclamation"></i>
-                                                {titleError}
-                                            </span>}
-                        </p>
-                    </div>
-                    <div>
-                        <label  htmlFor='dailyFrequency'>ExRx Daily Frequency </label>
-                            {hasSubmitted && !dailyFrequency && (
-                                <label htmlFor='status' className='field-error'>Daily Frequency is required</label>
-                            )}
-                            <input
-                                className='createExRxInput'
-                                type='number'
-                                id="dailyFrequency"
-                                min={1}
-                                max={6}
-                                value={dailyFrequency} 
-                                onChange={updateDailyFrequency} 
-                                required={true}
-                            />
-                    </div>
-                    <div>
-                        <p className="field-error">
-                            {dailyError &&   <span className="error"> 
-                                                <i className="fa-solid fa-triangle-exclamation"></i>
-                                                {dailyError}
-                                            </span>}
-                        </p>
-                    </div>
-                    <div>
-                        <label  htmlFor='weeklyFrequency'>ExRx Weekly Frequency </label>
-                            {hasSubmitted && !weeklyFrequency && (
-                                <label htmlFor='status' className='field-error'>Weekly Frequency is required</label>
-                            )}
-                            <input
-                                className='createExRxInput'
-                                type='number'
-                                id="weeklyFrequency" 
-                                min={1}
-                                max={7}
-                                value={weeklyFrequency}
-                                onChange={updateWeeklyFrequency} 
-                                required={true}
-                            />
-                    </div>
-                    <div>
-                        <p className="field-error">
-                            {weeklyError &&   <span className="error"> 
-                                                <i className="fa-solid fa-triangle-exclamation"></i>
-                                                {weeklyError}
-                                            </span>}
-                        </p>
-                    </div>
-                    <div>
-                        <label  htmlFor='status'>ExRx Status </label>
-                            {hasSubmitted && !status && (
-                                <label htmlFor='status' className='field-error'>Status is required</label>
-                            )}
-                            <select 
-                                className='createExRxdropdown'
-                                id="status" 
-                                onChange={updateStatus} 
-                                required={true}
-                            >
-                                <option>Select Status</option>
-                                <option value={"current"}>current</option>
-                                <option value={"completed"}>completed</option> 
-                            </select>
-                    </div>
-                    <div>
-                        <p className="field-error">
-                            {statusError &&   <span className="error"> 
-                                                <i className="fa-solid fa-triangle-exclamation"></i>
-                                                {statusError}
-                                            </span>}
-                        </p>
-                    </div>
-                        <div className="editExRx-button-container">
-                            <button className="updateExRxBtn" type="submit" >
-                                Update Exercise Prescription
-                            </button>
-                            <button className="keepExRxBtn" type="button" onClick={closeModal}>
-                                Keep Current Prescription (Don't Update)
-                            </button>
-                        </div>
+                                <div className="validation-container-editexRx">    
+                                    <ul className='form-validation-errors'>
+                                        {errors.length > 0 && errors.map((error, idx) => (
+                                            <li key={idx}>{error}</li>
+                                        ))}
+                                    </ul>
+                                </div>    
+                                <div className="editExRx-button-container">
+                                    <span>
+                                        <button className="login-button" type="button" onClick={closeModal}>
+                                            Keep Current Prescription
+                                        </button>
+                                    </span>
+                                    <span className='padding5'></span>
+                                    <span>
+                                        <button className="signup-button" type="submit" >
+                                            Update Exercise Prescription
+                                        </button>
+                                    </span>                                
+                                </div>
                 </form>
               </div>
      );

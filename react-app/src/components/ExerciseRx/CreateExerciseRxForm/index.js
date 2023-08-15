@@ -20,7 +20,7 @@ const CreateExercisePrescriptionForm = () => {
   let patientLists = useSelector(state => state.patientList.patientLists);
     
   return (
-    <ExercisePrescriptionForm exercisePrescription={exercisePrescription} patientLists={patientLists} formType="Create A New Exercise Prescription" />
+    <ExercisePrescriptionForm exercisePrescription={exercisePrescription} patientLists={patientLists} formType="Create New Exercise Prescription" />
   );
 }
 
