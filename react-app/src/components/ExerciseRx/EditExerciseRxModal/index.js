@@ -166,84 +166,54 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
                             </div>
                             <div className="create-form-frequency">
                                 <span className="editExRx-daily">
-                                <span>    
-                                                <div className="createExRx-form-section">   
-                                                    {hasSubmitted && !dailyFrequency && (
-                                                        <label htmlFor='status' className='field-error'>Daily Frequency is required</label>
-                                                    )}
-                                                    {/* <input
-                                                        className='createExRxInput'
-                                                        type="number"
-                                                        placeholder="times per day"
-                                                        // id="dailyFrequency"
-                                                        // min={1}
-                                                        // max={6}
-                                                        value={dailyFrequency} 
-                                                        onChange={updateDailyFrequency} 
-                                                        required={true}
-                                                    /> */}
-                                                    <span>Daily Frequency</span>
-                                                    <span>
-                                                    <select 
-                                                    className='createExRx-frequency-dropdown'
-                                                    id="dailyFrequency" 
-                                                    type="number"
-                                                    onChange={updateDailyFrequency}  
-                                                    required={true}
-                                                    >
-                                                        <option value={1}>1</option> 
-                                                        <option value={2}>2</option> 
-                                                        <option value={3}>3</option> 
-                                                        <option value={4}>4</option> 
-                                                        <option value={5}>5</option> 
-                                                        <option value={6}>6</option> 
-                                                    </select>
-                                                     {dailyFrequency && dailyFrequency >= 2 &&(<span> times per day</span>)}
-                                                     {dailyFrequency && dailyFrequency === 1 &&(<span> time per day</span>)}
-                                                     </span>
-                                                </div>
-                                            </span>
-                                            <span>
-                                                <div className="createExRx-form-section">
-                                                    <label  htmlFor='weeklyFrequency'></label>
-                                                
-                                                    {hasSubmitted && !weeklyFrequency && (
-                                                        <label htmlFor='status' className='field-error'>Weekly Frequency is required</label>
-                                                    )}
-                                                    {/* <input
-                                                        className='createExRxInput'
-                                                        type="number"
-                                                        placeholder="days per week"
-                                                        // id="weeklyFrequency" 
-                                                        // min={1}
-                                                        // max={7}
-                                                        value={weeklyFrequency}
-                                                        onChange={updateWeeklyFrequency} 
-                                                        required={true}
-                                                    />  */}
-                                                    <span>Weekly Frequency</span>
-                                                    <span></span>
-                                                    <span>
-                                                    <select 
-                                                    className='createExRx-frequency-dropdown'
-                                                    id="weeklyFrequency" 
-                                                    type="number"
-                                                    onChange={updateWeeklyFrequency}  
-                                                    required={true}
-                                                    >
-                                                        <option value={1}>1</option> 
-                                                        <option value={2}>2</option> 
-                                                        <option value={3}>3</option> 
-                                                        <option value={4}>4</option> 
-                                                        <option value={5}>5</option> 
-                                                        <option value={6}>6</option> 
-                                                        <option value={7}>7</option> 
-                                                    </select>
-                                                     {weeklyFrequency && weeklyFrequency >= 2 &&(<span> days per week</span>)}
-                                                     {weeklyFrequency && weeklyFrequency === 1 &&(<span> day per week</span>)}
-                                                     </span>
-                                                </div>
-                                            </span>
+                                    <span>
+                                        <label  htmlFor='dailyFrequency'>Daily Frequency </label>
+                                            {hasSubmitted && !dailyFrequency && (
+                                                <label htmlFor='status' className='field-error'>Daily Frequency is required</label>
+                                            )}
+                                            <input
+                                                className='createExRxInput'
+                                                type='number'
+                                                id="dailyFrequency"
+                                                min={1}
+                                                max={6}
+                                                value={dailyFrequency} 
+                                                onChange={updateDailyFrequency} 
+                                                required={true}
+                                            />
+                                            
+                                    </span>
+                                    <p className="field-error">
+                                        {dailyError &&   <p className="error"> 
+                                                            <i className="fa-solid fa-triangle-exclamation"></i>
+                                                            {dailyError}
+                                                        </p>}
+                                    </p>
+                                </span>
+                                <span className='padding5'></span>
+                                <span className="editExRx-weekly">    
+                                    <span>   
+                                        <label  htmlFor='weeklyFrequency'>Weekly Frequency </label>
+                                            {hasSubmitted && !weeklyFrequency && (
+                                                <label htmlFor='status' className='field-error'>Weekly Frequency is required</label>
+                                            )}
+                                            <input
+                                                className='createExRxInput'
+                                                type='number'
+                                                id="weeklyFrequency" 
+                                                min={1}
+                                                max={7}
+                                                value={weeklyFrequency}
+                                                onChange={updateWeeklyFrequency} 
+                                                required={true}
+                                            />
+                                    </span> 
+                                    <p className="field-error">
+                                        {weeklyError &&   <p className="error"> 
+                                                            <i className="fa-solid fa-triangle-exclamation"></i>
+                                                            {weeklyError}
+                                                        </p>}
+                                    </p>
                                 </span>
                                 </div>
                                 <div className='editExRx-status'>
