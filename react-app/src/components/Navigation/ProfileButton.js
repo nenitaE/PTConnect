@@ -73,7 +73,7 @@ function ProfileButton({ user }) {
                         <NavLink className='text-link-profileBttn' to="/patientLists/current">Patient List</NavLink>
                       </li>
                       <li>
-                        <NavLink className='text-link-profileBttn' to="/exercises/current">Exercises</NavLink>
+                        <NavLink className='text-link-profileBttn' to="/exercises/search">Exercises</NavLink>
                       </li>
                     </div>
                   }

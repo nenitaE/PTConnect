@@ -73,10 +73,10 @@ def delete_curr_patientList(patientListId):
     # print('patientList', patientList)
 
     if not patientList:
-       return {'Error': 'Patient List not found'}
+       return {'error': 'Patient List not found'}
 
     if int(patientList.clinicianId) != int(userId):
-        return {'Error': 'User is not authorized'}
+        return {'error': 'User is not authorized'}
 
     # print(session, "________DIR SESSION_______")
     db.session.delete(patientList)

@@ -16,9 +16,22 @@ function Navigation({ isLoaded }){
 			{/* <NavLink exact to="/signup">Signup</NavLink>
 			<NavLink exact to="/login">Login</NavLink> */}
 			{isLoaded && (
-				<div  className="profileButton">
-					<ProfileButton user={sessionUser} />
+				<div className="navigation-menu">
+					<div className="nav-row">
+							<ul className='navUL'>
+								<li className="navLi">
+									<NavLink className='text-navBttn' to="/messages/current">Messages</NavLink>
+								</li>
+								<li className="navLi">
+									<NavLink className='text-navBttn' to="/exercisePrescriptions/current">Exercise Prescriptions</NavLink>
+								</li>
+								<li className="profileButton">
+									<ProfileButton user={sessionUser} />
+								</li>
+						</ul>
+					</div>
 				</div>
+				
 			)}
 		</div>
 	);

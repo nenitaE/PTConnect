@@ -21,7 +21,7 @@ const SentMessage = () => {
       .then(() => setIsLoaded(true))
     }, [dispatch])
     
-    let currentUserMessages = useSelector(state=> state.message.Messages);
+    let currentUserMessages = useSelector(state=> state.message.messages);
     console.log("🚀 ~ file: index.js:26 ~ Message ~ currentUserMessages:", currentUserMessages)
 
     if (!currentUserMessages) return null;
@@ -38,7 +38,7 @@ const SentMessage = () => {
                 <div className="inbox-container">
                   {isLoaded && currentUserMessages.map((currentUserMessage) => (
                     <div className="inbox" key={currentUserMessages.id}>
-                      <span>{currentUserMessage.createdAt}</span><span>{currentUserMessage.body}</span>
+                      <span>{currentUserMessage.createdAt}</span><p>{currentUserMessage.body}</p>
                     </div>
                   ))}
                   </div>

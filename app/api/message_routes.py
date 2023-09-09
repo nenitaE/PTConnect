@@ -14,7 +14,7 @@ def delete_curr_message(messageId):
     """
     Deletes a message by Id for logged in user
     """
-    current_user_id = current_user.get_id()
+    current_user_id = session['_user_id']
     print('CURRENT USERID', current_user_id)
     user = User.query.get(current_user_id)
 
@@ -29,7 +29,7 @@ def delete_curr_message(messageId):
 
     #verify that message exists
     if not message:
-       return {'Error': 'Message not found'}
+       return {'error': 'Message not found'}
     
     #check if current_user is a clinician
     curr_user_is_clinician = User.query.filter(
@@ -50,9 +50,9 @@ def delete_curr_message(messageId):
         db.session.delete(message)
         db.session.commit()
 
-        messages = Message.query.filter(Message.clinicianId == userId)
+        messages = Message.query.filter(Message.clinicianId == userId).all()
         # print('_____________',userId,'----', messages, '________________')
-        return {'Message': [message.to_dict() for message in messages]}
+        return {'message': [message.to_dict() for message in messages]}
     
     if curr_user_is_clinician and not senderIsClinician:
         db.session.delete(message)
@@ -60,7 +60,7 @@ def delete_curr_message(messageId):
 
         messages = Message.query.filter(Message.clinicianId == userId)
         # print('_____________',userId,'----', messages, '________________')
-        return {'Message': [message.to_dict() for message in messages]}
+        return {'message': [message.to_dict() for message in messages]}
     
     else:
         return jsonify({'message': 'User not authorized.'}), 404
@@ -107,7 +107,7 @@ def get_current_messages():
 
     else:
         messages = Message.query.filter((Message.clinicianId == current_user_id) | (Message.patientId == current_user_id)).order_by(Message.created_at.desc()).all()
-        return {'Messages': [message.to_dict() for message in messages]}
+        return {'messages': [message.to_dict() for message in messages]}
 
 
 

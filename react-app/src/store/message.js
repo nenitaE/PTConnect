@@ -10,7 +10,8 @@ const CREATE_MESSAGE = "messages/CREATE_MESSAGE";
 const getMessageAction = (messageId) => {
 	return {
         type: GET_MESSAGE,
-        payload: messageId}
+        payload: messageId
+    }
 };
 const getMessagesAction = (messages) => {
 	return {
@@ -42,7 +43,7 @@ export const getMessages = () => async(dispatch) => {
     const response = await fetch('/api/messages/current');
     if(response.ok){
         const data = await response.json();
-        dispatch(getMessagesAction(data.Messages))
+        dispatch(getMessagesAction(data.messages))
         return data;
     }
 }
@@ -142,7 +143,7 @@ export default function messageReducer(state = initialState, action){
         case GET_MESSAGES:
             return{
                 ...state,
-                Messages: action.payload
+                messages: action.payload
             }
         case GET_MESSAGE:
             return{
@@ -164,10 +165,6 @@ export default function messageReducer(state = initialState, action){
         //         messages: state.messages?.map(message => message.id === action.payload.id ? action.payload : message)
         // }
         case DELETE_MESSAGE:
-            // return {
-            //     ...state,
-            //     messages: state.messages.filter(message => message.id != action.payload)
-            // }
             newState = {...state};
             delete newState[action.payload]
             return newState;
