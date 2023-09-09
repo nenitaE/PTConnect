@@ -19,12 +19,13 @@ function Navigation({ isLoaded }){
 				<div className="navigation-menu">
 					<div className="nav-row">
 							<ul className='navUL'>
+								{sessionUser && (
 								<li className="navLi">
 									<NavLink className='text-navBttn' to="/messages/current">Messages</NavLink>
-								</li>
-								<li className="navLi">
+								</li>)}
+								{sessionUser && (<li className="navLi">
 									<NavLink className='text-navBttn' to="/exercisePrescriptions/current">Exercise Prescriptions</NavLink>
-								</li>
+								</li>)}
 								<li className="profileButton">
 									<ProfileButton user={sessionUser} />
 								</li>

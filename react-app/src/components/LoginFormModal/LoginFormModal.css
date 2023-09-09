@@ -1,0 +1,21 @@
+.login-form-modal {
+    display: grid;
+    justify-items: center;
+    padding: 15px;
+    align-items: center;
+}
+
+.login-modal-title {
+    display: grid;
+    justify-items: center;
+    
+}
+
+.login-modal-button {
+    color: #200054;
+    background-color: rgba(32, 0, 84, .15);
+    border-radius: 5px;
+    margin-bottom: 8px;
+    padding: 5px;
+
+}

@@ -28,13 +28,17 @@ function LoginFormPage() {
 
   const handleDemoClinicianLogin = async (e) => {
     e.preventDefault();
-    setEmail('demo@aa.io');
-    setPassword('password');
+    const data = await dispatch(login('demo@aa.io', 'password'));
+    if (data) {
+      setErrors(data);
+    }
   };
   const handleDemoPatientLogin = async (e) => {
     e.preventDefault();
-    setEmail('marnie@aa.io');
-    setPassword('password');
+    const data = await dispatch(login('marnie@aa.io', 'password'));
+    if (data) {
+      setErrors(data);
+    }
   };
 
   return (
@@ -69,8 +73,8 @@ function LoginFormPage() {
                 required
               />
             </label>
-            <button className="demoButton" onClick={handleDemoClinicianLogin}>Click to Fill Demo Therapist Data</button>
-            <button className="demoButton" onClick={handleDemoPatientLogin}>Click to Fill Demo Patient Data</button>
+            <button className="demoButton" onClick={handleDemoClinicianLogin}>Login As Demo Therapist</button>
+            <button className="demoButton" onClick={handleDemoPatientLogin}>Login As Demo Patient</button>
             <button className="login-button2" type="submit">Log In</button>
           </form>
         </div>

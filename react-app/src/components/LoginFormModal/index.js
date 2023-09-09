@@ -3,7 +3,7 @@ import { login } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useHistory } from 'react-router-dom'
-import "./LoginForm.css";
+import "./LoginFormModal.css";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -43,26 +43,30 @@ function LoginFormModal() {
 
   const handleDemoClinicianLogin = async (e) => {
     e.preventDefault();
-    setEmail('demo@aa.io');
-    setPassword('password');
+    const data = await dispatch(login('demo@aa.io', 'password'));
+    if (data) {
+      setErrors(data);
+    }
   };
   const handleDemoPatientLogin = async (e) => {
     e.preventDefault();
-    setEmail('marnie@aa.io');
-    setPassword('password');
+    const data = await dispatch(login('marnie@aa.io', 'password'));
+    if (data) {
+      setErrors(data);
+    }
   };
 
   return (
     <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+      <h1 className="login-modal-title">Log In</h1>
+      <form onSubmit={handleSubmit} className="login-form-modal">
         <ul>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
         </ul>
-        <label>
-          Email
+        <label className="login-modal-button">
+          Email 
           <input
             type="text"
             value={email}
@@ -70,7 +74,7 @@ function LoginFormModal() {
             required
           />
         </label>
-        <label>
+        <label className="login-modal-button">
           Password
           <input
             type="password"
@@ -79,9 +83,10 @@ function LoginFormModal() {
             required
           />
         </label>
-        <button onClick={handleDemoClinicianLogin}>Click to Fill Demo Therapist-User Data</button>
-        <button onClick={handleDemoPatientLogin}>Click to Fill Demo Patient-User Data</button>
-        <button className="submit-modal-button" type="submit">Log In</button>
+        <button className="login-modal-button" type="submit">Log In</button>
+        <button className="login-modal-button" onClick={handleDemoClinicianLogin}>Login as Demo Therapist</button>
+        <button className="login-modal-button" onClick={handleDemoPatientLogin}>Login as Demo Patient</button>
+        
       </form>
     </>
   );

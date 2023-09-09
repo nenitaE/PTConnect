@@ -9,6 +9,7 @@ const SelectExercise = ({ exercises, setExercises, bodyPart, setBodyPart }) => {
     const [currPage, setCurrPage] = useState(1);
     const [displayPerPage] = useState(8);
     const [clickedExercises, setClickedExercises] = useState([])
+    const [confirmedExercises, setConfirmedExercises] = useState([])
     console.log("🚀 ~ file: index.js:11 ~ SelectExercise ~ clickedExercises:", clickedExercises)
     const updateExercises = (e) => setExercises(e.target.value);
     const updateBodyPart = (e) => setBodyPart(e.target.value);
@@ -35,12 +36,16 @@ const SelectExercise = ({ exercises, setExercises, bodyPart, setBodyPart }) => {
         setCurrPage(pageNum)
     }
 
-    const handleRemove = () => {
-
+    const handleRemove = (idx) => {
+      const newClickedExercises = [...clickedExercises]
+      newClickedExercises.splice(idx, 1)
+      setClickedExercises(newClickedExercises)
     }
 
-
-
+    const handleConfirm = () => {
+      setConfirmedExercises(clickedExercises)
+      setClickedExercises([])
+    }
 
     return ( 
         <div className="select-exercise-outer">
@@ -67,11 +72,11 @@ const SelectExercise = ({ exercises, setExercises, bodyPart, setBodyPart }) => {
             <div className="clickedExercises">
               
                   <h2 className='exercise-title'>Selected Exercises: </h2>
-                  {clickedExercises.map((clicked) => (
-                <span className='selected-ids' key={clicked} >{clicked}  <span className='remove-id-btn' key={clicked} onClick={handleRemove}>remove</span></span>
+                  {clickedExercises.map((clicked, idx) => (
+                <span className='selected-ids' key={clicked} >{clicked}  <span className='remove-id-btn' key={idx} onClick={handleRemove}>remove</span></span>
                 ))}
                 <span className='confirm-ex-box'>
-                    <button className="confirm-ex-button">
+                    <button className="confirm-ex-button" onClick={handleConfirm}>
                         Confirm Selected Exercises
                     </button>
                 </span>
