@@ -13,11 +13,13 @@ import Message from "./components/Message";
 import SentMessage from "./components/Message/SentMessage";
 import CreateMessageForm from "./components/Message/CreateMessage";
 import ExercisePrescription from "./components/ExerciseRx";
-import Exercise from "./components/Exercise";
+import Exercise from "./components/Exercise/Exercise";
 import ExercisePrescriptionDetails from "./components/ExerciseRx/ExerciseRxDetails";
 import AllPatientLists from "./components/PatientList/AllPatientList";
 import CreateExercisePrescriptionForm from "./components/ExerciseRx/CreateExerciseRxForm";
 import PatientDashboard from "./components/Dashboard/PatientDashboard";
+import ExerciseForm from "./components/Exercise/ExerciseForm";
+import ExerciseSearch from "./components/Exercise/ExerciseSearch";
 
 function App() {
   const dispatch = useDispatch();
@@ -57,6 +59,12 @@ function App() {
           </Route>
           <Route exact path="/exercises/current">
             <Exercise/>
+          </Route>
+          <Route exact path="/exercises/search">
+            <ExerciseSearch/>
+          </Route>
+          <Route exact path="/exercises/form">
+            <ExerciseForm/>
           </Route>
           <Route exact path="/messages/current">
             <Message/>

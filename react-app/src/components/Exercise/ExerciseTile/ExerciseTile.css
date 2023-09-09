@@ -1,0 +1,23 @@
+.ex-tile-outer-container {
+    display: grid;
+    justify-items: center;
+    border: solid rgba(32, 0, 84) 8px;
+    background-color: rgba(80,77,111, .75);
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 5px;
+}
+.ex-tile-inner {
+    display: grid;
+    justify-items: center;
+
+
+}
+.ex-tile-name {
+    display: grid;
+    justify-items: center;
+}
+.ex-title {
+    font-weight: bold;
+    color:lightgrey;
+}
