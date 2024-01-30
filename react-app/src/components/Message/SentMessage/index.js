@@ -10,6 +10,7 @@ const SentMessage = () => {
     const[isLoaded, setIsLoaded] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
     const userIsClinician = useSelector(state => state.session.user.isClinician)
+    console.log("🚀 ~ file: index.js:13 ~ SentMessage ~ userIsClinician:", userIsClinician)
     const[userIsPatient, setUserIsPatient] = useState("");
     const[senderIsClinician, setSenderIsClinician] = useState("");
 
@@ -36,11 +37,11 @@ const SentMessage = () => {
               <div></div>
               <div className="message-container">
                 <div className="inbox-container">
-                  {isLoaded && currentUserMessages.map((currentUserMessage) => (
+                  {isLoaded && (userIsClinician = true) &&(currentUserMessages.senderIsClinician = true) && (currentUserMessages.map((currentUserMessage) => (
                     <div className="inbox" key={currentUserMessages.id}>
                       <span>{currentUserMessage.createdAt}</span><p>{currentUserMessage.body}</p>
                     </div>
-                  ))}
+                  )))}
                   </div>
 
 

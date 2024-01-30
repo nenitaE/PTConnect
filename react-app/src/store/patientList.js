@@ -51,7 +51,6 @@ const createPatientListAction = (newPatientList) => {
 
 //THUNK ACTIONS
 export const getPatientLists = () => async(dispatch) => {
-    console.log("**************INTHUNK getpatientLists of current")
     const response = await fetch('/api/patientLists/current');
     if(response.ok){
         const data = await response.json();
@@ -121,7 +120,6 @@ export const deletePatientList = (patientListId) => async(dispatch) => {
 
 
 export const createPatientList = (patientListData) => async(dispatch) =>{
-    console.log("********INSIDE CREATE PatientList THUNK******")
     try {
         const response = await fetch('/api/patientLists', {
             method: "POST",
@@ -130,10 +128,8 @@ export const createPatientList = (patientListData) => async(dispatch) =>{
             },
             body: JSON.stringify(patientListData)
         });
-        console.log("🚀 ~ file: patientList.js:133 ~ createPatientList ~ response:", response)
         if(response.ok){
             const newPatientList = await response.json();
-            console.log("🚀 ~ file: patientList.js:135 ~ createPatientList ~ newPatientList:", newPatientList)
             dispatch(createPatientListAction(newPatientList));
             return newPatientList
         } else if (response.status <= 500){
