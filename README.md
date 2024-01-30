@@ -149,3 +149,21 @@ your site just below the name of the Web Service at the top of the page.
 
 [Render.com]: https://render.com/
 [Dashboard]: https://dashboard.render.com/
+
+
+# Features
+1. Get connected via the patient list:
+- Logged in physical therapists can connect patients to their patient list as well as edit and delete patient list
+- Logged in patients can request to be connected with their physical therapist via their patient list
+
+2. Create and/or view exercise prescriptions
+- Logged in physical therapists can create, view, edit and delete exercise prescriptions for patients on their patient list
+- Logged in patients can view the exercise prescriptions created for them by their physical therapist
+![Screenshot 2024-01-29 at 9 27 16 PM](https://github.com/nenitaE/PTConnect/assets/71307394/ce8d77cd-c400-4494-bad4-941c354a8131)
+
+3. Create exercise programs
+- Logged in physical therapists can create an exercise program which specifies exercise name, number of reps, animated gif demonstrating the movement, etc.
+- Exercise programs can be linked to exercise prescriptions
+
+4. Messaging
+- Logged in patients and physical therapists can send direct messages to each other once connected via the patient list
