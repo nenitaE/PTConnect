@@ -19,6 +19,7 @@ function Navigation({ isLoaded }){
 				<div className="navigation-menu">
 					<div className="nav-row">
 							<ul className='navUL'>
+								<li className="navLi"><NavLink className='text-navBttn' to="/about">About</NavLink></li>
 								{sessionUser && (
 								<li className="navLi">
 									<NavLink className='text-navBttn' to="/messages/current">Messages</NavLink>

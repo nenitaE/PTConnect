@@ -1,0 +1,36 @@
+.aboutInner {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.aboutLogoimg {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.aboutInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    color: #200054;
+    font-size: large;
+}
+
+.developerInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+    font-family: cursive;
+
+    font-size: larger;
+}
+
+.about-login-link {
+    text-decoration: none;
+    color: #200054;
+    font-size: large;
+    font-weight: bold;
+}
