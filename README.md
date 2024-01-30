@@ -158,12 +158,13 @@ your site just below the name of the Web Service at the top of the page.
 
 2. Create and/or view exercise prescriptions
 - Logged in physical therapists can create, view, edit and delete exercise prescriptions for patients on their patient list
+- Exercise prescriptions specify diagnosis, patient ID, status of prescription and frequency that prescription is to be performed
 - Logged in patients can view the exercise prescriptions created for them by their physical therapist
 ![Screenshot 2024-01-29 at 9 27 16 PM](https://github.com/nenitaE/PTConnect/assets/71307394/ce8d77cd-c400-4494-bad4-941c354a8131)
 
 3. Create exercise programs
 - Logged in physical therapists can create an exercise program which specifies exercise name, number of reps, animated gif demonstrating the movement, etc.
-- Exercise programs can be linked to exercise prescriptions
+- Exercise programs can be linked to exercise prescriptions in order to allow for viewing of exercise info for each exercise prescribed
 
 4. Messaging
 - Logged in patients and physical therapists can send direct messages to each other once connected via the patient list
