@@ -20,6 +20,7 @@ import CreateExercisePrescriptionForm from "./components/ExerciseRx/CreateExerci
 import PatientDashboard from "./components/Dashboard/PatientDashboard";
 import ExerciseForm from "./components/Exercise/ExerciseForm";
 import ExerciseSearch from "./components/Exercise/ExerciseSearch";
+import About from "./components/About";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +36,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <HomePage />
+          </Route>
+          <Route path="/about" >
+            <About />
           </Route>
           <Route path="/login" >
             <LoginFormPage />

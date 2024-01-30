@@ -25,6 +25,8 @@ const Message = () => {
     
     let currentUserMessages = useSelector(state=> state.message.messages);
     console.log("🚀 ~ file: index.js:26 ~ Message ~ currentUserMessages:", currentUserMessages)
+    const currUserInbox = currentUserMessages?.filter(messageReceived => messageReceived.senderIsClinician === false);
+    console.log("🚀 ~ file: index.js:29 ~ Message ~ currUserInbox:", currUserInbox)
 
     if (!currentUserMessages) return null;
 
@@ -44,9 +46,11 @@ const Message = () => {
                   <div></div>
                   <div className="message-container">
                     <div className="inbox-container">
-                      {isLoaded && currentUserMessages.map((currentUserMessage) => (
-                        <div className="inbox" key={currentUserMessages.id}>
-                          <span>{currentUserMessage.createdAt}</span><p>{currentUserMessage.body}</p>
+                      {isLoaded && currUserInbox.map((currentUserMessage) => (
+                        <div className="inbox" key={currentUserMessage.id}>
+                          <span>{currentUserMessage.createdAt}</span>
+                          <p>Message From Patient ID: {currentUserMessage.patientId}</p>
+                          <p>{currentUserMessage.body}</p>
                           <span><button className="delete-msg-button" onClick={() => openDeleteMessageModal(currentUserMessage.id)}>Delete</button></span>
                         </div>
                       ))}
