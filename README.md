@@ -1,6 +1,5 @@
 # PT Connect Landing Page
 ![Screenshot 2024-01-29 at 6 30 27 PM](https://github.com/nenitaE/PTConnect/assets/71307394/5d0f7ea9-8953-4100-8164-674d39c267c7)
-nshot+2024-01-29+at+6.30.27+PM.png
 
 # Configuration
 
