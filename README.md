@@ -1,4 +1,7 @@
-# Flask React Project
+# PT Connect Landing Page
+https://nespinosaportfoliobucket.s3.amazonaws.com/Screenshot+2024-01-29+at+6.30.27+PM.png
+
+# Configuration
 
 This is the starter for the Flask React project.
 
