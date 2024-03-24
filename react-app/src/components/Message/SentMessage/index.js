@@ -3,6 +3,7 @@ import {  useHistory } from "react-router-dom/cjs/react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getMessage, getMessages} from "../../../store/message"
 import { NavLink } from "react-router-dom/cjs/react-router-dom";
+import DeleteMessageModal from "../DeleteMessageModal";
 import { useModal } from "../../../context/Modal";
 
 const SentMessage = () => {
@@ -22,10 +23,22 @@ const SentMessage = () => {
       .then(() => setIsLoaded(true))
     }, [dispatch])
     
+    useEffect(() => {
+      if (userIsClinician === false) setUserIsPatient(true);
+        else (setUserIsPatient(false))
+    }, [userIsClinician])
+    
     let currentUserMessages = useSelector(state=> state.message.messages);
     console.log("🚀 ~ file: index.js:26 ~ Message ~ currentUserMessages:", currentUserMessages)
 
+    const currPatientSentBox = currentUserMessages?.filter(messageSent => messageSent.senderIsClinician === false);
+    const currTherapistSentBox = currentUserMessages?.filter(messageSent => messageSent.senderIsClinician === true);
+
     if (!currentUserMessages) return null;
+
+    const openDeleteMessageModal = (messageId) => {
+      setModalContent(<DeleteMessageModal messageId={messageId}/>)
+    }
 
     return (
         <div className="message-main-container">
@@ -36,12 +49,23 @@ const SentMessage = () => {
             </div>
               <div></div>
               <div className="message-container">
-                <div className="inbox-container">
-                  {isLoaded && (userIsClinician = true) &&(currentUserMessages.senderIsClinician = true) && (currentUserMessages.map((currentUserMessage) => (
-                    <div className="inbox" key={currentUserMessages.id}>
-                      <span>{currentUserMessage.createdAt}</span><p>{currentUserMessage.body}</p>
-                    </div>
-                  )))}
+                <div className="sentbox-container">
+                <h1>Sent Messages</h1> 
+                      {isLoaded && userIsPatient && currPatientSentBox.map((currentUserMessage) => (
+                        <div className="inbox" key={currentUserMessage.id}>
+                          <span>{currentUserMessage.createdAt}</span>
+                          <p>{currentUserMessage.body}</p>
+                          <span><button className="delete-msg-button" onClick={() => openDeleteMessageModal(currentUserMessage.id)}>Delete</button></span>
+                        </div>
+                      ))}
+                      {isLoaded && !userIsPatient && currTherapistSentBox.map((currentUserMessage) => (
+                        <div className="inbox" key={currentUserMessage.id}>
+                          <span>{currentUserMessage.createdAt}</span>
+                          <p>Messages To Patient ID: {currentUserMessage.patientId}</p>
+                          <p>{currentUserMessage.body}</p>
+                          <span><button className="delete-msg-button" onClick={() => openDeleteMessageModal(currentUserMessage.id)}>Delete</button></span>
+                        </div>
+                      ))}
                   </div>
 
 

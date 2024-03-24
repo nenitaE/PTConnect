@@ -12,8 +12,9 @@ const Message = () => {
     const[isLoaded, setIsLoaded] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
     const userIsClinician = useSelector(state => state.session.user.isClinician)
+    console.log("🚀 ~ Message ~ userIsClinician:", userIsClinician)
     const[userIsPatient, setUserIsPatient] = useState("");
-    const[senderIsClinician, setSenderIsClinician] = useState("");
+    console.log("🚀 ~ Message ~ userIsPatient:", userIsPatient)
 
     const {setModalContent} = useModal();
     const dispatch = useDispatch();
@@ -22,17 +23,25 @@ const Message = () => {
       dispatch(getMessages())
       .then(() => setIsLoaded(true))
     }, [dispatch])
+
+    useEffect(() => {
+      if (userIsClinician === false) setUserIsPatient(true);
+        else (setUserIsPatient(false))
+    }, [userIsClinician])
     
     let currentUserMessages = useSelector(state=> state.message.messages);
     console.log("🚀 ~ file: index.js:26 ~ Message ~ currentUserMessages:", currentUserMessages)
-    const currUserInbox = currentUserMessages?.filter(messageReceived => messageReceived.senderIsClinician === false);
-    console.log("🚀 ~ file: index.js:29 ~ Message ~ currUserInbox:", currUserInbox)
+    // const currUserInbox = currentUserMessages?.filter(messageReceived => messageReceived.senderIsClinician === true);
+    // console.log("🚀 ~ file: index.js:29 ~ Message ~ currUserInbox:", currUserInbox)
+    const currPatientInbox = currentUserMessages?.filter(messageReceived => messageReceived.senderIsClinician === true);
+    const currTherapistInbox = currentUserMessages?.filter(messageReceived => messageReceived.senderIsClinician === false);
+    console.log("🚀 ~ file: index.js:29 ~ Message ~ currUserInbox:", currPatientInbox)
 
     if (!currentUserMessages) return null;
 
     const openDeleteMessageModal = (messageId) => {
       setModalContent(<DeleteMessageModal messageId={messageId}/>)
-  }
+    }
 
     return (
       <div className="message-outer-container">
@@ -45,11 +54,20 @@ const Message = () => {
                 </div>
                   <div></div>
                   <div className="message-container">
+                   
                     <div className="inbox-container">
-                      {isLoaded && currUserInbox.map((currentUserMessage) => (
+                    <h1>Inbox</h1> 
+                      {isLoaded && userIsPatient && currPatientInbox.map((currentUserMessage) => (
                         <div className="inbox" key={currentUserMessage.id}>
                           <span>{currentUserMessage.createdAt}</span>
-                          <p>Message From Patient ID: {currentUserMessage.patientId}</p>
+                          <p>{currentUserMessage.body}</p>
+                          <span><button className="delete-msg-button" onClick={() => openDeleteMessageModal(currentUserMessage.id)}>Delete</button></span>
+                        </div>
+                      ))}
+                      {isLoaded && !userIsPatient && currTherapistInbox.map((currentUserMessage) => (
+                        <div className="inbox" key={currentUserMessage.id}>
+                          <span>{currentUserMessage.createdAt}</span>
+                          <p>Messages From Patient ID: {currentUserMessage.patientId}</p>
                           <p>{currentUserMessage.body}</p>
                           <span><button className="delete-msg-button" onClick={() => openDeleteMessageModal(currentUserMessage.id)}>Delete</button></span>
                         </div>
