@@ -6,6 +6,7 @@ import patientListReducer from './patientList';
 import exerciseReducer from './exercise';
 import exercisePrescriptionReducer from './exerciseRx';
 import messageReducer from './message';
+import clinicianReducer from './clinician';
 
 const rootReducer = combineReducers({
   session,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   patientList: patientListReducer,
   exercisePrescription: exercisePrescriptionReducer,
   exercise: exerciseReducer,
-  message: messageReducer
+  message: messageReducer,
+  clinician: clinicianReducer
 });
 
 

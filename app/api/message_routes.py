@@ -133,10 +133,10 @@ def add_message():
     Creates a new Message 
     """
     current_user_id = current_user.get_id()
-    print('CURRENT USERID', current_user_id)
+    print('**************New Message CURRENT USERID', current_user_id)
    
     form = MessageForm()
-    # print(form.data, "**********FORM*************")
+    print(form.data, "**********FORM DATA*************")
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
@@ -146,17 +146,17 @@ def add_message():
         
         messages = Message.query.filter((Message.clinicianId == current_user_id) | (Message.patientId == current_user_id))
 
-        # print(messages, "**********MessageS**************")
+        print(messages, "**********MessageS--inside form**************")
 
         #Create new message
-        newMessage = Message(
+        new_message = Message(
                             clinicianId=data["clinicianId"],
                             patientId=data["patientId"],
-                            senderIsClinician=data["senderIsClinician"],
-                            body=data["body"]
+                            body=data["body"],
+                            senderIsClinician=data["senderIsClinician"]
                             )
-        # print(newMessage, "*******NEWMessage******")
-        db.session.add(newMessage)
+        print(new_message, "*******NEWMessage******")
+        db.session.add(new_message)
         db.session.commit()
-        return newMessage.to_dict()
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+        return new_message.to_dict()
+    return {'Error': validation_errors_to_error_messages(form.errors)}, 401

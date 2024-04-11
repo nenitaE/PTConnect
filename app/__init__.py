@@ -12,6 +12,7 @@ from .api.exercise_prescription_routes import exercise_prescription_routes
 from .api.exercise_routes import exercise_routes
 from .api.message_routes import message_routes
 from .api.booked_visit_routes import booked_visit_routes
+from .api.clinician_routes import clinician_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -32,6 +33,7 @@ app.cli.add_command(seed_commands)
 
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
+app.register_blueprint(clinician_routes, url_prefix='/api/clinicians')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(patient_list_routes, url_prefix='/api/patientLists')
 app.register_blueprint(exercise_prescription_routes, url_prefix='/api/exercisePrescriptions')

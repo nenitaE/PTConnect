@@ -3,17 +3,26 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMessages, createMessage} from "../../../store/message";
 import { NavLink } from 'react-router-dom/cjs/react-router-dom';
-import { getPatientLists } from '../../../store/patientList';
+import { getPatientLists, getAllPatientLists } from '../../../store/patientList';
+import { getClinicians } from '../../../store/clinician';
 import './MessageForm.css'
 
-const MessageForm = ({ message, formType}) => {
+const MessageForm = ({ message, patientLists, currUserPatientLists, clinicianId, formType}) => {
+    console.log("🚀 ~ MessageForm ~ clinicianId:", clinicianId)
+    console.log("🚀 ~ MessageForm ~ currUserPatientLists:", currUserPatientLists)
+    console.log("🚀 ~ MessageForm ~ FORMpatientLists:", patientLists)
     const currUserId = useSelector((state) => state.session.user?.id);
+    console.log("🚀 ~ MessageForm ~ currUserId:", currUserId)
     const currUserIsClinician = useSelector((state) => state.session.user?.isClinician);
+    console.log("🚀 ~ MessageForm ~ currUserIsClinician:", currUserIsClinician);
+    // const clinicianId = useSelector((state) => state.patientList?.patientLists.clinicianId)
+    // const currClinicianId = currUserPatientLists.clinicianId
+    // console.log("🚀 ~ MessageForm ~ clinicianId :", clinicianId )
     const history = useHistory();
 
     const [body, setBody] = useState("");
     const [patientId, setPatientId] = useState("");
-    const [clinicianId, setClinicianId] = useState("");
+    // const [clinicianId, setClinicianId] = useState("");
     const [senderIsClinician, setSenderIsClinician] = useState("");
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
@@ -23,35 +32,63 @@ const MessageForm = ({ message, formType}) => {
 
 
     const updatePatientId = (e) => setPatientId(e.target.value);
-    const updateClinicianId = (e) => setClinicianId(e.target.value);
+    // const updateClinicianId = (e) => setClinicianId(e.target.value);
     const updateSenderIsClinician = (e) => setSenderIsClinician(e.target.value);
     const updateBody = (e) => setBody(e.target.value);
     useEffect(() => {
-        const data = dispatch(getMessages());
+        dispatch(getMessages());
     }, [dispatch]);
 
+    // useEffect(() => {
+    //     if (currUserIsClinician === true) setClinicianId(currUserId);
+    //         else {
+    //             setClinicianId(currUserPatientLists.clinicianId)
+    //             setPatientId(currUserPatientLists.patientId)
+    //         }                
+    // }, [setClinicianId, currUserId, currUserIsClinician, currUserPatientLists])
+    
+    // console.log("🚀 ~ useEffect ~ patientId:", patientId)
+    // console.log("🚀 ~ useEffect ~ clinicianId:", clinicianId)
+    // const patientLists = useSelector((state) => state);
+    // const currUserPatientLists = patientLists.filter(patientList => patientList.patientId === currUserId | patientList.clinicianId === currUserId)
+    // console.log("🚀 ~ MessageForm ~ currUserPatientLists:", currUserPatientLists)
+    
+    if (!currUserPatientLists){
+        return (
+            <h1>Loading...</h1>
+        )
+    }
+
+    if (!patientLists) {
+        
+        return (
+            <h1>Loading...</h1>
+        )
+    }
+
     const handleSubmit = async (e) => {
-        // console.log("Inside Handle SUbmit...PList component>>>>>>>>>>>>>>")
+        console.log("Inside Handle SUbmit...Message component>>>>>>>>>>>>>>")
         e.preventDefault();
         setHasSubmitted(true);
+        // setClinicianId(currUserPatientLists.clinicianId)
 
         const message = {
             clinicianId,
             patientId,
-            senderIsClinician,
-            body
+            body,
+            senderIsClinician
         }
         const newData = await dispatch(createMessage(message));
         if (newData.id) {
-            setErrors(newData.errors);
             let messageId = newData.id;
             dispatch(getMessages(messageId))
             history.push('/messages/current')
         } else {
-            alert('Message error.')
+            setErrors(newData);
+            return alert('Message error.')
         }
     }
-        if (!currUserId) return (<div><p>You must be a logged in clinician to access this page</p>{history.push('/')}</div>)
+    if (!currUserId) return (<div><p>You must be logged in to access this page</p>{history.push('/')}</div>)
 
        
 
@@ -67,23 +104,27 @@ const MessageForm = ({ message, formType}) => {
             <form className='PLForm' onSubmit={handleSubmit}>
                 <h2>{formType}</h2>
                     <div className='newMessageContainer'>
-                            <h3 className='newMessageTitleContainer'>Create a message.</h3>              
+                        {senderIsClinician &&
                                 <div className='newMessageInnerContainer'>
                                     <h3>
+                                        
                                         <div>
-                                            <label  htmlFor='patientId'>Recipient </label>
+                                            <label  htmlFor='patientId'>Send to:  </label>
                                                 {hasSubmitted && !patientId && (
                                                     <label htmlFor='status' className='field-error'>Recipient is required</label>
                                                 )}
                                                 <select 
                                                     className='createMessageDropdown'
-                                                    id="patientId" 
+                                                    id="patientId"  
+                                                    type="number"
                                                     onChange={updatePatientId} 
                                                     required={true}
                                                 >
-                                                    <option value={"patientId1"}>patientId1</option>
-                                                    <option value={"patientId2"}>patientId2</option> 
+                                                <option>Which of your patients is this prescription for?</option> 
+                                                {(patientLists && patientLists.map(list => (    
+                                                    <option value={list.patientId}>PatientID: {list.patientId}, Email: {list.email}</option>)))}
                                                 </select>
+                                                
                                         </div>
                                         <label>
                                             <textarea
@@ -96,8 +137,25 @@ const MessageForm = ({ message, formType}) => {
                                                 
                                         </label>
                                                 <input className='newPLSubmitBTN' type="submit" value={formType} />
-                                    </h3> 
-                                </div> 
+                                    
+                                                                        </h3> 
+                                </div>} 
+                                {!senderIsClinician &&
+                                <div className='newMessageInnerContainer'>
+                                    <h3>
+                                    <label>
+                                            <textarea
+                                                id='messageBody'
+                                                placeholder="Compose your message here.."
+                                                required
+                                                value={body}
+                                                type="text"
+                                                onChange={updateBody}/>
+                                                
+                                        </label>
+                                                <input className='newPLSubmitBTN' type="submit" value="send" />
+                                    </h3>
+                                    </div>}
                     </div>
 
             </form>

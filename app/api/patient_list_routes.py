@@ -143,7 +143,7 @@ def get_all_patientLists():
 @login_required
 def get_patientList(patientListId):
     '''
-    Query for a specific PatientList and return is as a dictionary
+    Query for a specific PatientList and return as a dictionary
     '''
 
     patientList = PatientList.query.get(patientListId)

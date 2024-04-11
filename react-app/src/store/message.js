@@ -35,7 +35,8 @@ const deleteMessageAction = (messageId) => {
 const createMessageAction = (newMessage) => {
 	return {
         type: CREATE_MESSAGE,
-	    payload: newMessage}
+	    payload: newMessage
+    }
 };
 
 //THUNK ACTIONS
