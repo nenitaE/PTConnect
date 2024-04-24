@@ -46,14 +46,18 @@ function LoginFormModal() {
     const data = await dispatch(login('demo@aa.io', 'password'));
     if (data) {
       setErrors(data);
-    }
+    } else {
+      closeModal()
+  }
   };
   const handleDemoPatientLogin = async (e) => {
     e.preventDefault();
     const data = await dispatch(login('marnie@aa.io', 'password'));
     if (data) {
       setErrors(data);
-    }
+    } else {
+      closeModal()
+  }
   };
 
   return (

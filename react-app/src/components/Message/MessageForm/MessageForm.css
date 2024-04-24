@@ -1,5 +1,5 @@
 #messageBody {
-    width: 100%;
+    width: 80%;
     height: 150px;
     padding: 12px 20px;
     box-sizing: border-box;
@@ -7,4 +7,26 @@
     border-radius: 4px;
     background-color: lightgrey;
     resize: none;
+}
+
+.newMessageInnerContainer {
+    padding-left: 10%;
+}
+
+.messageFormTitle {
+    padding-left: 10%;
+    color: #200054;
+}
+
+.messageDropdown {
+    padding: 15px;
+    color: #200054;
+}
+
+.inbox {
+    width: 85%;
+    box-sizing: border-box;
+    border: 2px solid lightgray;
+    border-radius: 6px;
+    padding: 10px;
 }

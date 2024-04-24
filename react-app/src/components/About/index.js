@@ -21,7 +21,7 @@ const About = () => {
                     exercise guidelines and images to ensure proper technique and optimize recovery.
                 </p>
                 <p className='aboutInfo'>Ready to demo the site?
-                Click <NavLink className='about-login-link' exact to='/' >HERE</NavLink>!</p>
+                &nbsp; Click &nbsp; <NavLink className='about-login-link' exact to='/' >HERE</NavLink>!</p>
                 <div className='developerInfo'>
                 Developed by:
                             <span>

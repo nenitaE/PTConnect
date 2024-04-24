@@ -105,6 +105,7 @@ export const deleteMessage = (messageId) => async(dispatch) => {
 
 export const createMessage = (messageData) => async(dispatch) =>{
     console.log("********INSIDE CREATE Message THUNK******")
+    console.log("********INSIDE CREATE Message THUNK messageData******", messageData)
     try {
         const response = await fetch('/api/messages', {
             method: "POST",

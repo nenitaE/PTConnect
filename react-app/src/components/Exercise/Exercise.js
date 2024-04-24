@@ -15,7 +15,7 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
         fetchExerciseData();
     }, [bodyPart, setExercises]);
 
-    //add pagination here
+    //pagination
     if (!exercises.length) return "Loading...";
     return ( 
         <div className="exerciseContainer">

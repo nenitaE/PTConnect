@@ -7,22 +7,25 @@ import { getPatientLists, getAllPatientLists } from '../../../store/patientList'
 import { getClinicians } from '../../../store/clinician';
 import './MessageForm.css'
 
-const MessageForm = ({ message, patientLists, currUserPatientLists, clinicianId, formType}) => {
-    console.log("🚀 ~ MessageForm ~ clinicianId:", clinicianId)
+const MessageForm = ({ message, patientLists, currUserPatientLists, formType}) => {
+    console.log("🚀 ~ MessageForm ~ patientLists:", patientLists)
+    
     console.log("🚀 ~ MessageForm ~ currUserPatientLists:", currUserPatientLists)
     console.log("🚀 ~ MessageForm ~ FORMpatientLists:", patientLists)
     const currUserId = useSelector((state) => state.session.user?.id);
     console.log("🚀 ~ MessageForm ~ currUserId:", currUserId)
     const currUserIsClinician = useSelector((state) => state.session.user?.isClinician);
-    console.log("🚀 ~ MessageForm ~ currUserIsClinician:", currUserIsClinician);
-    // const clinicianId = useSelector((state) => state.patientList?.patientLists.clinicianId)
-    // const currClinicianId = currUserPatientLists.clinicianId
-    // console.log("🚀 ~ MessageForm ~ clinicianId :", clinicianId )
+    console.log("🚀 +++~ MessageForm ~ currUserIsClinician:", currUserIsClinician);
+    const clinician = currUserPatientLists ? currUserPatientLists[0].clinicianId : null
+    console.log("🚀 ~~~~~~~~ MessageForm ~ clinician:", clinician)
+    const patient = currUserPatientLists ? currUserPatientLists[0].patientId : null
     const history = useHistory();
 
     const [body, setBody] = useState("");
-    const [patientId, setPatientId] = useState("");
-    // const [clinicianId, setClinicianId] = useState("");
+    const [patientId, setPatientId] = useState(patient);
+    const [clinicianId, setClinicianId] = useState(clinician);
+    
+   
     const [senderIsClinician, setSenderIsClinician] = useState("");
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
@@ -31,27 +34,46 @@ const MessageForm = ({ message, patientLists, currUserPatientLists, clinicianId,
     let hasErrors = false;
 
 
-    const updatePatientId = (e) => setPatientId(e.target.value);
-    // const updateClinicianId = (e) => setClinicianId(e.target.value);
-    const updateSenderIsClinician = (e) => setSenderIsClinician(e.target.value);
+    const updateClinicianData = (e) => {
+                                    setPatientId(e.target.value) 
+                                    setClinicianId(currUserId)
+                                    setSenderIsClinician(true)
+                                    };
+
+                                    
     const updateBody = (e) => setBody(e.target.value);
-    useEffect(() => {
-        dispatch(getMessages());
-    }, [dispatch]);
+    const updatePatientData = (e) => {
+                                        setBody(e.target.value);
+                                        setPatientId(currUserId);
+                                        setClinicianId(clinician)
+                                        setSenderIsClinician(false)
+                                    }
 
     // useEffect(() => {
-    //     if (currUserIsClinician === true) setClinicianId(currUserId);
+    //     if (!clinicianId) setClinicianId(clinician)      
+         
+    // },[clinicianId, setClinicianId, clinician]);
+   
+    // useEffect(() => {
+    //     if (!patientId) setPatientId(patient)  
+    // },[patientId, patient]);
+
+    // useEffect(() => {
+    //     dispatch(getMessages());
+    // }, [dispatch]);
+
+    // useEffect(() => {
+    //     // if (currUserIsClinician === true) setClinicianId(currUserId);
+    //     if (!currUserIsClinician) setPatientId(currUserId);
     //         else {
     //             setClinicianId(currUserPatientLists.clinicianId)
     //             setPatientId(currUserPatientLists.patientId)
     //         }                
     // }, [setClinicianId, currUserId, currUserIsClinician, currUserPatientLists])
     
-    // console.log("🚀 ~ useEffect ~ patientId:", patientId)
-    // console.log("🚀 ~ useEffect ~ clinicianId:", clinicianId)
     // const patientLists = useSelector((state) => state);
     // const currUserPatientLists = patientLists.filter(patientList => patientList.patientId === currUserId | patientList.clinicianId === currUserId)
-    // console.log("🚀 ~ MessageForm ~ currUserPatientLists:", currUserPatientLists)
+    
     
     if (!currUserPatientLists){
         return (
@@ -65,12 +87,12 @@ const MessageForm = ({ message, patientLists, currUserPatientLists, clinicianId,
             <h1>Loading...</h1>
         )
     }
+    
 
     const handleSubmit = async (e) => {
         console.log("Inside Handle SUbmit...Message component>>>>>>>>>>>>>>")
         e.preventDefault();
         setHasSubmitted(true);
-        // setClinicianId(currUserPatientLists.clinicianId)
 
         const message = {
             clinicianId,
@@ -102,13 +124,13 @@ const MessageForm = ({ message, patientLists, currUserPatientLists, clinicianId,
                 <NavLink className="message-link" activeclassname="is-active"  to="/messages/new">Compose New Message</NavLink>
             </div>
             <form className='PLForm' onSubmit={handleSubmit}>
-                <h2>{formType}</h2>
+                <h2 className='messageFormTitle'>{formType}</h2>
                     <div className='newMessageContainer'>
-                        {senderIsClinician &&
+                        {currUserIsClinician &&
                                 <div className='newMessageInnerContainer'>
                                     <h3>
                                         
-                                        <div>
+                                        <div className='messageDropdown'>
                                             <label  htmlFor='patientId'>Send to:  </label>
                                                 {hasSubmitted && !patientId && (
                                                     <label htmlFor='status' className='field-error'>Recipient is required</label>
@@ -117,11 +139,11 @@ const MessageForm = ({ message, patientLists, currUserPatientLists, clinicianId,
                                                     className='createMessageDropdown'
                                                     id="patientId"  
                                                     type="number"
-                                                    onChange={updatePatientId} 
+                                                    onChange={updateClinicianData} 
                                                     required={true}
                                                 >
-                                                <option>Which of your patients is this prescription for?</option> 
-                                                {(patientLists && patientLists.map(list => (    
+                                                <option>Select a patient from your patient list</option> 
+                                                {(currUserPatientLists && currUserPatientLists.map(list => (    
                                                     <option value={list.patientId}>PatientID: {list.patientId}, Email: {list.email}</option>)))}
                                                 </select>
                                                 
@@ -136,11 +158,12 @@ const MessageForm = ({ message, patientLists, currUserPatientLists, clinicianId,
                                                 onChange={updateBody}/>
                                                 
                                         </label>
-                                                <input className='newPLSubmitBTN' type="submit" value={formType} />
+                                        <p></p>
+                                                <input className='newPLSubmitBTN' type="submit" value="SEND" />
                                     
                                                                         </h3> 
                                 </div>} 
-                                {!senderIsClinician &&
+                                {!currUserIsClinician &&
                                 <div className='newMessageInnerContainer'>
                                     <h3>
                                     <label>
@@ -150,10 +173,11 @@ const MessageForm = ({ message, patientLists, currUserPatientLists, clinicianId,
                                                 required
                                                 value={body}
                                                 type="text"
-                                                onChange={updateBody}/>
+                                                onChange={updatePatientData}/>
                                                 
                                         </label>
-                                                <input className='newPLSubmitBTN' type="submit" value="send" />
+                                        <p></p>
+                                                <input className='newPLSubmitBTN' type="submit" value="SEND" />
                                     </h3>
                                     </div>}
                     </div>

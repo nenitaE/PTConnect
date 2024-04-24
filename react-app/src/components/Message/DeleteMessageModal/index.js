@@ -16,7 +16,7 @@ const DeleteMessageModal = ({messageId}) => {
         await dispatch(deleteMessage(messageId))
         .then(dispatch(getMessages()))
         .then(closeModal)
-        .then(history.push('/messages/current'))
+        // .then(history.push('/messages/current'))
     }
 
 

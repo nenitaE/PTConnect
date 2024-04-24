@@ -41,6 +41,7 @@ const Message = () => {
 
     const openDeleteMessageModal = (messageId) => {
       setModalContent(<DeleteMessageModal messageId={messageId}/>)
+      
     }
 
     return (
@@ -56,21 +57,24 @@ const Message = () => {
                   <div className="message-container">
                    
                     <div className="inbox-container">
-                    <h1>Inbox</h1> 
-                      {isLoaded && userIsPatient && currPatientInbox.map((currentUserMessage) => (
+                    
+                    <h1 className="message-header">Inbox</h1> 
+                     
+                      {isLoaded && !userIsClinician && currPatientInbox.map((currentUserMessage) => (
                         <div className="inbox" key={currentUserMessage.id}>
                           <span>{currentUserMessage.createdAt}</span>
-                          <p>{currentUserMessage.body}</p>
+                          <p className="messageBody">{currentUserMessage.body}</p>
                           <span><button className="delete-msg-button" onClick={() => openDeleteMessageModal(currentUserMessage.id)}>Delete</button></span>
                         </div>
                       ))}
-                      {isLoaded && !userIsPatient && currTherapistInbox.map((currentUserMessage) => (
+                      {isLoaded && userIsClinician && currTherapistInbox.map((currentUserMessage) => (
                         <div className="inbox" key={currentUserMessage.id}>
                           <span>{currentUserMessage.createdAt}</span>
                           <p>Messages From Patient ID: {currentUserMessage.patientId}</p>
-                          <p>{currentUserMessage.body}</p>
+                          <p className="messageBody">{currentUserMessage.body}</p>
                           <span><button className="delete-msg-button" onClick={() => openDeleteMessageModal(currentUserMessage.id)}>Delete</button></span>
                         </div>
+                        
                       ))}
                       </div>
 

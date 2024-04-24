@@ -50,12 +50,12 @@ const SentMessage = () => {
               <div></div>
               <div className="message-container">
                 <div className="sentbox-container">
-                <h1>Sent Messages</h1> 
+                <h1 className="message-header">Sent Messages</h1> 
                       {isLoaded && userIsPatient && currPatientSentBox.map((currentUserMessage) => (
                         <div className="inbox" key={currentUserMessage.id}>
                           <span>{currentUserMessage.createdAt}</span>
                           <p>{currentUserMessage.body}</p>
-                          <span><button className="delete-msg-button" onClick={() => openDeleteMessageModal(currentUserMessage.id)}>Delete</button></span>
+                          {/* <span><button className="delete-msg-button" onClick={() => openDeleteMessageModal(currentUserMessage.id)}>Delete</button></span> */}
                         </div>
                       ))}
                       {isLoaded && !userIsPatient && currTherapistSentBox.map((currentUserMessage) => (
@@ -63,7 +63,7 @@ const SentMessage = () => {
                           <span>{currentUserMessage.createdAt}</span>
                           <p>Messages To Patient ID: {currentUserMessage.patientId}</p>
                           <p>{currentUserMessage.body}</p>
-                          <span><button className="delete-msg-button" onClick={() => openDeleteMessageModal(currentUserMessage.id)}>Delete</button></span>
+                          {/* <span><button className="delete-msg-button" onClick={() => openDeleteMessageModal(currentUserMessage.id)}>Delete</button></span> */}
                         </div>
                       ))}
                   </div>

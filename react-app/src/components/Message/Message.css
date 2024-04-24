@@ -2,23 +2,15 @@
     padding-top: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    /* align-items: flex-start; */
+    /* justify-content: flex-end; */
+    
     width: 100%;
     /* max-width: 50%; */
     margin: 0 auto;
     /* background-color:rgba(80,77,111, .25); */
 }
-.background-image-messages {
-    /* background-image: url("https://myofitclinic.com/wp-content/uploads/2015/08/whatisphysicaltherapy.jpg"); */
-    /* opacity: .35; */
-    background-position: center center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 100vw;
-    height: 100vh;
-    padding: 0px 40px;
-}
+
 
 .message-link {
     display: inline-block;
@@ -45,12 +37,44 @@
     
 }
 
+
+.message-header {
+    padding-left: 10px;
+    color:#200054;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+}
 .inbox {
+    padding-left: 10%;
     padding-bottom: 5%;
     color:#200054;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
 }
 
+.inbox-container {
+    padding-left: 10%;
+    padding-bottom: 5%;
+    color:#200054;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+}
+
+.messageBody {
+    color: #200054;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+    font-weight: bold;
+    font-size: large;
+    width: 75%;
+    box-sizing: border-box;
+    border: 2px solid #200054;
+    border-radius: 4px;
+    background-color: lightgrey;
+    padding: 15px;
+}
+.sentbox-container {
+    padding-left: 10%;
+    padding-bottom: 5%;
+    color:#200054;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+}
 .delete-msg-button {
     padding: 15px;
     color: lightgrey;
