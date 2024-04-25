@@ -6,7 +6,6 @@ import { deleteMessage, getMessages } from '../../../store/message';
 
 
 const DeleteMessageModal = ({messageId}) => {
-    console.log("🚀 ~ file: index.js:9 ~ DeleteMessageModal ~ messageId:", messageId)
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const history = useHistory();

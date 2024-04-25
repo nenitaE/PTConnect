@@ -20,9 +20,7 @@ const ExercisePrescription = () => {
     }, [dispatch])
     
     let patientLists = useSelector(state => state.patientList.patientLists);
-    console.log("🚀 ~ file: index.js:23 ~ ExercisePrescription ~ patientLists:", patientLists)
     let currentExercisePrescriptions = useSelector(state => state.exercisePrescription.exercisePrescriptions);
-    console.log("🚀 ~ file: index.js:25 ~ ExercisePrescription ~ currentExercisePrescriptions:", currentExercisePrescriptions)
     
     if (!currentExercisePrescriptions) return null;
     if (!patientLists) return null

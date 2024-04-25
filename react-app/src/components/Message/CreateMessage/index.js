@@ -17,14 +17,9 @@ useEffect(() => {
 }, [dispatch])
 
 let patientLists = useSelector(state => state.patientList.patientLists);
-console.log("🚀 ~ CreateMessageForm ~ patientLists:", patientLists)
 const currUserId = useSelector((state) => state.session.user?.id);
-console.log("🚀 ~ ____Line 21CreateMessageForm ~ currUserId:", currUserId)
 let currUserPatientLists = patientLists?.filter(patientList => patientList.patientId === currUserId | patientList.clinicianId === currUserId)
-   console.log("🚀 ~ CreateMessageForm ~ currUserPatientLists:", currUserPatientLists)
-
 // const clinicianId = useSelector(state => state.patientList.patientLists[0].clinicianId)
-//    console.log("🚀 ~~~~~~~~ CreateMessageForm ~ clinicianId:", clinicianId)
    
 
 

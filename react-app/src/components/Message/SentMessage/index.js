@@ -11,7 +11,6 @@ const SentMessage = () => {
     const[isLoaded, setIsLoaded] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
     const userIsClinician = useSelector(state => state.session.user.isClinician)
-    console.log("🚀 ~ file: index.js:13 ~ SentMessage ~ userIsClinician:", userIsClinician)
     const[userIsPatient, setUserIsPatient] = useState("");
     const[senderIsClinician, setSenderIsClinician] = useState("");
 
@@ -29,8 +28,6 @@ const SentMessage = () => {
     }, [userIsClinician])
     
     let currentUserMessages = useSelector(state=> state.message.messages);
-    console.log("🚀 ~ file: index.js:26 ~ Message ~ currentUserMessages:", currentUserMessages)
-
     const currPatientSentBox = currentUserMessages?.filter(messageSent => messageSent.senderIsClinician === false);
     const currTherapistSentBox = currentUserMessages?.filter(messageSent => messageSent.senderIsClinician === true);
 

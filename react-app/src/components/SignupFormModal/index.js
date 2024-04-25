@@ -23,7 +23,6 @@ function SignupFormModal() {
 		e.preventDefault();
 		if (password === confirmPassword) {
 			const data = await dispatch(signUp(username, email, firstName, lastName, city, state, profileImage, isClinician, password));
-			console.log("🚀 ~ file: index.js:26 ~ handleSubmit ~ data:", data)
 			if (data) {
 				setErrors(data);
 			} else {
@@ -37,7 +36,7 @@ function SignupFormModal() {
 	};
 
 	return (
-		<>
+		<div className="signUpModal">
 			<h1>Sign Up</h1>
 			<form onSubmit={handleSubmit}>
 				<ul className="form-validation-errors">
@@ -45,98 +44,114 @@ function SignupFormModal() {
 						<li key={idx}>{error}</li>
 					))}
 				</ul>
-				<label>
-					Username
-					<input
-						type="text"
-						value={username}
-						onChange={(e) => setUsername(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					First Name
-					<input
-						type="text"
-						value={firstName}
-						onChange={(e) => setFirstName(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Last Name
-					<input
-						type="text"
-						value={lastName}
-						onChange={(e) => setLastName(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					City
-					<input
-						type="text"
-						value={city}
-						onChange={(e) => setCity(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					State
-					<input
-						type="text"
-						value={state}
-						onChange={(e) => setState(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Profile Image
-					<input
-						type="text"
-						value={profileImage}
-						onChange={(e) => setProfileImage(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Email
-					<input
-						type="text"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					<input
-						type="checkbox"
-						value={true}
-						onChange={(e) => setIsClinician(e.target.value)}
-					/>
-					SELECT if you are a licensed physical therapist.
-				</label>
-				<label>
-					Password
-					<input
-						type="password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Confirm Password
-					<input
-						type="password"
-						value={confirmPassword}
-						onChange={(e) => setConfirmPassword(e.target.value)}
-						required
-					/>
-				</label>
-				<button type="submit">Sign Up</button>
+				<p>  
+					<label>
+						Username
+						<input
+							type="text"
+							value={username}
+							onChange={(e) => setUsername(e.target.value)}
+							required
+						/>
+					</label> &nbsp;
+					<label>
+						Profile Image
+						<input
+							type="text"
+							value={profileImage}
+							onChange={(e) => setProfileImage(e.target.value)}
+							required
+						/>
+					</label>&nbsp;
+				</p>	
+				<p>
+					<label>
+						First Name
+						<input
+							type="text"
+							value={firstName}
+							onChange={(e) => setFirstName(e.target.value)}
+							required
+						/>
+					</label> &nbsp;
+				
+					<label>
+						Last Name
+						<input
+							type="text"
+							value={lastName}
+							onChange={(e) => setLastName(e.target.value)}
+							required
+						/>
+					</label>&nbsp;
+				</p>
+				<p>				
+					<label>
+						City
+						<input
+							type="text"
+							value={city}
+							onChange={(e) => setCity(e.target.value)}
+							required
+						/>
+					</label>&nbsp;
+				
+					<label>
+						State
+						<input
+							type="text"
+							value={state}
+							onChange={(e) => setState(e.target.value)}
+							required
+						/>
+					</label>&nbsp;
+				</p>
+				<p>
+					
+					<label>
+						Email
+						<input
+							type="text"
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+							required
+						/>
+					</label> &nbsp;
+				</p>
+				<p>
+					<label>
+						<input
+							className="signUpBox"
+							type="checkbox"
+							value={true}
+							onChange={(e) => setIsClinician(e.target.value)}
+						/>
+						<span className="signUpText">SELECT if you are a licensed physical therapist.</span>
+					</label>&nbsp;
+				</p>
+				<p>
+					<label>
+						Password
+						<input
+							type="password"
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+							required
+						/>
+					</label> &nbsp;
+					<label>
+						Confirm Password
+						<input
+							type="password"
+							value={confirmPassword}
+							onChange={(e) => setConfirmPassword(e.target.value)}
+							required
+						/>
+					</label>
+				</p>
+				<button className="signUpSubmitBtn" type="submit">Sign Up</button>
 			</form>
-		</>
+		</div>
 	);
 }
 

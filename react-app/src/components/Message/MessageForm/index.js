@@ -8,17 +8,11 @@ import { getClinicians } from '../../../store/clinician';
 import './MessageForm.css'
 
 const MessageForm = ({ message, patientLists, currUserPatientLists, formType}) => {
-    console.log("🚀 ~ MessageForm ~ patientLists:", patientLists)
     
-    console.log("🚀 ~ MessageForm ~ currUserPatientLists:", currUserPatientLists)
-    console.log("🚀 ~ MessageForm ~ FORMpatientLists:", patientLists)
     const currUserId = useSelector((state) => state.session.user?.id);
-    console.log("🚀 ~ MessageForm ~ currUserId:", currUserId)
     const currUserIsClinician = useSelector((state) => state.session.user?.isClinician);
-    console.log("🚀 +++~ MessageForm ~ currUserIsClinician:", currUserIsClinician);
-    const clinician = currUserPatientLists ? currUserPatientLists[0].clinicianId : null
-    console.log("🚀 ~~~~~~~~ MessageForm ~ clinician:", clinician)
-    const patient = currUserPatientLists ? currUserPatientLists[0].patientId : null
+    const clinician = currUserPatientLists ? currUserPatientLists[0]?.clinicianId : null
+    const patient = currUserPatientLists ? currUserPatientLists[0]?.patientId : null
     const history = useHistory();
 
     const [body, setBody] = useState("");
@@ -126,7 +120,15 @@ const MessageForm = ({ message, patientLists, currUserPatientLists, formType}) =
             <form className='PLForm' onSubmit={handleSubmit}>
                 <h2 className='messageFormTitle'>{formType}</h2>
                     <div className='newMessageContainer'>
-                        {currUserIsClinician &&
+                    {currUserIsClinician && (currUserPatientLists.length === 0) &&(
+                        <div className="create-emptyPL">
+                            <div className="header-noPL">
+                                <h2>This feature will be activated once you add patients to your patient list.</h2>
+                                <button className="exRx-button" ><NavLink className="exRx-nav" to={`/patientLists/new`} >Click here to add patients to your list</NavLink></button>
+                            </div>
+                        </div>
+                     )}
+                        {currUserIsClinician && (currUserPatientLists.length > 0) && (
                                 <div className='newMessageInnerContainer'>
                                     <h3>
                                         
@@ -162,8 +164,15 @@ const MessageForm = ({ message, patientLists, currUserPatientLists, formType}) =
                                                 <input className='newPLSubmitBTN' type="submit" value="SEND" />
                                     
                                                                         </h3> 
-                                </div>} 
-                                {!currUserIsClinician &&
+                                </div>)} 
+                                {!currUserIsClinician && (currUserPatientLists.length === 0) &&(
+                                    <div className="create-emptyPL">
+                                        <div className="header-noPL">
+                                            <h2>This feature will be activated once you have been connected with your physical therapist.</h2>
+                                        </div>
+                                    </div>
+                                )}
+                                {!currUserIsClinician && (currUserPatientLists.length > 0) && (
                                 <div className='newMessageInnerContainer'>
                                     <h3>
                                     <label>
@@ -179,7 +188,7 @@ const MessageForm = ({ message, patientLists, currUserPatientLists, formType}) =
                                         <p></p>
                                                 <input className='newPLSubmitBTN' type="submit" value="SEND" />
                                     </h3>
-                                    </div>}
+                                    </div>)}
                     </div>
 
             </form>

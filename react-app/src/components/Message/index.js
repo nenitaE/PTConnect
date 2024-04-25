@@ -12,10 +12,7 @@ const Message = () => {
     const[isLoaded, setIsLoaded] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
     const userIsClinician = useSelector(state => state.session.user.isClinician)
-    console.log("🚀 ~ Message ~ userIsClinician:", userIsClinician)
     const[userIsPatient, setUserIsPatient] = useState("");
-    console.log("🚀 ~ Message ~ userIsPatient:", userIsPatient)
-
     const {setModalContent} = useModal();
     const dispatch = useDispatch();
     
@@ -30,13 +27,9 @@ const Message = () => {
     }, [userIsClinician])
     
     let currentUserMessages = useSelector(state=> state.message.messages);
-    console.log("🚀 ~ file: index.js:26 ~ Message ~ currentUserMessages:", currentUserMessages)
     // const currUserInbox = currentUserMessages?.filter(messageReceived => messageReceived.senderIsClinician === true);
-    // console.log("🚀 ~ file: index.js:29 ~ Message ~ currUserInbox:", currUserInbox)
     const currPatientInbox = currentUserMessages?.filter(messageReceived => messageReceived.senderIsClinician === true);
     const currTherapistInbox = currentUserMessages?.filter(messageReceived => messageReceived.senderIsClinician === false);
-    console.log("🚀 ~ file: index.js:29 ~ Message ~ currUserInbox:", currPatientInbox)
-
     if (!currentUserMessages) return null;
 
     const openDeleteMessageModal = (messageId) => {

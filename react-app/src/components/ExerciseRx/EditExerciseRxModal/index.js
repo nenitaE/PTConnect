@@ -118,7 +118,6 @@ const EditExerciseRxModal = ({exercisePrescriptionId}) => {
             ...exercisePrescriptionData
         } 
         const editedExercisePrescription = await dispatch(updateExercisePrescription(exercisePrescriptionId, finalData))
-        console.log("🚀 ~ file: index.js:114 ~ handleSubmit ~ editedExercisePrescription:", editedExercisePrescription)
         
         if (editedExercisePrescription.id) {
             console.log("**********line 99 editModal")
