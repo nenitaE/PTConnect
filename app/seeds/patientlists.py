@@ -41,7 +41,7 @@ def seed_patientlists():
         patientId = 9
         )
     list7 = PatientList(
-        email = 'craig@aa.io',
+        email = 'craigL@aa.io',
         status = 'active',
         clinicianId = 1,
         patientId = 10
