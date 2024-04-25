@@ -32,8 +32,6 @@ const HomePage = () => {
     }
 
     
-    console.log("🚀 ~ file: index.js:16 ~ HomePage ~ userIsPatient:", userIsPatient)
-
 
     return ( 
         <div className="HomeContainer">

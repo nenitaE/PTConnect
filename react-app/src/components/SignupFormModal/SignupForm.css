@@ -12,3 +12,39 @@ ul {
     border-radius: 5px;
     padding: 5px;
 }
+.signUpModal{
+    font-size: 18px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.signUpText{
+    align-content: left;
+    align-items: left;
+}
+.signUpModal input {
+    padding-top: 15px;
+    font-size: 18px;
+    color: #200054;
+    /* width: 30%; */
+    /* padding: 12px 20px; */
+    /* margin: 8px 0; */
+    /* display: inline-block; */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.signUpBox {
+    padding-left: 2px;
+}
+.signUpSubmitBtn {
+    cursor: pointer;
+    color: white;
+    background-color: #200054;
+    font-size: 20px;
+    border: 1.5px solid #200054;
+    border-radius: 8px;
+    text-decoration: none;
+    text-align: center;
+    width: 250px;
+    height: 35px;
+}

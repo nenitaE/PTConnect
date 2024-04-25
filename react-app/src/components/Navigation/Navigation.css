@@ -84,10 +84,13 @@
   justify-content: center; 
 }
 .profile-login-logout-buttons {
-  padding: 5px 12px;
+  width: 120%;
+  padding: 8px 12px;
   color: lightgrey;
+  font-size: medium;
+  font-weight: bold;
   /* border: 10px lightgrey; */
-  border-radius: 3px;
+  border-radius: 8px;
   background-color: #200054;
   text-decoration: none;
   text-align: center;

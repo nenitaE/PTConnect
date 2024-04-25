@@ -40,15 +40,12 @@ function EditExercisePrescriptionForm() {
             "clinicianId": clinicianId,
             "patientId": patientId
         }
-        console.log("🚀 ~ file: index.js:40 ~ handleSubmit ~ currentData:", currentData)
-
         const exercisePrescriptionData = {
             "title": title,
             "dailyFrequency": dailyFrequency,
             "weeklyFrequency": weeklyFrequency,
             "status": status
         }
-        console.log("🚀 ~ file: index.js:46 ~ handleSubmit ~ exercisePrescriptionData:", exercisePrescriptionData)
         
         const finalData = {
             ...currentData,

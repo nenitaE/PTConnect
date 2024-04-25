@@ -8,16 +8,10 @@ import { getClinicians } from '../../../store/clinician';
 import './MessageForm.css'
 
 const MessageForm = ({ message, patientLists, currUserPatientLists, formType}) => {
-    console.log("🚀 ~ MessageForm ~ patientLists:", patientLists)
     
-    console.log("🚀 ~ MessageForm ~ currUserPatientLists:", currUserPatientLists)
-    console.log("🚀 ~ MessageForm ~ FORMpatientLists:", patientLists)
     const currUserId = useSelector((state) => state.session.user?.id);
-    console.log("🚀 ~ MessageForm ~ currUserId:", currUserId)
     const currUserIsClinician = useSelector((state) => state.session.user?.isClinician);
-    console.log("🚀 +++~ MessageForm ~ currUserIsClinician:", currUserIsClinician);
     const clinician = currUserPatientLists ? currUserPatientLists[0]?.clinicianId : null
-    console.log("🚀 ~~~~~~~~ MessageForm ~ clinician:", clinician)
     const patient = currUserPatientLists ? currUserPatientLists[0]?.patientId : null
     const history = useHistory();
 

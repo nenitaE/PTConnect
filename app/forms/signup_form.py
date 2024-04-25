@@ -41,6 +41,6 @@ class SignUpForm(FlaskForm):
     city = StringField('city', validators=[DataRequired(), Length(min=4, max=20, message='City must be between 4 and 20 characters.')])
     state = StringField('state', validators=[DataRequired(), Length(min=4, max=20, message='State must be between 4 and 20 characters.')])
     profileImage = StringField('profileImage')
-    email = StringField('email', validators=[DataRequired(), user_exists, email_is_valid, Length(max=20, message='Email can not exceed 50 characters.')])
+    email = StringField('email', validators=[DataRequired(), user_exists, email_is_valid, Length(max=20, message='Email can not exceed 20 characters.')])
     isClinician = BooleanField('isClinician')
     password = StringField('password', validators=[DataRequired()])

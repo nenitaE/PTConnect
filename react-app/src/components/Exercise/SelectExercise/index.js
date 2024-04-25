@@ -10,7 +10,6 @@ const SelectExercise = ({ exercises, setExercises, bodyPart, setBodyPart }) => {
     const [displayPerPage] = useState(8);
     const [clickedExercises, setClickedExercises] = useState([])
     const [confirmedExercises, setConfirmedExercises] = useState([])
-    console.log("🚀 ~ file: index.js:11 ~ SelectExercise ~ clickedExercises:", clickedExercises)
     const updateExercises = (e) => setExercises(e.target.value);
     const updateBodyPart = (e) => setBodyPart(e.target.value);
 

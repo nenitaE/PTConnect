@@ -6,24 +6,18 @@ import './ExerciseTile.css'
 
 
 const ExerciseTile = ({exercise, clickedExercises, setClickedExercises}) => {
-    console.log("🚀 ~ file: index.js:9 ~ ExerciseTile ~ clickedExercises:", clickedExercises)
     const exerciseId = exercise.id;
-        console.log("🚀 ~ file: index.js:10 ~ ExerciseTile ~ exerciseId:", exerciseId)
        console.log(typeof(exerciseId)) 
 
 
     //Func to add selected exercises to array
     const [isChecked, setIsChecked] = useState(false);
-    console.log("🚀 ~ file: index.js:17 ~ ExerciseTile ~ isChecked:", isChecked)
     const [selected, setSelected] = useState([]);
-    console.log("🚀 ~ file: index.js:18 ~ ExerciseTile ~ selected:", selected)
     
 
     useEffect(() => {
         if (selected.length) {
             setClickedExercises([...clickedExercises, selected])
-            console.log("🚀 ~ file: index.js:19 ~ useEffect ~ selected:", selected)
-            console.log("🚀 ~ file: index.js:19 ~ useEffect ~ clickedExercises:", clickedExercises)
         }
     },[selected])
     

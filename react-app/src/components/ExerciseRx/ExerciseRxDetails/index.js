@@ -11,7 +11,6 @@ const ExercisePrescriptionDetails = () => {
     const {exercisePrescriptionId} = useParams();
     const[isLoaded, setIsLoaded] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
-    console.log("🚀 ~ file: index.js:14 ~ ExercisePrescription ~ sessionUser:", sessionUser)
     const userIsClinician = useSelector(state => state.session.user.userIsClinician);
     const {setModalContent} = useModal();
     const dispatch = useDispatch();
