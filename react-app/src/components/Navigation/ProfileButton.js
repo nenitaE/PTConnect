@@ -60,7 +60,8 @@ function ProfileButton({ user }) {
                       </div>
                     </div>
                     <div className="profile-email">
-                      {user.isClinician && <>Clinician Id: </>}{!user.isClinician && <>Patient Id: </>}{user.id}
+                      {user.isClinician && <>Clinician Id: </>}
+                      {!user.isClinician && <>Patient Id: </>}{user.id}
                     </div>
                     <div className="profile-email">
                       {user.email}
